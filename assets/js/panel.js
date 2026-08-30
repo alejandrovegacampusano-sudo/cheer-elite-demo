@@ -28,8 +28,9 @@
     busqueda: '',
     orden: { campo: 'nombre', asc: true },
     pagina: 1,
-    porPagina: 12,
+    porPagina: 20,
     mesPago: Store.mesActual(),
+    seleccion: new Set(),
     filtroPago: 'todas',
     asisEquipo: todosLosEquipos()[0].id,
     asisFecha: hoyISO(),
@@ -128,6 +129,7 @@
     $('#pill-mes').textContent = mesLindo(Store.mesActual());
 
     graficoIngresos();
+    bulletCobranza(r);
     donutOcupacion(r.ocupacion);
 
     const recientes = [...Store.deportistas()]
@@ -180,34 +182,66 @@
 
   function graficoIngresos() {
     const serie = Store.serieIngresos(6);
-    const max = Math.max(...serie.map(s => s.total), 1);
-    const W = 640, H = 240, pad = { t: 20, r: 16, b: 34, l: 58 };
-    const ancho = (W - pad.l - pad.r) / serie.length;
+    const max = Math.max(...serie.map(s => s.total), 1) * 1.15;
+    const W = 640, H = 200, pad = { t: 16, r: 16, b: 30, l: 56 };
+    const ancho = W - pad.l - pad.r;
+    const alto = H - pad.t - pad.b;
+    const x = i => pad.l + (serie.length === 1 ? ancho / 2 : (ancho * i) / (serie.length - 1));
+    const y = v => pad.t + alto * (1 - v / max);
 
-    const lineas = [0, .25, .5, .75, 1].map(p => {
-      const y = pad.t + (H - pad.t - pad.b) * (1 - p);
-      return `<line class="grid-line" x1="${pad.l}" y1="${y}" x2="${W - pad.r}" y2="${y}" />
-              <text class="axis" x="${pad.l - 10}" y="${y + 3}" text-anchor="end">${p ? compacto(max * p) : '0'}</text>`;
+    const lineas = [0, .5, 1].map(p => {
+      const yy = pad.t + alto * (1 - p);
+      return `<line class="grid-line" x1="${pad.l}" y1="${yy}" x2="${W - pad.r}" y2="${yy}" />
+              <text class="axis" x="${pad.l - 10}" y="${yy + 4}" text-anchor="end">${p ? compacto(max * p) : '0'}</text>`;
     }).join('');
 
-    const barras = serie.map((s, i) => {
-      const alto = (H - pad.t - pad.b) * (s.total / max);
-      const x = pad.l + i * ancho + ancho * .2;
-      const y = H - pad.b - alto;
-      return `
-        <rect class="bar" x="${x}" y="${y}" width="${ancho * .6}" height="${Math.max(alto, 2)}" rx="6">
-          <title>${mesLindo(s.mes)}: ${CLP(s.total)}</title>
-        </rect>
-        <text class="bar-label" x="${x + ancho * .3}" y="${H - pad.b + 16}">${mesLindo(s.mes)}</text>`;
-    }).join('');
+    const puntos = serie.map((s, i) => `${x(i).toFixed(1)},${y(s.total).toFixed(1)}`).join(' ');
+    const area = `${pad.l},${H - pad.b} ${puntos} ${W - pad.r},${H - pad.b}`;
+
+    const marcas = serie.map((s, i) => `
+      <circle class="dot" cx="${x(i).toFixed(1)}" cy="${y(s.total).toFixed(1)}" r="4" />
+      <circle class="hit" cx="${x(i).toFixed(1)}" cy="${y(s.total).toFixed(1)}" r="16" tabindex="0">
+        <title>${mesLindo(s.mes)}: ${CLP(s.total)}</title>
+      </circle>
+      <text class="axis" x="${x(i).toFixed(1)}" y="${H - pad.b + 18}" text-anchor="middle">${mesLindo(s.mes).split(' ')[0]}</text>`).join('');
 
     $('#chart-ingresos').innerHTML = `
       <defs>
-        <linearGradient id="barGold" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#e8c86a" /><stop offset="1" stop-color="#c89b3c" stop-opacity=".35" />
+        <linearGradient id="areaGold" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#e8c86a" stop-opacity=".28" />
+          <stop offset="1" stop-color="#e8c86a" stop-opacity="0" />
         </linearGradient>
       </defs>
-      ${lineas}${barras}`;
+      ${lineas}
+      <polygon class="area" points="${area}" />
+      <polyline class="line" points="${puntos}" />
+      ${marcas}`;
+
+    /* Alternativa accesible: los mismos datos en texto, para quien no ve el gráfico */
+    const tabla = $('#serie-texto');
+    if (tabla) {
+      const ultimo = serie[serie.length - 1], previo = serie[serie.length - 2];
+      const delta = previo && previo.total ? Math.round((ultimo.total / previo.total - 1) * 100) : 0;
+      tabla.innerHTML = serie.map(s => `<span><b>${mesLindo(s.mes).split(' ')[0]}</b> ${CLP(s.total)}</span>`).join('')
+        + `<span class="resumen">${delta >= 0 ? '▲' : '▼'} ${Math.abs(delta)}% vs. mes anterior</span>`;
+    }
+  }
+
+  /* Medidor contra objetivo: la cobranza sola no dice nada, contra la meta sí */
+  function bulletCobranza(r) {
+    const caja = $('#bullet-cobranza');
+    if (!caja) return;
+    const pct = Math.round(r.cobranza * 100);
+    const meta = 85;
+    caja.innerHTML = `
+      <div class="bullet-head"><span>Cobranza del mes</span><b>${pct}%</b></div>
+      <div class="bullet-track">
+        <div class="bullet-zone" style="left:0;width:60%"></div>
+        <div class="bullet-zone" style="left:60%;width:25%;opacity:.6"></div>
+        <div class="bullet-val" style="width:${Math.min(pct, 100)}%;background:${pct >= meta ? 'var(--ok)' : pct >= 60 ? 'var(--gold)' : 'var(--alert)'}"></div>
+        <div class="bullet-target" style="left:${meta}%" title="Objetivo ${meta}%"></div>
+      </div>
+      <div class="bullet-legend"><span>${CLP(r.recaudado)} cobrados</span><span>Objetivo ${meta}%</span></div>`;
   }
 
   function donutOcupacion(oc) {
@@ -275,10 +309,12 @@
     const mes = Store.mesActual();
 
     const flecha = campo => ui.orden.campo === campo ? `<span class="ord">${ui.orden.asc ? '▲' : '▼'}</span>` : '';
+    const todasMarcadas = pagina.length && pagina.every(a => ui.seleccion.has(a.id));
 
     $('#tabla-deportistas').innerHTML = `
       <thead>
         <tr>
+          <th class="check-cell"><input type="checkbox" id="marcar-todas" ${todasMarcadas ? 'checked' : ''} aria-label="Seleccionar la página"></th>
           <th data-sort="nombre">Deportista ${flecha('nombre')}</th>
           <th data-sort="equipo">Equipo ${flecha('equipo')}</th>
           <th data-sort="edad">Edad ${flecha('edad')}</th>
@@ -292,7 +328,8 @@
           const eq = equipoPorId(a.equipo) || {};
           const cat = categoriaPorId(a.categoria) || {};
           return `
-          <tr data-id="${a.id}">
+          <tr data-id="${a.id}"${ui.seleccion.has(a.id) ? ' class="sel"' : ''}>
+            <td class="check-cell"><input type="checkbox" data-marcar="${a.id}" ${ui.seleccion.has(a.id) ? 'checked' : ''} aria-label="Seleccionar ${esc(a.nombre)}"></td>
             <td>
               <div class="cell-person">
                 <span class="avatar-sm">${iniciales(a.nombre)}</span>
@@ -308,8 +345,10 @@
             <td style="font-size:12px;color:var(--muted-2)">${new Date(a.ingreso + 'T12:00').toLocaleDateString('es-CL')}</td>
             <td>${etiquetaPago(Store.pagoDe(a.id, mes))}</td>
           </tr>`;
-        }).join('') : `<tr><td colspan="6"><p class="empty">Ninguna deportista coincide con el filtro.</p></td></tr>`}
+        }).join('') : `<tr><td colspan="7"><p class="empty">Ninguna deportista coincide con el filtro.</p></td></tr>`}
       </tbody>`;
+
+    pintarBarraSeleccion();
 
     $('#pager').innerHTML = `
       <span>${lista.length ? desde + 1 : 0}–${Math.min(desde + ui.porPagina, lista.length)} de ${lista.length} deportistas</span>
@@ -323,7 +362,21 @@
       </div>`;
 
     $$('#tabla-deportistas tbody tr[data-id]').forEach(tr =>
-      tr.addEventListener('click', () => abrirFicha(tr.dataset.id)));
+      tr.addEventListener('click', e => {
+        if (e.target.closest('.check-cell')) return;   /* marcar no es abrir */
+        abrirFicha(tr.dataset.id);
+      }));
+
+    $$('#tabla-deportistas [data-marcar]').forEach(c => c.addEventListener('change', () => {
+      if (c.checked) ui.seleccion.add(c.dataset.marcar); else ui.seleccion.delete(c.dataset.marcar);
+      pintarDeportistas();
+    }));
+
+    const cabecera = $('#marcar-todas');
+    if (cabecera) cabecera.addEventListener('change', () => {
+      pagina.forEach(a => cabecera.checked ? ui.seleccion.add(a.id) : ui.seleccion.delete(a.id));
+      pintarDeportistas();
+    });
 
     $$('#tabla-deportistas th[data-sort]').forEach(th => th.addEventListener('click', () => {
       const campo = th.dataset.sort;
@@ -334,6 +387,38 @@
     $$('#pager [data-pag]').forEach(b => b.addEventListener('click', () => {
       const v = b.dataset.pag;
       ui.pagina = v === 'prev' ? ui.pagina - 1 : v === 'next' ? ui.pagina + 1 : Number(v);
+      pintarDeportistas();
+    }));
+  }
+
+  /* Acciones sobre varias deportistas a la vez: cobrar una por una es el
+     trabajo que este panel viene a eliminar. */
+  function pintarBarraSeleccion() {
+    const barra = $('#bulk-bar');
+    if (!barra) return;
+    const n = ui.seleccion.size;
+    barra.hidden = n === 0;
+    if (!n) return;
+    barra.innerHTML = `
+      <b>${n}</b> seleccionada${n > 1 ? 's' : ''}
+      <span class="grow"></span>
+      <button class="btn btn-gold btn-sm" data-lote="pagar">Marcar pago de ${mesLindo(Store.mesActual())}</button>
+      <button class="btn btn-solid btn-sm" data-lote="pausar">Pausar</button>
+      <button class="btn btn-solid btn-sm" data-lote="activar">Reactivar</button>
+      <button class="btn btn-ghost btn-sm" data-lote="limpiar">Quitar selección</button>`;
+
+    $$('#bulk-bar [data-lote]').forEach(b => b.addEventListener('click', () => {
+      const ids = [...ui.seleccion];
+      const accion = b.dataset.lote;
+      if (accion === 'pagar') {
+        ids.forEach(id => Store.marcarPago(id, Store.mesActual(), 'pagado'));
+        toast(`${ids.length} pago${ids.length > 1 ? 's' : ''} registrado${ids.length > 1 ? 's' : ''}.`);
+      } else if (accion === 'pausar' || accion === 'activar') {
+        const estado = accion === 'pausar' ? 'pausa' : 'activa';
+        ids.forEach(id => Store.actualizar(id, { estado }));
+        toast(`${ids.length} deportista${ids.length > 1 ? 's' : ''} en estado "${estado}".`);
+      }
+      ui.seleccion.clear();
       pintarDeportistas();
     }));
   }

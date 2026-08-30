@@ -17,8 +17,11 @@
   --gold-deep: #c89b3c;
   --gold-soft: #fff2cd;
   --ink:       #f7f3e9;
-  --muted:     #9c9382;
-  --muted-2:   #6d6659;
+  /* Contraste medido contra el panel (#121117) y el fondo (#07070a):
+     ink 17:1 · muted 8.3:1 · muted-2 5.3:1. El anterior #6d6659 daba 3.3:1
+     y no pasaba el mínimo AA de 4.5:1 para texto pequeño. */
+  --muted:     #b4ab99;
+  --muted-2:   #8f8778;
 
   /* Semánticos */
   --ok:    #49dd9b;
