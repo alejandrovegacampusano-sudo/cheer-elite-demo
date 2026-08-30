@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#3d1e6d">
+  <title>Cheer Elite · Inscripciones del club</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Inicio Cheer Elite">
+      <span class="brand-mark">CE</span>
+      <span><strong>CHEER ELITE</strong><small>Academia de Cheerleading · Iquique</small></span>
+    </a>
+    <div class="header-actions">
+      <button class="primary-nav-button" id="enroll-button" type="button">Inscribir deportista</button>
+      <button class="ghost-button" id="view-toggle" type="button">Panel del club</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="enroll-view">
+      <div class="hero">
+        <div>
+          <span class="eyebrow">Inscripciones abiertas · Temporada 2026</span>
+          <h1>Súmate al equipo.<br><em>Inscríbete en 3 minutos.</em></h1>
+          <p>Elige categoría y equipo, completa la ficha de tu deportista y confirma la matrícula. Todo desde el celular, sin planillas ni WhatsApp perdido.</p>
+        </div>
+        <div class="trust-card">
+          <div class="avatar">CE</div>
+          <div><strong>Cheer Elite Iquique</strong><span>+40 deportistas activas</span></div>
+          <b>★ 4,9</b>
+        </div>
+      </div>
+
+      <div class="shell" id="enroll-shell">
+        <nav class="steps" aria-label="Progreso de inscripción">
+          <button class="step active" data-go="1"><span>1</span>Categoría</button>
+          <button class="step" data-go="2"><span>2</span>Ficha</button>
+          <button class="step" data-go="3"><span>3</span>Confirmar</button>
+        </nav>
+
+        <section class="panel active" data-panel="1">
+          <div class="section-heading">
+            <div><span class="eyebrow">Paso 1</span><h2>Elige categoría</h2></div>
+            <p>Según la edad de la deportista al 31 de marzo.</p>
+          </div>
+          <div class="category-grid" id="category-grid"></div>
+
+          <div class="subsection" id="team-subsection" hidden>
+            <h3>¿A qué equipo se une?</h3>
+            <div class="team-row" id="team-row"></div>
+          </div>
+          <div class="panel-actions"><span></span><button class="primary-button" id="to-ficha" disabled>Completar ficha <span>→</span></button></div>
+        </section>
+
+        <section class="panel" data-panel="2">
+          <div class="section-heading">
+            <div><span class="eyebrow">Paso 2</span><h2>Ficha de la deportista</h2></div>
+            <p>Datos necesarios para la temporada y en caso de emergencia.</p>
+          </div>
+          <form id="athlete-form" novalidate>
+            <div class="field-grid">
+              <label class="field"><span>Nombre y apellido *</span><input id="athlete-name" autocomplete="name" placeholder="Ej. Martina Vega" required></label>
+              <label class="field"><span>Fecha de nacimiento *</span><input id="athlete-birth" type="date" required></label>
+              <label class="field"><span>Nombre del apoderado *</span><input id="parent-name" autocomplete="name" placeholder="Ej. Alejandro Vega" required></label>
+              <label class="field"><span>WhatsApp del apoderado *</span><div class="phone-field"><b>+56</b><input id="parent-phone" inputmode="numeric" autocomplete="tel" placeholder="9 1234 5678" required></div></label>
+              <label class="field full"><span>Alergias o condiciones médicas</span><textarea id="athlete-medical" rows="2" placeholder="Ej. asma, alergia a mariscos, ninguna…"></textarea></label>
+              <label class="field full"><span>Contacto de emergencia (si distinto al apoderado)</span><input id="emergency-contact" placeholder="Nombre y teléfono"></label>
+            </div>
+            <label class="check"><input id="terms" type="checkbox" required><span>Autorizo la participación de mi hija/pupila en entrenamientos y competencias del club, y acepto recibir avisos por WhatsApp.</span></label>
+          </form>
+          <div class="panel-actions"><button class="back-button" data-back="1">← Volver</button><button class="primary-button" id="to-confirm">Revisar inscripción <span>→</span></button></div>
+        </section>
+
+        <section class="panel" data-panel="3">
+          <div class="section-heading">
+            <div><span class="eyebrow">Paso 3</span><h2>Revisa antes de confirmar</h2></div>
+            <p id="review-note">Matrícula + primera mensualidad.</p>
+          </div>
+          <div class="review-card" id="review-card"></div>
+          <div class="payment-card">
+            <span class="payment-icon">✓</span>
+            <div><strong id="payment-title">Pago simulado en este prototipo</strong><p id="payment-copy">En producción, aquí se procesaría el pago de matrícula y mensualidad.</p></div>
+          </div>
+          <div class="panel-actions"><button class="back-button" data-back="2">← Volver</button><button class="primary-button confirm" id="confirm-enroll">Confirmar inscripción <span>✓</span></button></div>
+        </section>
+
+        <section class="panel success-panel" data-panel="4">
+          <div class="success-icon">✓</div>
+          <span class="eyebrow">Inscripción confirmada</span>
+          <h2>¡Bienvenida, <span id="success-name"></span>!</h2>
+          <p id="success-copy">La ficha quedó registrada. El club se pondrá en contacto por WhatsApp para coordinar uniformes y horarios de entrenamiento.</p>
+          <div class="success-summary" id="success-summary"></div>
+          <div class="success-actions">
+            <button class="primary-button" id="new-enroll">Inscribir otra deportista</button>
+            <button class="back-button" id="go-dashboard">Ver panel del club</button>
+          </div>
+          <small class="enroll-code" id="enroll-code"></small>
+        </section>
+      </div>
+
+      <section class="benefits">
+        <article><span>01</span><h3>Sin planillas</h3><p>Cada ficha queda digital, ordenada por equipo y categoría.</p></article>
+        <article><span>02</span><h3>Pagos claros</h3><p>Matrícula y mensualidad definidas desde la inscripción.</p></article>
+        <article><span>03</span><h3>Todo en un lugar</h3><p>El club ve el estado de cada deportista sin perseguir WhatsApp.</p></article>
+      </section>
+    </section>
+
+    <section id="dashboard-view" hidden>
+      <div class="dashboard-head">
+        <div><span class="eyebrow">Panel del club</span><h1>Tus equipos, sin planillas.</h1><p>Fichas, categorías y estado de pago en un solo lugar.</p></div>
+        <button class="primary-button" id="back-to-enroll">Ver inscripciones</button>
+      </div>
+      <div class="metric-grid">
+        <article><span>Deportistas activas</span><strong id="metric-total">0</strong><small id="metric-total-detail">0 al día · 0 pendientes</small></article>
+        <article><span>Equipos</span><strong>4</strong><small>Mini, Youth, Junior, Senior</small></article>
+        <article><span>Ingreso mensual proyectado</span><strong id="metric-income">$0</strong><small>Según mensualidades activas</small></article>
+        <article><span>Nuevas esta semana</span><strong id="metric-new">0</strong><small>Inscripciones del prototipo</small></article>
+      </div>
+      <div class="team-tabs" id="team-tabs"></div>
+      <div class="athlete-table" id="athlete-table"></div>
+    </section>
+  </main>
+
+  <footer><strong>CHEER ELITE</strong><span>Prototipo de inscripciones automatizadas · datos guardados solo en este navegador</span></footer>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
