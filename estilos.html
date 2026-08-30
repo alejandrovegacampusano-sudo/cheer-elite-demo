@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Direcciones de diseño · Dragones Elite</title>
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <style>
+    /* ==========================================================
+       Página de comparación. No es parte del sitio: es la mesa
+       donde se ponen las cinco direcciones una al lado de la otra
+       para elegir mirando, no imaginando.
+       ========================================================== */
+    :root {
+      --gold: #e8c86a; --gold-deep: #c89b3c; --gold-soft: #fff2cd;
+      --ink: #f7f3e9; --muted: #9c9382; --bg: #07070a;
+      --serif: 'Playfair Display', Georgia, serif;
+      --poster: Anton, Impact, sans-serif;
+      --ui: 'DM Sans', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #101014; color: var(--ink); font-family: var(--ui); }
+    .page { max-width: 1180px; margin: auto; padding: 40px 20px 80px; }
+    .page > header { padding: 24px 0 34px; border-bottom: 1px solid rgba(255,255,255,.1); margin-bottom: 34px; }
+    .page > header h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(28px, 4vw, 44px); margin: 0 0 12px; }
+    .page > header p { margin: 0; color: var(--muted); font-size: 15px; max-width: 60ch; line-height: 1.6; }
+
+    .board { margin-bottom: 46px; }
+    .board-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
+    .board-head b { font-family: var(--ui); font-size: 12px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); }
+    .board-head h2 { margin: 0; font-family: var(--serif); font-weight: 500; font-size: 24px; }
+    .board-head span { font-size: 13px; color: var(--muted); }
+    .frame { border: 1px solid rgba(255,255,255,.12); border-radius: 14px; overflow: hidden; }
+
+    /* --- Lienzo común: mismo contenido en las cinco --- */
+    .v { position: relative; min-height: 560px; display: grid; }
+
+    /* ============ 1 · CARTEL (lo que hay hoy) ============ */
+    .v1 { background: radial-gradient(120% 130% at 78% 12%, rgba(232,200,106,.18), transparent 55%), #07070a; align-items: center; }
+    .v1 .in { display: grid; grid-template-columns: 1.15fr .85fr; gap: 44px; align-items: center; padding: 54px; }
+    .v1 .eyebrow { font-size: 11px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 10px; }
+    .v1 .eyebrow::before { content: ''; width: 26px; height: 1px; background: var(--gold); }
+    .v1 h3 { font-family: var(--poster); font-weight: 400; text-transform: uppercase; font-size: clamp(40px, 6vw, 76px); line-height: .88; margin: 16px 0 18px; }
+    .v1 h3 em { font-style: normal; -webkit-text-stroke: 1.5px var(--gold); color: transparent; }
+    .v1 p { color: var(--muted); font-size: 15px; max-width: 42ch; line-height: 1.6; margin: 0; }
+    .v1 .cta { display: flex; gap: 10px; margin-top: 26px; }
+    .v1 .stats { display: flex; gap: 30px; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); }
+    .v1 .stats b { display: block; font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 26px; color: var(--gold); }
+    .v1 .stats span { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #6d6659; }
+    .v1 figure { margin: 0; border-radius: 24px; overflow: hidden; border: 1px solid rgba(232,200,106,.16); aspect-ratio: 41/52; }
+    .v1 figure img { width: 100%; height: 100%; object-fit: cover; }
+    .btn-gold { background: linear-gradient(115deg, var(--gold-deep), var(--gold) 45%, var(--gold-soft)); color: #100d06; padding: 13px 22px; border-radius: 999px; font-weight: 800; font-size: 13.5px; }
+    .btn-line { border: 1px solid rgba(232,200,106,.35); color: var(--ink); padding: 13px 22px; border-radius: 999px; font-weight: 700; font-size: 13.5px; }
+
+    /* ============ 2 · EDITORIAL IMPRESO ============ */
+    .v2 { background: #0a0a0c; align-items: center; }
+    .v2 .in { padding: 60px; display: grid; gap: 30px; }
+    .v2 .folio { display: flex; align-items: center; gap: 16px; font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: #6d6659; }
+    .v2 .folio::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,.12); }
+    .v2 h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(38px, 6.4vw, 82px); line-height: 1; letter-spacing: -.02em; margin: 0; max-width: 15ch; }
+    .v2 h3 em { color: var(--gold); }
+    .v2 .cols { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: start; padding-top: 26px; border-top: 1px solid rgba(255,255,255,.12); }
+    .v2 .cols p { margin: 0; font-size: 15px; line-height: 1.75; color: var(--muted); column-count: 2; column-gap: 26px; }
+    .v2 .cols p::first-letter { float: left; font-family: var(--serif); font-size: 3.2em; line-height: .84; padding: 4px 8px 0 0; color: var(--gold); }
+    .v2 figure { margin: 0; height: 210px; overflow: hidden; border: 1px solid rgba(255,255,255,.1); }
+    .v2 figure img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.35) contrast(1.1); }
+    .v2 figcaption { font-size: 10.5px; color: #6d6659; padding-top: 8px; letter-spacing: .06em; }
+    .v2 .cta { display: flex; gap: 22px; align-items: center; margin-top: 4px; }
+    .v2 .link { font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--gold); border-bottom: 1px solid rgba(232,200,106,.4); padding-bottom: 2px; }
+
+    /* ============ 3 · DEPORTIVO DE ALTO CONTRASTE ============ */
+    .v3 { background: #f4f1ea; color: #0b0b0c; align-content: center; }
+    .v3 .in { padding: 48px 54px; max-width: 68%; }
+    .v3 .tag { display: inline-block; background: #0b0b0c; color: #f4f1ea; font-size: 10px; font-weight: 800; letter-spacing: .2em; padding: 7px 12px; text-transform: uppercase; }
+    .v3 h3 { font-family: var(--poster); text-transform: uppercase; font-weight: 400; font-size: clamp(40px, 7vw, 86px); line-height: .95; margin: 18px 0; letter-spacing: -.01em; }
+    .v3 h3 span { display: block; }
+    .v3 h3 .hl { display: inline-block; background: #c9531f; color: #fff; padding: 0 .14em; }
+    .v3 .strip { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 3px solid #0b0b0c; margin-top: 26px; }
+    .v3 .strip div { padding: 16px 14px 0; border-right: 1px solid rgba(11,11,12,.15); }
+    .v3 .strip div:last-child { border-right: 0; }
+    .v3 .strip b { display: block; font-family: var(--poster); font-size: 34px; line-height: 1; }
+    .v3 .strip span { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #55524c; }
+    .v3 .cta { display: flex; gap: 10px; margin-top: 26px; }
+    .v3 .b1 { background: #c9531f; color: #fff; padding: 14px 24px; font-weight: 800; font-size: 13.5px; }
+    .v3 .b2 { border: 2px solid #0b0b0c; padding: 12px 24px; font-weight: 800; font-size: 13.5px; }
+    .v3 figure { position: absolute; right: 0; top: 0; bottom: 0; width: 34%; margin: 0; overflow: hidden; }
+    .v3 figure img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ============ 4 · CINEMATOGRÁFICO ============ */
+    .v4 { background: #050506; }
+    .v4 figure { position: absolute; inset: 0; margin: 0; }
+    .v4 figure img { width: 100%; height: 100%; object-fit: cover; opacity: .62; }
+    .v4::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,5,6,.65) 0%, rgba(5,5,6,.25) 40%, rgba(5,5,6,.95) 100%); }
+    .v4 .in { position: relative; z-index: 2; align-self: end; padding: 54px; display: grid; gap: 18px; }
+    .v4 .top { position: absolute; top: 34px; left: 54px; right: 54px; display: flex; justify-content: space-between; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: rgba(247,243,233,.6); }
+    .v4 h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 5.4vw, 66px); line-height: 1.02; margin: 0; max-width: 16ch; }
+    .v4 h3 em { color: var(--gold); }
+    .v4 p { margin: 0; color: rgba(247,243,233,.7); font-size: 14.5px; max-width: 46ch; line-height: 1.6; }
+    .v4 .cta { display: flex; gap: 12px; align-items: center; margin-top: 8px; }
+    .v4 .ghost { border: 1px solid rgba(247,243,233,.35); padding: 12px 22px; border-radius: 2px; font-size: 13px; font-weight: 700; }
+
+    /* ============ 5 · FICHA TÉCNICA ============ */
+    .v5 { background: #08080a; background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 46px 46px; align-content: center; }
+    .v5 .in { padding: 46px 54px; display: grid; grid-template-columns: 1fr 300px; gap: 40px; align-items: center; }
+    .v5 .mono { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10.5px; letter-spacing: .06em; color: #7e7768; text-transform: uppercase; }
+    .v5 .rule { display: grid; grid-template-columns: repeat(2, auto) 1fr; gap: 18px; align-items: center; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,.12); }
+    .v5 .rule::after { content: ''; height: 1px; background: repeating-linear-gradient(90deg, rgba(232,200,106,.5) 0 6px, transparent 6px 12px); }
+    .v5 h3 { font-family: var(--ui); font-weight: 700; font-size: clamp(30px, 4.4vw, 54px); line-height: 1.04; letter-spacing: -.03em; margin: 26px 0 16px; max-width: 17ch; }
+    .v5 h3 em { font-style: normal; color: var(--gold); }
+    .v5 p { margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.65; max-width: 44ch; }
+    .v5 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.1); margin-top: 28px; }
+    .v5 .grid div { background: #08080a; padding: 14px; }
+    .v5 .grid b { display: block; font-size: 22px; font-weight: 700; letter-spacing: -.02em; }
+    .v5 .cta { margin-top: 26px; display: flex; gap: 10px; }
+    .v5 .b1 { background: var(--gold); color: #100d06; padding: 12px 22px; font-size: 13px; font-weight: 800; border-radius: 3px; }
+    .v5 .b2 { border: 1px solid rgba(255,255,255,.2); padding: 12px 22px; font-size: 13px; font-weight: 700; border-radius: 3px; }
+    .v5 figure { margin: 0; border: 1px solid rgba(255,255,255,.12); padding: 10px; position: relative; }
+    .v5 figure img { width: 100%; display: block; filter: saturate(.75); }
+    .v5 figure figcaption { position: absolute; bottom: -1px; left: -1px; background: var(--gold); color: #100d06; font-size: 9.5px; font-weight: 800; letter-spacing: .1em; padding: 4px 9px; text-transform: uppercase; }
+
+    @media (max-width: 900px) {
+      .v1 .in, .v5 .in { grid-template-columns: 1fr; }
+      .v1 figure, .v5 figure { max-width: 320px; }
+      .v3 figure { display: none; }
+      .v2 .cols { grid-template-columns: 1fr; }
+      .v2 .cols p { column-count: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Cinco direcciones para la portada</h1>
+      <p>
+        El mismo contenido del club, vestido de cinco maneras distintas. La idea es elegir
+        mirando y no imaginando: dime el número que te gusta —o qué te gusta de cada uno— y
+        el sitio completo se construye en esa dirección.
+      </p>
+    </header>
+
+    <!-- 1 -->
+    <section class="board">
+      <div class="board-head">
+        <b>01</b><h2>Cartel</h2>
+        <span>Lo que está publicado hoy. Tipografía de afiche, dorado sobre negro, foto enmarcada.</span>
+      </div>
+      <div class="frame">
+        <div class="v v1">
+          <div class="in">
+            <div>
+              <span class="eyebrow">Iquique · Temporada 2026</span>
+              <h3>Esto es más<br><em>que cheer.</em></h3>
+              <p>19 años formando equipos campeones en Iquique. Stunt, tumbling, disciplina y una familia de 150+ deportistas.</p>
+              <div class="cta"><span class="btn-gold">Inscribir deportista →</span><span class="btn-line">Ver equipos</span></div>
+              <div class="stats">
+                <div><b>19</b><span>Años</span></div>
+                <div><b>153</b><span>Deportistas</span></div>
+                <div><b>8</b><span>Equipos</span></div>
+              </div>
+            </div>
+            <figure><img src="assets/img/art-hero.svg" alt=""></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="board">
+      <div class="board-head">
+        <b>02</b><h2>Editorial impreso</h2>
+        <span>Serif enorme, capitular, dos columnas y foto en blanco y negro. Se lee como una revista.</span>
+      </div>
+      <div class="frame">
+        <div class="v v2">
+          <div class="in">
+            <span class="folio">Academia Dragones Elite · Iquique · Temporada 2026</span>
+            <h3>Esto es más <em>que cheer.</em></h3>
+            <div class="cols">
+              <p>Diecinueve años formando equipos campeones en Iquique. Un stunt se sostiene con cuatro personas que confían entre sí, y eso no se enseña en una clase: se construye en años de entrenamientos, viajes y caídas. La inscripción es solo el primer paso.</p>
+              <div>
+                <figure><img src="assets/img/art-team.svg" alt=""></figure>
+                <figcaption>Fig. 01 — Senior Elite, cierre de temporada</figcaption>
+              </div>
+            </div>
+            <div class="cta"><span class="btn-gold">Inscribir deportista</span><span class="link">Ver equipos y horarios</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="board">
+      <div class="board-head">
+        <b>03</b><h2>Deportivo de alto contraste</h2>
+        <span>Fondo claro, tipografía gigante, un acento fuerte. Energía de marca deportiva, no de gimnasio.</span>
+      </div>
+      <div class="frame">
+        <div class="v v3">
+          <figure><img src="assets/img/art-jump.svg" alt=""></figure>
+          <div class="in">
+            <span class="tag">Iquique · 2026</span>
+            <h3><span>Esto es</span><span>más que</span><span><span class="hl">cheer</span></span></h3>
+            <div class="cta"><span class="b1">Inscribir deportista</span><span class="b2">Ver equipos</span></div>
+            <div class="strip">
+              <div><b>19</b><span>Años</span></div>
+              <div><b>153</b><span>Deportistas</span></div>
+              <div><b>8</b><span>Equipos</span></div>
+              <div><b>24</b><span>Podios</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="board">
+      <div class="board-head">
+        <b>04</b><h2>Cinematográfico</h2>
+        <span>La foto ocupa todo y manda. Texto mínimo abajo. Depende por completo de tener una gran foto.</span>
+      </div>
+      <div class="frame">
+        <div class="v v4">
+          <figure><img src="assets/img/art-team.svg" alt=""></figure>
+          <div class="top"><span>Dragones Elite</span><span>Iquique · Chile</span><span>Temporada 2026</span></div>
+          <div class="in">
+            <h3>Esto es más <em>que cheer.</em></h3>
+            <p>19 años formando equipos campeones. La inscripción es solo el primer paso.</p>
+            <div class="cta"><span class="btn-gold">Inscribir deportista</span><span class="ghost">Ver equipos</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="board">
+      <div class="board-head">
+        <b>05</b><h2>Ficha técnica</h2>
+        <span>Retícula visible, etiquetas monoespaciadas, datos a la vista. Serio, preciso, poco común en cheer.</span>
+      </div>
+      <div class="frame">
+        <div class="v v5">
+          <div class="in">
+            <div>
+              <div class="rule"><span class="mono">Club 01</span><span class="mono">Iquique · 20°13'S</span></div>
+              <h3>Esto es más <em>que cheer.</em></h3>
+              <p>19 años formando equipos campeones en Iquique. Stunt, tumbling y preparación física, con cupos reales por equipo.</p>
+              <div class="grid">
+                <div><b>19</b><span class="mono">Años</span></div>
+                <div><b>153</b><span class="mono">Deportistas</span></div>
+                <div><b>8</b><span class="mono">Equipos</span></div>
+              </div>
+              <div class="cta"><span class="b1">Inscribir deportista</span><span class="b2">Ver equipos</span></div>
+            </div>
+            <figure><img src="assets/img/art-stunt.svg" alt=""><figcaption>Reg. 04 · Senior</figcaption></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
