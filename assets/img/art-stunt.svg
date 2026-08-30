@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" width="900" height="700" role="img" aria-label="STUNT">
+  <defs>
+  <linearGradient id="bgartstunt" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0" stop-color="#f7dc95" /><stop offset="1" stop-color="#c08c22" />
+  </linearGradient>
+  <radialGradient id="spotartstunt" cx="50%" cy="14%" r="72%">
+  <stop offset="0" stop-color="#fff6dd" stop-opacity=".78" /><stop offset="1" stop-color="#fff6dd" stop-opacity="0" />
+  </radialGradient>
+  <linearGradient id="fadeartstunt" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#000" stop-opacity="0" /><stop offset="1" stop-color="#000" stop-opacity=".55" />
+  </linearGradient>
+  <pattern id="dotsartstunt" width="16" height="16" patternUnits="userSpaceOnUse">
+  <circle cx="3" cy="3" r="1.7" fill="#0a0806" opacity=".2" />
+  </pattern>
+  <clipPath id="clipartstunt"><rect width="900" height="700" /></clipPath>
+  </defs>
+  <g clip-path="url(#clipartstunt)">
+  <rect width="900" height="700" fill="url(#bgartstunt)" />
+  <rect width="900" height="700" fill="url(#spotartstunt)" />
+  <rect width="900" height="700" fill="url(#dotsartstunt)" />
+  <text x="450" y="434" text-anchor="middle" font-family="Impact, 'Arial Black', 'Helvetica Neue', sans-serif" font-size="279" fill="#0a0806" opacity=".08" letter-spacing="6">STUNT</text>
+  <path d="M120 580 Q450 70 780 580" fill="none" stroke="#0a0806" stroke-width="3" opacity="0.22" stroke-linecap="round" stroke-dasharray="14 16" />
+  <g transform="translate(450 610) rotate(0) scale(1.05)" opacity="1">
+  <g fill="none" stroke="#0a0806" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M-24 -62 L-22 -120 L-16 -164" /><path d="M24 -62 L22 -120 L16 -164" />
+  </g>
+  <g fill="none" stroke="#0a0806" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M-13 2 L-26 52 L-30 106" /><path d="M13 2 L26 52 L30 106" />
+  </g>
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#0a0806" />
+  <circle cx="-24" cy="-64" r="12" fill="#0a0806" />
+  <circle cx="24" cy="-64" r="12" fill="#0a0806" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#0a0806" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#0a0806" />
+  <circle cx="0" cy="-106" r="20" fill="#0a0806" />
+  </g>
+  <g transform="translate(260 604) rotate(0) scale(0.92)" opacity="0.55">
+  <g fill="none" stroke="#0a0806" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M-24 -62 L-22 -120 L-16 -164" /><path d="M24 -62 L22 -120 L16 -164" />
+  </g>
+  <g fill="none" stroke="#0a0806" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M-13 2 L-26 52 L-30 106" /><path d="M13 2 L26 52 L30 106" />
+  </g>
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#0a0806" />
+  <circle cx="-24" cy="-64" r="12" fill="#0a0806" />
+  <circle cx="24" cy="-64" r="12" fill="#0a0806" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#0a0806" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#0a0806" />
+  <circle cx="0" cy="-106" r="20" fill="#0a0806" />
+  </g>
+  <g transform="translate(640 604) rotate(0) scale(0.92)" opacity="0.55">
+  <g fill="none" stroke="#0a0806" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M-24 -62 L-22 -120 L-16 -164" /><path d="M24 -62 L22 -120 L16 -164" />
+  </g>
+  <g fill="none" stroke="#0a0806" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M-13 2 L-26 52 L-30 106" /><path d="M13 2 L26 52 L30 106" />
+  </g>
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#0a0806" />
+  <circle cx="-24" cy="-64" r="12" fill="#0a0806" />
+  <circle cx="24" cy="-64" r="12" fill="#0a0806" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#0a0806" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#0a0806" />
+  <circle cx="0" cy="-106" r="20" fill="#0a0806" />
+  </g>
+  <g transform="translate(450 344) rotate(0) scale(0.95)" opacity="1">
+  <g fill="none" stroke="#0a0806" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M-24 -62 L-32 -106 L-60 -154" /><path d="M24 -62 L32 -106 L60 -154" />
+  </g>
+  <g fill="none" stroke="#0a0806" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M-13 2 L6 54 L4 108" /><path d="M13 2 L-46 30 L-4 54" />
+  </g>
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#0a0806" />
+  <circle cx="-24" cy="-64" r="12" fill="#0a0806" />
+  <circle cx="24" cy="-64" r="12" fill="#0a0806" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#0a0806" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#0a0806" />
+  <circle cx="0" cy="-106" r="20" fill="#0a0806" />
+  </g>
+  <circle cx="450" cy="230" r="150" fill="none" stroke="#ffffff" stroke-width="2" opacity=".28" />
+  <rect width="900" height="700" fill="url(#fadeartstunt)" />
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+Tipografías auto-alojadas en este proyecto
+==========================================
+
+Anton      — Vernon Adams, Cyreal (SIL Open Font License 1.1)
+DM Sans    — Colophon Foundry, Jonny Pinhorn, Indian Type Foundry (SIL Open Font License 1.1)
+Manrope    — Mikhail Sharanda (SIL Open Font License 1.1)
+
+Los tres archivos se distribuyen bajo la SIL Open Font License, Version 1.1,
+que permite su uso, estudio, modificación y redistribución —incluido el
+alojamiento propio como se hace aquí— siempre que no se vendan por separado
+y se conserve este aviso.
+
+Texto completo de la licencia: https://openfontlicense.org
+Archivos originales: https://fonts.google.com (subconjuntos latin y latin-ext).

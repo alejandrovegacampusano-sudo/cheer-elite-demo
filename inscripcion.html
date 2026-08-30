@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07070a">
+  <title>Inscripción · Academia Dragones Elite</title>
+  <meta name="description" content="Inscribe a tu hija en la Academia Dragones Elite: elige categoría y equipo, completa la ficha y confirma en tres minutos.">
+  <link rel="icon" href="assets/logo-dragones.png">
+  <link rel="preload" href="assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/core.css">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+  <div class="ambient"><i></i><i></i><i></i></div>
+  <div class="grain"></div>
+
+  <header class="site-header" data-header>
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <span class="brand-mark"><img src="assets/logo-dragones.png" alt="" width="40" height="40"></span>
+        <span class="brand-text"><strong>DRAGONES ELITE</strong><small>Inscripción 2026</small></span>
+      </a>
+      <div class="header-cta">
+        <a class="btn btn-ghost btn-sm" href="index.html">← Volver al sitio</a>
+        <a class="btn btn-solid btn-sm" href="panel.html">Panel del club</a>
+      </div>
+    </div>
+    <i class="progress-bar" data-progress></i>
+  </header>
+
+  <main class="wrap" style="padding-top:120px;padding-bottom:80px">
+    <div class="section-head" style="margin-bottom:32px">
+      <span class="eyebrow" data-reveal>Temporada 2026 · Iquique</span>
+      <h1 class="display" data-reveal style="font-size:clamp(34px,6vw,64px);--delay:60ms">Inscribe a tu<br>deportista.</h1>
+      <p class="lead" data-reveal style="--delay:120ms">
+        Tres pasos: categoría y equipo, ficha de la deportista y confirmación.
+        La primera clase es de prueba y sin costo.
+      </p>
+    </div>
+
+    <div class="enroll-layout">
+      <!-- ============ Asistente ============ -->
+      <section class="wizard" id="wizard" data-reveal>
+        <nav class="wizard-steps" aria-label="Progreso">
+          <button class="wstep active" data-go="1"><i>1</i><span>Categoría y equipo</span></button>
+          <button class="wstep" data-go="2"><i>2</i><span>Ficha</span></button>
+          <button class="wstep" data-go="3"><i>3</i><span>Confirmar</span></button>
+        </nav>
+
+        <!-- Paso 1 -->
+        <section class="wpanel active" data-panel="1">
+          <div class="wpanel-head">
+            <span class="eyebrow">Paso 1</span>
+            <h2>¿En qué categoría entra?</h2>
+            <p>La categoría se define por la edad al 31 de marzo. Si no estás segura, escribe la edad y te la sugerimos.</p>
+          </div>
+
+          <div class="field" style="max-width:260px;margin-bottom:22px">
+            <span>Edad de la deportista</span>
+            <input id="edad-hint" type="number" min="3" max="19" inputmode="numeric" placeholder="Ej. 11">
+          </div>
+          <div class="age-hint" id="age-hint" hidden></div>
+
+          <div class="pick-grid" id="cat-grid"></div>
+
+          <div id="team-block" hidden style="margin-top:32px;padding-top:26px;border-top:1px solid var(--line-soft)">
+            <h3 style="font-size:17px;margin-bottom:6px">Equipo y horario</h3>
+            <p style="font-size:13px;color:var(--muted);margin-bottom:16px">Puedes cambiarlo después de la clase de evaluación.</p>
+            <div class="pick-grid" id="team-pick"></div>
+          </div>
+
+          <div class="wpanel-actions">
+            <span></span>
+            <button class="btn btn-gold" id="ir-ficha" disabled>Completar ficha <span class="ico">→</span></button>
+          </div>
+        </section>
+
+        <!-- Paso 2 -->
+        <section class="wpanel" data-panel="2">
+          <div class="wpanel-head">
+            <span class="eyebrow">Paso 2</span>
+            <h2>Ficha de la deportista</h2>
+            <p>Estos datos quedan en la ficha del club y solo los ve el cuerpo técnico.</p>
+          </div>
+
+          <form id="ficha" novalidate>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px">
+              <label class="field"><span>Nombre y apellido <em>*</em></span><input id="f-nombre" autocomplete="name" placeholder="Ej. Martina Vega"></label>
+              <label class="field"><span>Fecha de nacimiento <em>*</em></span><input id="f-nacimiento" type="date"></label>
+              <label class="field"><span>Nombre del apoderado <em>*</em></span><input id="f-apoderado" autocomplete="name" placeholder="Ej. Paulina Muñoz"></label>
+              <label class="field">
+                <span>WhatsApp del apoderado <em>*</em></span>
+                <div class="combo"><b>+56</b><input id="f-telefono" inputmode="numeric" autocomplete="tel" placeholder="9 1234 5678"></div>
+              </label>
+              <label class="field"><span>Correo (opcional)</span><input id="f-email" type="email" autocomplete="email" placeholder="apoderado@correo.cl"></label>
+              <label class="field">
+                <span>Talla de uniforme</span>
+                <select id="f-talla"><option value="">Definir después</option><option>XS</option><option>S</option><option>M</option><option>L</option></select>
+              </label>
+              <label class="field" style="grid-column:1/-1"><span>Alergias, lesiones o condiciones médicas</span><textarea id="f-medico" rows="2" placeholder="Ej. asma leve, alergia a mariscos, ninguna…"></textarea></label>
+              <label class="field" style="grid-column:1/-1"><span>Contacto de emergencia (si es distinto del apoderado)</span><input id="f-emergencia" placeholder="Nombre y teléfono"></label>
+            </div>
+
+            <div style="display:grid;gap:12px;margin-top:22px">
+              <label class="check"><input type="checkbox" id="f-prueba"><span>Quiero que la primera clase sea de <b style="color:var(--ink)">evaluación sin costo</b> antes de pagar la matrícula.</span></label>
+              <label class="check"><input type="checkbox" id="f-hermana"><span>Tengo otra hija inscrita en el club (aplica 15% de descuento en la mensualidad).</span></label>
+              <label class="check"><input type="checkbox" id="f-terminos"><span>Autorizo la participación en entrenamientos y competencias del club, y acepto recibir avisos por WhatsApp. <em style="color:var(--gold);font-style:normal">*</em></span></label>
+            </div>
+          </form>
+
+          <div class="wpanel-actions">
+            <button class="btn btn-ghost" data-back="1">← Volver</button>
+            <button class="btn btn-gold" id="ir-confirmar">Revisar inscripción <span class="ico">→</span></button>
+          </div>
+        </section>
+
+        <!-- Paso 3 -->
+        <section class="wpanel" data-panel="3">
+          <div class="wpanel-head">
+            <span class="eyebrow">Paso 3</span>
+            <h2>Revisa y confirma</h2>
+            <p id="nota-pago">Matrícula por única vez más la primera mensualidad.</p>
+          </div>
+
+          <div class="review" id="review"></div>
+
+          <h3 style="font-size:15px;margin:26px 0 0">Forma de pago</h3>
+          <div class="pay-methods" id="pay-methods">
+            <button class="pay sel" data-pay="transferencia">Transferencia<small>Datos por WhatsApp</small></button>
+            <button class="pay" data-pay="webpay">Webpay<small>Débito o crédito</small></button>
+            <button class="pay" data-pay="gimnasio">En el gimnasio<small>Efectivo o tarjeta</small></button>
+          </div>
+
+          <div class="age-hint" style="margin-top:18px">
+            <b>Prototipo:</b> <span>el cobro es simulado. En producción se conecta a Transbank, Flow o Mercado Pago.</span>
+          </div>
+
+          <div class="wpanel-actions">
+            <button class="btn btn-ghost" data-back="2">← Volver</button>
+            <button class="btn btn-gold" id="confirmar">Confirmar inscripción <span class="ico">✓</span></button>
+          </div>
+        </section>
+
+        <!-- Paso 4: listo -->
+        <section class="wpanel" data-panel="4">
+          <div class="done">
+            <div class="done-mark">✓</div>
+            <span class="eyebrow" style="justify-content:center">Inscripción confirmada</span>
+            <h2 id="done-nombre">¡Bienvenida!</h2>
+            <p id="done-copy">La ficha quedó registrada. El club se contactará por WhatsApp para coordinar uniforme y horarios.</p>
+            <div class="done-card" id="done-card"></div>
+            <div class="row" style="justify-content:center;margin-top:14px">
+              <a class="btn btn-gold" href="panel.html">Ver la ficha en el panel <span class="ico">→</span></a>
+              <button class="btn btn-ghost" id="otra">Inscribir otra deportista</button>
+            </div>
+            <small class="code" id="done-code"></small>
+          </div>
+        </section>
+      </section>
+
+      <!-- ============ Resumen lateral ============ -->
+      <aside class="card summary-card" id="summary" data-reveal="right">
+        <h3>Resumen</h3>
+        <div id="summary-body"><p class="sum-empty">Elige una categoría para ver el detalle de matrícula y mensualidad.</p></div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-bottom" style="margin:0;border:0;padding:0">
+      <span>© <span data-year></span> Academia Dragones Elite</span>
+      <span>Prototipo · los datos quedan en este navegador</span>
+    </div>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/core.js"></script>
+  <script src="assets/js/inscripcion.js"></script>
+</body>
+</html>

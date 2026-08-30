@@ -3,199 +3,373 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#08070d">
-  <title>Academia Dragones Elite · Inscripciones</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <meta name="theme-color" content="#07070a">
+  <title>Academia Dragones Elite · Cheerleading en Iquique</title>
+  <meta name="description" content="Academia de cheerleading en Iquique desde 2007. Equipos Tiny a Senior Elite, tumbling y stunt. Inscripción online en 3 minutos.">
+  <meta property="og:title" content="Academia Dragones Elite · Esto es más que cheer">
+  <meta property="og:description" content="19 años formando equipos campeones en Iquique. Inscripción online y panel de gestión para el club.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/logo-dragones.png">
+  <link rel="preload" href="assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/core.css">
+  <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
-  <div class="bg-mesh"><span></span><span></span><span></span></div>
-  <header class="topbar">
-    <a class="brand" href="#" aria-label="Inicio Dragones Elite">
-      <span class="brand-mark"><img src="assets/logo-dragones.png" alt="Dragones Elite"></span>
-      <span><strong>DRAGONES ELITE</strong><small>Academia de Cheerleaders · Iquique</small></span>
-    </a>
-    <div class="header-actions">
-      <button class="primary-nav-button" id="enroll-button" type="button">Inscribir deportista</button>
-      <button class="ghost-button" id="view-toggle" type="button">Panel del club</button>
+  <div class="ambient"><i></i><i></i><i></i></div>
+  <div class="grain"></div>
+
+  <!-- ================= Cabecera ================= -->
+  <header class="site-header" data-header>
+    <div class="wrap">
+      <a class="brand" href="index.html" aria-label="Inicio · Dragones Elite">
+        <span class="brand-mark"><img src="assets/logo-dragones.png" alt="" width="40" height="40"></span>
+        <span class="brand-text"><strong>DRAGONES ELITE</strong><small>Cheer · Iquique</small></span>
+      </a>
+
+      <nav class="nav" aria-label="Principal">
+        <a href="#programas" data-nav-link>Programas</a>
+        <a href="#equipos" data-nav-link>Equipos</a>
+        <a href="#club" data-nav-link>El club</a>
+        <a href="#galeria" data-nav-link>Galería</a>
+        <a href="#plataforma" data-nav-link>Plataforma</a>
+        <a href="#faq" data-nav-link>Preguntas</a>
+      </nav>
+
+      <div class="header-cta">
+        <a class="btn btn-ghost btn-sm" href="panel.html">Panel del club</a>
+        <a class="btn btn-gold btn-sm" href="inscripcion.html" data-magnetic>Inscribir <span class="ico">→</span></a>
+        <button class="burger" data-menu-toggle aria-expanded="false" aria-label="Abrir menú"><span></span></button>
+      </div>
     </div>
+    <i class="progress-bar" data-progress></i>
   </header>
 
+  <div class="mobile-menu" data-menu>
+    <a href="#programas">Programas</a>
+    <a href="#equipos">Equipos</a>
+    <a href="#club">El club</a>
+    <a href="#galeria">Galería</a>
+    <a href="#plataforma">Plataforma</a>
+    <a href="#faq">Preguntas</a>
+    <a class="btn btn-gold btn-lg" href="inscripcion.html">Inscribir deportista</a>
+    <a class="btn btn-ghost" href="panel.html">Panel del club</a>
+  </div>
+
   <main>
-    <section id="enroll-view">
-      <div class="hero">
+    <!-- ================= Hero ================= -->
+    <section class="hero">
+      <div class="wrap hero-grid">
         <div>
-          <span class="eyebrow">El Dragón, una vez más</span>
-          <h1>Esto es más<br><em>que cheer.</em></h1>
-          <p>19 años formando equipos campeones en Iquique. Entrenamiento, stunt, tumbling y la energía de un equipo de verdad — la inscripción es solo el primer paso.</p>
+          <span class="eyebrow" data-reveal>Iquique · Temporada 2026</span>
+
+          <h1 class="display">
+            <span class="split-line"><span>Esto es más</span></span>
+            <span class="split-line" style="--delay:120ms"><span class="outline shine">que cheer.</span></span>
+          </h1>
+
+          <p class="lead" data-reveal style="--delay:280ms">
+            <b id="anios-club">19</b> años formando equipos campeones en Iquique. Stunt, tumbling,
+            disciplina y una familia de <b>150+</b> deportistas. La inscripción es solo el primer paso.
+          </p>
+
+          <div class="hero-actions" data-reveal style="--delay:380ms">
+            <a class="btn btn-gold btn-lg" href="inscripcion.html" data-magnetic>Inscribir deportista <span class="ico">→</span></a>
+            <a class="btn btn-ghost btn-lg" href="#equipos">Ver equipos y horarios</a>
+          </div>
+
+          <div class="hero-stats" data-reveal style="--delay:460ms">
+            <div><strong class="num" data-count="19">0</strong><span>Años de club</span></div>
+            <div><strong class="num" data-count="153">0</strong><span>Deportistas</span></div>
+            <div><strong class="num" data-count="8">0</strong><span>Equipos</span></div>
+            <div><strong class="num" data-count="11" data-suffix="k">0</strong><span>Comunidad</span></div>
+          </div>
         </div>
-        <div class="trust-card reveal">
-          <div class="avatar"><img src="assets/logo-dragones.png" alt="Dragones Elite"></div>
-          <div><strong>Academia Dragones Elite</strong><span><span class="stat-num" data-count="19">0</span> años de trayectoria · Iquique</span></div>
-          <b>★ 4,9</b>
+
+        <div class="hero-visual" data-reveal="zoom" style="--delay:200ms">
+          <div class="hero-ring" aria-hidden="true"></div>
+          <div class="hero-frame" data-parallax="0.04">
+            <img src="assets/img/art-hero.svg" alt="Ilustración de un stunt de cheerleading: bases sosteniendo a una flyer en liberty">
+          </div>
+          <div class="float-card a">
+            <strong class="num">32 cupos</strong>
+            <span>disponibles para 2026</span>
+          </div>
+          <div class="float-card b">
+            <span class="pill live"><i class="dot"></i>Próximo</span>
+            <strong>Regional Norte Grande</strong>
+            <span>Antofagasta · en 18 días</span>
+          </div>
         </div>
       </div>
 
-      <div class="achievements reveal">
-        <div><strong class="stat-num" data-count="19">0</strong><span>Años de trayectoria</span></div>
-        <div><strong class="stat-num" data-count="11">0</strong><span>Mil familias en la comunidad</span></div>
-        <div><strong class="stat-num" data-count="6">0</strong><span>Equipos activos</span></div>
-        <div><strong>🏆</strong><span>Campeonatos nacionales</span></div>
-      </div>
-
-      <div class="section-heading" style="margin-top:56px">
-        <div><span class="eyebrow">Súmate al equipo</span><h2 style="font-size:30px">Inscríbete en 3 minutos</h2></div>
-        <p>Elige categoría, completa la ficha y listo. La matrícula se ve al final, sin sorpresas.</p>
-      </div>
-
-      <div class="shell reveal" id="enroll-shell">
-        <nav class="steps" aria-label="Progreso de inscripción">
-          <button class="step active" data-go="1"><span>1</span>Categoría</button>
-          <button class="step" data-go="2"><span>2</span>Ficha</button>
-          <button class="step" data-go="3"><span>3</span>Confirmar</button>
-        </nav>
-
-        <section class="panel active" data-panel="1">
-          <div class="section-heading">
-            <div><span class="eyebrow">Paso 1</span><h2>Elige categoría</h2></div>
-            <p>Según la edad de la deportista al 31 de marzo.</p>
-          </div>
-          <div class="category-grid" id="category-grid"></div>
-
-          <div class="subsection" id="team-subsection" hidden>
-            <h3>¿A qué equipo se une?</h3>
-            <div class="team-row" id="team-row"></div>
-          </div>
-          <div class="panel-actions"><span></span><button class="primary-button" id="to-ficha" disabled>Completar ficha <span>→</span></button></div>
-        </section>
-
-        <section class="panel" data-panel="2">
-          <div class="section-heading">
-            <div><span class="eyebrow">Paso 2</span><h2>Ficha de la deportista</h2></div>
-            <p>Datos necesarios para la temporada y en caso de emergencia.</p>
-          </div>
-          <form id="athlete-form" novalidate>
-            <div class="field-grid">
-              <label class="field"><span>Nombre y apellido *</span><input id="athlete-name" autocomplete="name" placeholder="Ej. Martina Vega" required></label>
-              <label class="field"><span>Fecha de nacimiento *</span><input id="athlete-birth" type="date" required></label>
-              <label class="field"><span>Nombre del apoderado *</span><input id="parent-name" autocomplete="name" placeholder="Ej. Alejandro Vega" required></label>
-              <label class="field"><span>WhatsApp del apoderado *</span><div class="phone-field"><b>+56</b><input id="parent-phone" inputmode="numeric" autocomplete="tel" placeholder="9 1234 5678" required></div></label>
-              <label class="field full"><span>Alergias o condiciones médicas</span><textarea id="athlete-medical" rows="2" placeholder="Ej. asma, alergia a mariscos, ninguna…"></textarea></label>
-              <label class="field full"><span>Contacto de emergencia (si distinto al apoderado)</span><input id="emergency-contact" placeholder="Nombre y teléfono"></label>
-            </div>
-            <label class="check"><input id="terms" type="checkbox" required><span>Autorizo la participación de mi hija/pupila en entrenamientos y competencias del club, y acepto recibir avisos por WhatsApp.</span></label>
-          </form>
-          <div class="panel-actions"><button class="back-button" data-back="1">← Volver</button><button class="primary-button" id="to-confirm">Revisar inscripción <span>→</span></button></div>
-        </section>
-
-        <section class="panel" data-panel="3">
-          <div class="section-heading">
-            <div><span class="eyebrow">Paso 3</span><h2>Revisa antes de confirmar</h2></div>
-            <p id="review-note">Matrícula + primera mensualidad.</p>
-          </div>
-          <div class="review-card" id="review-card"></div>
-          <div class="payment-card">
-            <span class="payment-icon">✓</span>
-            <div><strong id="payment-title">Pago simulado en este prototipo</strong><p id="payment-copy">En producción, aquí se procesaría el pago de matrícula y mensualidad.</p></div>
-          </div>
-          <div class="panel-actions"><button class="back-button" data-back="2">← Volver</button><button class="primary-button confirm" id="confirm-enroll">Confirmar inscripción <span>✓</span></button></div>
-        </section>
-
-        <section class="panel success-panel" data-panel="4">
-          <div class="success-icon">✓</div>
-          <span class="eyebrow">Inscripción confirmada</span>
-          <h2>¡Bienvenida, <span id="success-name"></span>!</h2>
-          <p id="success-copy">La ficha quedó registrada. El club se pondrá en contacto por WhatsApp para coordinar uniformes y horarios de entrenamiento.</p>
-          <div class="success-summary" id="success-summary"></div>
-          <div class="success-actions">
-            <button class="primary-button" id="new-enroll">Inscribir otra deportista</button>
-            <button class="back-button" id="go-dashboard">Ver panel del club</button>
-          </div>
-          <small class="enroll-code" id="enroll-code"></small>
-        </section>
-      </div>
-
-      <section class="benefits">
-        <article class="reveal"><span>01</span><h3>Sin planillas</h3><p>Cada ficha queda digital, ordenada por equipo y categoría.</p></article>
-        <article class="reveal"><span>02</span><h3>Pagos claros</h3><p>Matrícula y mensualidad definidas desde la inscripción.</p></article>
-        <article class="reveal"><span>03</span><h3>Todo en un lugar</h3><p>El club ve el estado de cada deportista sin perseguir WhatsApp.</p></article>
-      </section>
-
-      <section class="gallery">
-        <div class="gallery-head reveal">
-          <span class="eyebrow">Vida en la academia</span>
-          <h2 style="font-size:28px;margin:8px 0 0">Momentos Dragones Elite</h2>
-        </div>
-        <div class="gallery-grid">
-          <div class="gallery-tile reveal" style="--grad:linear-gradient(135deg,#d4af37,#fff6d9)"><span>Entrenamientos<small>Stunt & tumbling</small></span></div>
-          <div class="gallery-tile reveal" style="--grad:linear-gradient(135deg,#1a1420,#c9992f)"><span>Competencias<small>Nacionales e internacionales</small></span></div>
-          <div class="gallery-tile reveal" style="--grad:linear-gradient(135deg,#ffe066,#c9992f)"><span>Shows en vivo<small>Showcase de temporada</small></span></div>
-          <div class="gallery-tile reveal" style="--grad:linear-gradient(135deg,#0a0a0a,#ffd75e)"><span>Equipos por edad<small>Mini a Senior</small></span></div>
-          <div class="gallery-tile reveal" style="--grad:linear-gradient(135deg,#fff6d9,#d4af37)"><span>19 años<small>Formando deportistas en Iquique</small></span></div>
-          <div class="gallery-tile reveal" style="--grad:linear-gradient(135deg,#c9992f,#1a1420)"><span>Comunidad<small>+11 mil familias siguiéndonos</small></span></div>
-        </div>
-      </section>
+      <div class="scroll-cue" aria-hidden="true"><i></i>Scroll</div>
     </section>
 
-    <section id="dashboard-view" hidden>
-      <div class="dashboard-head">
-        <div><span class="eyebrow">Panel del club</span><h1>Tus equipos, sin planillas.</h1><p>Fichas, categorías y estado de pago en un solo lugar.</p></div>
-        <button class="primary-button" id="back-to-enroll">Ver inscripciones</button>
+    <!-- ================= Marquesina ================= -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Stunt<b>·</b>Tumbling<b>·</b>Basket toss<b>·</b>Pirámides<b>·</b>Jumps<b>·</b>Coreografía<b>·</b>Fuerza</span>
       </div>
-      <div class="metric-grid">
-        <article><span>Deportistas activas</span><strong id="metric-total">0</strong><small id="metric-total-detail">0 al día · 0 pendientes</small></article>
-        <article><span>Equipos</span><strong>4</strong><small>Mini, Youth, Junior, Senior</small></article>
-        <article><span>Ingreso mensual proyectado</span><strong id="metric-income">$0</strong><small>Según mensualidades activas</small></article>
-        <article><span>Nuevas esta semana</span><strong id="metric-new">0</strong><small>Inscripciones del prototipo</small></article>
+      <div class="marquee-track">
+        <span>Stunt<b>·</b>Tumbling<b>·</b>Basket toss<b>·</b>Pirámides<b>·</b>Jumps<b>·</b>Coreografía<b>·</b>Fuerza</span>
       </div>
-      <div class="team-tabs" id="team-tabs"></div>
-      <div class="athlete-table" id="athlete-table"></div>
+    </div>
+
+    <!-- ================= Cifras ================= -->
+    <section class="section" style="padding-top:clamp(48px,6vw,80px)">
+      <div class="wrap">
+        <div class="figures" data-stagger>
+          <article data-reveal>
+            <strong class="num" data-count="19">0</strong>
+            <span>Años de trayectoria</span>
+            <small>Desde 2007 en Iquique</small>
+          </article>
+          <article data-reveal>
+            <strong class="num" data-count="24">0</strong>
+            <span>Podios nacionales</span>
+            <small>Regionales y nacionales acumulados</small>
+          </article>
+          <article data-reveal>
+            <strong class="num" data-count="8">0</strong>
+            <span>Equipos activos</span>
+            <small>De Tiny a Senior Elite</small>
+          </article>
+          <article data-reveal>
+            <strong class="num" data-count="94" data-suffix="%">0</strong>
+            <span>Renovación</span>
+            <small>Deportistas que siguen la temporada siguiente</small>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Programas ================= -->
+    <section class="section" id="programas">
+      <div class="wrap">
+        <div class="spread section-head" style="max-width:none">
+          <div>
+            <span class="eyebrow" data-reveal>Programas</span>
+            <h2 data-reveal style="--delay:80ms">Un equipo para<br>cada edad.</h2>
+          </div>
+          <p class="lead" data-reveal style="--delay:160ms;max-width:380px">
+            Cinco categorías competitivas y tres programas abiertos. La ubicación final
+            se define en la clase de evaluación, sin costo.
+          </p>
+        </div>
+
+        <div class="program-grid" id="program-grid" data-stagger></div>
+
+        <div class="section-head" style="margin:64px 0 26px">
+          <span class="eyebrow" data-reveal>También abiertos</span>
+          <h2 data-reveal style="font-size:clamp(24px,3vw,34px)">Clases sin equipo fijo</h2>
+        </div>
+        <div class="team-grid" id="programa-extra" data-stagger></div>
+      </div>
+    </section>
+
+    <!-- ================= Equipos ================= -->
+    <section class="section" id="equipos" style="background:linear-gradient(180deg,transparent,rgba(232,200,106,.03),transparent)">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" data-reveal>Equipos y horarios</span>
+          <h2 data-reveal style="--delay:80ms">Dónde entrena cada una.</h2>
+          <p class="lead" data-reveal style="--delay:140ms">Cupos reales de la temporada. Cuando un equipo se llena, se abre lista de espera.</p>
+        </div>
+
+        <div class="tabs" id="team-tabs" role="tablist" data-reveal></div>
+        <div class="team-grid" id="team-grid"></div>
+      </div>
+    </section>
+
+    <!-- ================= Cómo se entra + historia ================= -->
+    <section class="section" id="club">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" data-reveal>Cómo se entra</span>
+          <h2 data-reveal style="--delay:80ms">Tres pasos y estás dentro.</h2>
+        </div>
+
+        <div class="steps-3" data-stagger>
+          <article class="step-card" data-reveal>
+            <h3>Inscripción online</h3>
+            <p>Eliges categoría y equipo, completas la ficha de la deportista y quedas registrada al instante. Toma menos de tres minutos.</p>
+          </article>
+          <article class="step-card" data-reveal>
+            <h3>Clase de evaluación</h3>
+            <p>La primera clase es de prueba y sin costo. El cuerpo técnico confirma el nivel y ajusta el equipo si hace falta.</p>
+          </article>
+          <article class="step-card" data-reveal>
+            <h3>Temporada</h3>
+            <p>Uniforme, calendario de competencias y acceso al canal del club. La familia recibe avisos de pagos y viajes por WhatsApp.</p>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin:80px 0 0">
+          <span class="eyebrow" data-reveal>Historia</span>
+          <h2 data-reveal style="--delay:80ms">De un gimnasio prestado<br>a la ruta internacional.</h2>
+        </div>
+        <div class="timeline" id="timeline" data-stagger></div>
+      </div>
+    </section>
+
+    <!-- ================= Galería ================= -->
+    <section class="section" id="galeria">
+      <div class="wrap">
+        <div class="spread section-head" style="max-width:none">
+          <div>
+            <span class="eyebrow" data-reveal>Vida en la academia</span>
+            <h2 data-reveal style="--delay:80ms">Momentos Dragones.</h2>
+          </div>
+          <p class="lead" data-reveal style="max-width:330px;--delay:140ms">
+            Ilustraciones de marca mientras llegan las fotos oficiales de la temporada.
+          </p>
+        </div>
+
+        <div class="gallery" id="gallery" data-stagger></div>
+      </div>
+    </section>
+
+    <!-- ================= Coaches ================= -->
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" data-reveal>Cuerpo técnico</span>
+          <h2 data-reveal style="--delay:80ms">Quién entrena a tu hija.</h2>
+          <p class="lead" data-reveal style="--delay:140ms">Todo el equipo está formado en seguridad de stunt y protocolo de lesiones.</p>
+        </div>
+        <div class="coach-grid" id="coach-grid" data-stagger></div>
+      </div>
+    </section>
+
+    <!-- ================= Testimonios ================= -->
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="card quotes" data-reveal>
+          <div class="quote-track" id="quote-track"></div>
+        </div>
+        <div class="quote-nav" id="quote-nav"></div>
+      </div>
+    </section>
+
+    <!-- ================= Plataforma / SaaS ================= -->
+    <section class="section" id="plataforma">
+      <div class="wrap platform">
+        <div>
+          <span class="eyebrow" data-reveal>La plataforma del club</span>
+          <h2 data-reveal style="--delay:80ms;font-size:clamp(30px,4.4vw,52px)">El club también<br>es software.</h2>
+          <p class="lead" data-reveal style="--delay:140ms;margin-top:18px">
+            Detrás de la inscripción hay un panel donde el club ve deportistas, pagos,
+            asistencia y cupos en tiempo real. Sin planillas y sin perseguir mensajes.
+          </p>
+
+          <div class="feature-list" data-stagger>
+            <div class="feature" data-reveal><i>◧</i><div><h4>Fichas digitales</h4><p>Datos, apoderado, contacto de emergencia y condiciones médicas, siempre a mano.</p></div></div>
+            <div class="feature" data-reveal><i>◈</i><div><h4>Control de pagos</h4><p>Matrícula y mensualidades por deportista, con morosidad y cobranza del mes.</p></div></div>
+            <div class="feature" data-reveal><i>◇</i><div><h4>Asistencia</h4><p>Pasar lista por equipo en el celular, en la misma pista.</p></div></div>
+            <div class="feature" data-reveal><i>◆</i><div><h4>Cupos y calendario</h4><p>Ocupación por equipo y agenda de competencias, evaluaciones y cierres de pago.</p></div></div>
+          </div>
+
+          <div class="row" style="margin-top:30px">
+            <a class="btn btn-gold" href="panel.html" data-magnetic>Entrar al panel <span class="ico">→</span></a>
+            <span class="pill"><i class="dot"></i>Demo con datos de ejemplo</span>
+          </div>
+        </div>
+
+        <div class="screen" data-reveal="right" data-tilt="4">
+          <div class="screen-bar"><i></i><i></i><i></i><span>panel.dragoneselite.cl</span></div>
+          <div class="screen-body">
+            <div class="mini-kpis">
+              <div class="mini-kpi"><span>Activas</span><strong class="num">146</strong></div>
+              <div class="mini-kpi"><span>Al día</span><strong class="num">72%</strong></div>
+              <div class="mini-kpi"><span>Mes</span><strong class="num">$4,1M</strong></div>
+            </div>
+            <div class="mini-chart" id="mini-chart"></div>
+            <div class="mini-rows">
+              <div class="mini-row"><b>MV</b><span>Martina Vega · Junior Inferno</span><span class="tag ok">Al día</span></div>
+              <div class="mini-row"><b>AS</b><span>Antonella Soto · Youth Storm</span><span class="tag warn">Pendiente</span></div>
+              <div class="mini-row"><b>JM</b><span>Josefa Muñoz · Senior Elite</span><span class="tag ok">Al día</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FAQ ================= -->
+    <section class="section" id="faq">
+      <div class="wrap">
+        <div class="section-head center">
+          <span class="eyebrow" data-reveal>Preguntas frecuentes</span>
+          <h2 data-reveal style="--delay:80ms">Lo que preguntan las familias.</h2>
+        </div>
+        <div class="faq" id="faq-list"></div>
+      </div>
+    </section>
+
+    <!-- ================= CTA final ================= -->
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="cta-final" data-reveal="zoom">
+          <span class="eyebrow" style="justify-content:center">Temporada 2026 abierta</span>
+          <h2 style="margin-top:16px">El Dragón,<br>una vez más.</h2>
+          <p>Quedan cupos en casi todas las categorías. La primera clase es de prueba, sin costo y sin compromiso.</p>
+          <div class="row">
+            <a class="btn btn-gold btn-lg" href="inscripcion.html" data-magnetic>Inscribir deportista <span class="ico">→</span></a>
+            <a class="btn btn-ghost btn-lg" href="#" id="wa-link">Escribir por WhatsApp</a>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer><strong>DRAGONES ELITE</strong><span>Prototipo de inscripciones automatizadas · datos guardados solo en este navegador</span></footer>
-  <div class="toast" id="toast" role="status"></div>
-  <script src="app.js"></script>
-  <script>
-    // Scroll reveal
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 60);
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  <!-- ================= Pie ================= -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="index.html">
+            <span class="brand-mark"><img src="assets/logo-dragones.png" alt="" width="40" height="40"></span>
+            <span class="brand-text"><strong>DRAGONES ELITE</strong><small>Cheer · Iquique</small></span>
+          </a>
+          <p style="margin-top:16px;font-size:13.5px;color:var(--muted);max-width:300px">
+            Academia de cheerleading en Iquique desde 2007. Formación deportiva, competencia y comunidad.
+          </p>
+        </div>
+        <div>
+          <h5>Club</h5>
+          <a href="#programas">Programas</a>
+          <a href="#equipos">Equipos</a>
+          <a href="#club">Historia</a>
+          <a href="#faq">Preguntas</a>
+        </div>
+        <div>
+          <h5>Familias</h5>
+          <a href="inscripcion.html">Inscripción</a>
+          <a href="panel.html">Panel del club</a>
+          <a href="#" id="wa-link-2">WhatsApp</a>
+        </div>
+        <div>
+          <h5>Contacto</h5>
+          <li id="foot-dir">Iquique, Tarapacá</li>
+          <li id="foot-mail">contacto@dragoneselite.cl</li>
+          <li id="foot-ig">@dragoneselite</li>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-year></span> Academia Dragones Elite · Prototipo de plataforma</span>
+        <span>Datos guardados solo en este navegador · sin servidor</span>
+      </div>
+    </div>
+  </footer>
 
-    // Animated counters
-    document.querySelectorAll('[data-count]').forEach(el => {
-      const target = Number(el.dataset.count);
-      const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            let current = 0;
-            const step = Math.max(1, Math.round(target / 40));
-            const tick = () => {
-              current = Math.min(target, current + step);
-              el.textContent = current;
-              if (current < target) requestAnimationFrame(tick);
-            };
-            tick();
-            counterObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.4 });
-      counterObserver.observe(el);
-    });
+  <a class="wa-float" id="wa-float" href="#" aria-label="Escribir por WhatsApp">
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 18.15c-1.53 0-3.03-.41-4.34-1.19l-.31-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 01-1.26-4.34c0-4.54 3.7-8.23 8.24-8.23 4.54 0 8.23 3.69 8.23 8.23 0 4.54-3.69 8.24-8.27 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.4-.42-.56-.42h-.47c-.16 0-.43.06-.65.31s-.86.84-.86 2.05.88 2.38 1 2.54c.12.17 1.72 2.64 4.18 3.7.58.25 1.04.4 1.4.51.59.19 1.12.16 1.55.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
+  </a>
 
-    // Topbar shrink on scroll
-    const topbar = document.querySelector('.topbar');
-    window.addEventListener('scroll', () => {
-      topbar.classList.toggle('scrolled', window.scrollY > 12);
-    }, { passive: true });
-  </script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/core.js"></script>
+  <script src="assets/js/site.js"></script>
 </body>
 </html>

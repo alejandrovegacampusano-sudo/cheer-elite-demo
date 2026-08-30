@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07070a">
+  <title>Panel del club · Dragones Elite</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="assets/logo-dragones.png">
+  <link rel="preload" href="assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/core.css">
+  <link rel="stylesheet" href="assets/css/panel.css">
+</head>
+<body class="app">
+  <div class="ambient"><i></i><i></i><i></i></div>
+
+  <!-- ================= Acceso ================= -->
+  <section class="gate" id="gate">
+    <div class="card gate-card" data-reveal="zoom">
+      <span class="brand-mark"><img src="assets/logo-dragones.png" alt="" width="56" height="56"></span>
+      <div>
+        <h1>Panel del club</h1>
+        <p style="margin-top:8px">Gestión de deportistas, pagos, asistencia y cupos de la Academia Dragones Elite.</p>
+      </div>
+      <div class="field" style="width:100%;text-align:left">
+        <span>Correo del club</span>
+        <input id="gate-mail" type="email" value="directora@dragoneselite.cl" autocomplete="username">
+      </div>
+      <div class="field" style="width:100%;text-align:left">
+        <span>Clave</span>
+        <input id="gate-pass" type="password" value="demo2026" autocomplete="current-password">
+      </div>
+      <button class="btn btn-gold btn-block btn-lg" id="gate-in">Entrar al panel</button>
+      <p class="gate-note">
+        Demo sin servidor: cualquier clave abre el panel y los datos se guardan solo en este navegador.
+        En producción esto sería una cuenta real con roles (directora, coach, tesorería).
+      </p>
+      <a class="btn btn-ghost btn-sm" href="index.html">← Volver al sitio</a>
+    </div>
+  </section>
+
+  <!-- ================= Aplicación ================= -->
+  <div class="app-shell" id="app" hidden>
+    <aside class="side" id="side">
+      <a class="brand side-brand" href="index.html">
+        <span class="brand-mark"><img src="assets/logo-dragones.png" alt="" width="40" height="40"></span>
+        <span class="brand-text"><strong>DRAGONES</strong><small>Panel del club</small></span>
+      </a>
+
+      <nav class="side-nav">
+        <h6>Club</h6>
+        <button class="side-link active" data-view="resumen"><i>◱</i>Resumen</button>
+        <button class="side-link" data-view="deportistas"><i>◍</i>Deportistas</button>
+        <button class="side-link" data-view="equipos"><i>◈</i>Equipos</button>
+        <h6>Gestión</h6>
+        <button class="side-link" data-view="pagos"><i>◇</i>Pagos <span class="badge" id="badge-pagos" hidden></span></button>
+        <button class="side-link" data-view="asistencia"><i>◎</i>Asistencia</button>
+        <button class="side-link" data-view="calendario"><i>▤</i>Calendario</button>
+        <h6>Sistema</h6>
+        <button class="side-link" data-view="ajustes"><i>⚙</i>Ajustes</button>
+      </nav>
+
+      <div class="side-foot">
+        <div class="side-user">
+          <b>VS</b>
+          <span>Valentina Soto<small>Directora técnica</small></span>
+        </div>
+        <button class="btn btn-ghost btn-sm btn-block" id="salir">Cerrar sesión</button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-top">
+        <button class="burger-app" id="burger-app" aria-label="Menú"><span>☰</span></button>
+        <div>
+          <h1 id="view-title">Resumen</h1>
+          <span class="sub" id="view-sub">Temporada 2026</span>
+        </div>
+        <span class="grow"></span>
+        <div class="search"><input class="input" id="buscador" type="search" placeholder="Buscar deportista o apoderado…" aria-label="Buscar"></div>
+        <a class="btn btn-gold btn-sm" href="inscripcion.html">+ Inscribir</a>
+      </header>
+
+      <div class="app-body">
+        <!-- ---------- Resumen ---------- -->
+        <section class="view active" data-view="resumen">
+          <div class="kpi-grid" id="kpis"></div>
+
+          <div class="cols-2">
+            <div class="panel-box">
+              <div class="panel-head">
+                <div><h3>Ingresos por mes</h3><span class="sub">Mensualidades cobradas · últimos 6 meses</span></div>
+                <span class="grow"></span>
+                <span class="pill" id="pill-mes"></span>
+              </div>
+              <div class="panel-in"><svg class="chart" id="chart-ingresos" viewBox="0 0 640 240"></svg></div>
+            </div>
+
+            <div class="panel-box">
+              <div class="panel-head"><h3>Ocupación de cupos</h3></div>
+              <div class="panel-in">
+                <div class="donut-wrap">
+                  <svg class="donut" width="150" height="150" viewBox="0 0 150 150" id="donut"></svg>
+                  <div class="donut-legend" id="donut-legend"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cols-2">
+            <div class="panel-box">
+              <div class="panel-head">
+                <div><h3>Últimas inscripciones</h3><span class="sub">Altas más recientes del club</span></div>
+                <span class="grow"></span>
+                <button class="btn btn-ghost btn-sm" data-goto="deportistas">Ver todas</button>
+              </div>
+              <div class="table-wrap"><table class="data compact" id="tabla-recientes"></table></div>
+            </div>
+
+            <div class="panel-box">
+              <div class="panel-head">
+                <div><h3>Agenda</h3><span class="sub">Próximos eventos</span></div>
+                <span class="grow"></span>
+                <button class="btn btn-ghost btn-sm" data-goto="calendario">Calendario</button>
+              </div>
+              <div class="panel-in"><div class="ev-list" id="agenda"></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------- Deportistas ---------- -->
+        <section class="view" data-view="deportistas">
+          <div class="panel-box">
+            <div class="panel-head" style="flex-wrap:wrap">
+              <div class="filters" style="flex:1">
+                <select class="input select-sm" id="filtro-equipo"></select>
+                <button class="chip active" data-estado="todas">Todas</button>
+                <button class="chip" data-estado="activa">Activas</button>
+                <button class="chip" data-estado="pausa">En pausa</button>
+                <button class="chip" data-estado="deuda">Con deuda</button>
+              </div>
+              <button class="btn btn-ghost btn-sm" id="exportar">↓ Exportar CSV</button>
+            </div>
+            <div class="table-wrap"><table class="data" id="tabla-deportistas"></table></div>
+            <div class="pager" id="pager"></div>
+          </div>
+        </section>
+
+        <!-- ---------- Equipos ---------- -->
+        <section class="view" data-view="equipos">
+          <div class="cols-3" id="grid-equipos"></div>
+        </section>
+
+        <!-- ---------- Pagos ---------- -->
+        <section class="view" data-view="pagos">
+          <div class="kpi-grid" id="kpis-pagos"></div>
+          <div class="panel-box">
+            <div class="panel-head" style="flex-wrap:wrap">
+              <div><h3>Mensualidades</h3><span class="sub" id="pagos-sub"></span></div>
+              <span class="grow"></span>
+              <div class="filters">
+                <select class="input select-sm" id="filtro-mes"></select>
+                <button class="chip active" data-pago="todas">Todas</button>
+                <button class="chip" data-pago="pendiente">Pendientes</button>
+                <button class="chip" data-pago="vencido">Vencidas</button>
+              </div>
+            </div>
+            <div class="table-wrap"><table class="data" id="tabla-pagos"></table></div>
+          </div>
+        </section>
+
+        <!-- ---------- Asistencia ---------- -->
+        <section class="view" data-view="asistencia">
+          <div class="panel-box">
+            <div class="panel-head" style="flex-wrap:wrap">
+              <div><h3>Pasar lista</h3><span class="sub" id="asis-sub"></span></div>
+              <span class="grow"></span>
+              <div class="filters">
+                <select class="input select-sm" id="asis-equipo"></select>
+                <input class="input select-sm" id="asis-fecha" type="date" style="padding:9px 14px">
+              </div>
+            </div>
+            <div class="panel-in">
+              <div class="kpi-grid" id="asis-kpis" style="margin-bottom:18px"></div>
+              <div class="att-list" id="asis-lista"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------- Calendario ---------- -->
+        <section class="view" data-view="calendario">
+          <div class="cols-2">
+            <div class="panel-box">
+              <div class="panel-head">
+                <button class="page-btn" id="mes-prev">‹</button>
+                <h3 id="cal-titulo"></h3>
+                <button class="page-btn" id="mes-next">›</button>
+                <span class="grow"></span>
+                <button class="btn btn-ghost btn-sm" id="hoy">Hoy</button>
+              </div>
+              <div class="panel-in"><div class="cal" id="cal"></div></div>
+            </div>
+
+            <div class="panel-box">
+              <div class="panel-head"><h3>Nuevo evento</h3></div>
+              <div class="panel-in" style="display:grid;gap:14px">
+                <label class="field"><span>Título</span><input id="ev-titulo" placeholder="Ej. Ensayo general"></label>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                  <label class="field"><span>Fecha</span><input id="ev-fecha" type="date"></label>
+                  <label class="field"><span>Hora</span><input id="ev-hora" type="time" value="18:00"></label>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                  <label class="field"><span>Tipo</span>
+                    <select id="ev-tipo">
+                      <option value="entreno">Entrenamiento</option>
+                      <option value="competencia">Competencia</option>
+                      <option value="club">Actividad del club</option>
+                      <option value="pago">Pago</option>
+                    </select>
+                  </label>
+                  <label class="field"><span>Lugar</span><input id="ev-lugar" placeholder="Gimnasio"></label>
+                </div>
+                <button class="btn btn-gold btn-block" id="ev-crear">Agregar al calendario</button>
+                <div class="ev-list" id="ev-proximos"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------- Ajustes ---------- -->
+        <section class="view" data-view="ajustes">
+          <div class="cols-2">
+            <div class="panel-box">
+              <div class="panel-head"><h3>Datos del club</h3></div>
+              <div class="panel-in"><div class="kv" id="kv-club"></div></div>
+            </div>
+            <div class="panel-box">
+              <div class="panel-head"><h3>Valores por categoría</h3></div>
+              <div class="panel-in"><div class="kv" id="kv-precios"></div></div>
+            </div>
+          </div>
+
+          <div class="panel-box">
+            <div class="panel-head"><h3>Datos del prototipo</h3></div>
+            <div class="panel-in">
+              <div class="setting">
+                <div><h4>Exportar deportistas</h4><p>Descarga la nómina completa con estado de pago del mes en curso (CSV para Excel).</p></div>
+                <button class="btn btn-ghost btn-sm" id="exportar-2">Descargar CSV</button>
+              </div>
+              <div class="setting">
+                <div><h4>Reiniciar datos de ejemplo</h4><p>Vuelve al club sembrado por defecto y borra las inscripciones hechas en este navegador.</p></div>
+                <button class="btn btn-ghost btn-sm" id="reiniciar">Reiniciar</button>
+              </div>
+              <div class="setting">
+                <div><h4>Dónde viven los datos</h4><p>Todo se guarda en el <code>localStorage</code> de este navegador. No hay servidor ni base de datos: al conectar una API real, solo cambia <code>assets/js/store.js</code>.</p></div>
+                <span class="tag mute">Prototipo</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= Ficha lateral ================= -->
+  <div class="drawer-veil" id="drawer-veil"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true"></aside>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/core.js"></script>
+  <script src="assets/js/panel.js"></script>
+</body>
+</html>

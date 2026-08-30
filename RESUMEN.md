@@ -1,6 +1,7 @@
-# Prototipo — Academia Dragones Elite (Inscripciones)
+# Academia Dragones Elite — sitio web + plataforma del club
 
-Prototipo web de inscripciones y gestión para la Academia Dragones Elite (cheerleading, Iquique). Proyecto independiente de MOVANORTE — vive en su propia carpeta (`prototipo-cheer/`) y su propio repo de GitHub.
+Sitio público y panel de gestión para la Academia Dragones Elite (cheerleading,
+Iquique). Proyecto independiente de MOVANORTE, en su propio repo.
 
 ## Link publicado
 
@@ -8,40 +9,58 @@ Prototipo web de inscripciones y gestión para la Academia Dragones Elite (cheer
 
 Repo: `github.com/alejandrovegacampusano-sudo/cheer-elite-demo`
 
-## Qué hace
+## Qué es ahora
 
-**Vista pública (landing + inscripción):**
-1. Hero con identidad del club ("Esto es más que cheer", lema real "El Dragón, una vez más") — la energía del club antes que la venta.
-2. Strip de logros: años de trayectoria, familias en la comunidad, equipos activos, campeonatos.
-3. Flujo de inscripción en 3 pasos:
-   - **Categoría** → según edad (Mini, Youth, Junior, Senior), con selección de equipo dentro de cada una.
-   - **Ficha** → datos de la deportista, apoderado, alergias/condiciones médicas, contacto de emergencia.
-   - **Confirmar** → resumen + matrícula/mensualidad (pago simulado, sin pasarela real todavía).
-4. Sección "Momentos Dragones Elite" — galería tipo mosaico con degradados de marca (placeholder hasta tener fotos reales del club).
+Pasó de ser una página única de inscripción a **tres piezas conectadas**:
 
-**Panel del club** (botón arriba a la derecha):
-- Métricas: deportistas activas, equipos, ingreso mensual proyectado, nuevas inscripciones.
-- Filtro por equipo.
-- Lista de fichas con estado de pago (al día / pendiente).
+1. **Sitio público** (`index.html`) — landing de club profesional: hero a pantalla
+   completa con tipografía de cartel, programas por categoría, equipos con cupos
+   reales, historia del club, galería con visor, cuerpo técnico, testimonios,
+   preguntas frecuentes y CTA a WhatsApp.
+2. **Inscripción** (`inscripcion.html`) — tres pasos con sugerencia de categoría
+   por edad, cupos en vivo, descuento por hermanas, clase de prueba y resumen de
+   pago que se actualiza solo.
+3. **Panel del club** (`panel.html`) — la parte SaaS: resumen con métricas y
+   gráficos, listado de deportistas con ficha lateral, control de pagos con
+   recordatorio por WhatsApp, asistencia, calendario y ajustes.
 
-## Identidad visual
+Las tres comparten un sistema de diseño (negro + dorado + blanco cálido) y una
+sola fuente de datos: cambiar un precio en `assets/js/data.js` lo cambia en todo.
 
-- Paleta: negro + dorado + blanco cálido, con brillo "tornasol" animado (degradado dorado/blanco en movimiento) — tomada de la paleta real del club, no de MOVANORTE.
-- Logo: foto de perfil real de Instagram (`@dragoneselite`), recortada y usada en el header y la tarjeta de confianza (`assets/logo-dragones.png`).
-- Fondo animado (blobs difuminados dorado/blanco), scroll reveal, contadores animados, transiciones entre pasos, micro-interacciones en botones y tarjetas.
+## Lo que se agregó en esta versión
 
-## Stack técnico
+- Identidad visual completa: escala tipográfica (Anton + Manrope + DM Sans
+  auto-alojadas), tokens de color, sombras y curvas de animación reutilizables.
+- Movimiento con intención: aparición por scroll escalonada, parallax, contadores,
+  marquesina, transiciones entre páginas, confeti al confirmar, micro-interacciones
+  en botones y tarjetas. Todo respeta `prefers-reduced-motion`.
+- Ilustraciones de marca propias (siluetas de stunt, jumps, basket toss, tumbling,
+  podio y equipo) generadas por `tools/gen-art.js`, mientras llegan las fotos reales.
+- Un club sembrado y realista: 150+ deportistas repartidas en 8 equipos, con
+  historial de pagos de 6 meses, asistencia y agenda, para que el panel se vea como
+  una temporada en curso y no como una demo vacía.
+- Adaptación a móvil en las tres páginas y navegación por teclado en visor y menús.
 
-HTML + CSS + JS puro (sin frameworks), igual que los otros prototipos de MOVANORTE. Datos guardados en `localStorage` del navegador — no hay backend ni base de datos real todavía.
+## Stack
 
-## Pendiente (para dejarlo 100% real)
+HTML, CSS y JavaScript puro, sin frameworks ni compilación. Los datos se guardan
+en `localStorage`; toda la persistencia está aislada en `assets/js/store.js`, que
+es el único archivo a reemplazar cuando exista una API real.
 
-1. **Categorías/equipos reales**: hoy son de ejemplo (Mini/Youth/Junior/Senior con equipos genéricos). Falta reemplazar con los equipos reales del club (vi nombres como Sharks, Strike, Orion en su Instagram, sin confirmar).
-2. **Precios reales** de matrícula y mensualidad por categoría.
-3. **Logo en alta resolución**: el actual es una foto de perfil de Instagram recortada; si el club tiene el archivo original (PNG/SVG transparente), reemplazar para que se vea nítido en cualquier tamaño.
-4. **Pasarela de pago real** (Transbank, Flow o Mercado Pago) — hoy el pago es solo simulado.
-5. **Fotos reales** del club para la sección "Momentos Dragones Elite" (hoy son degradados de color, no fotos).
+## Pendiente para dejarlo 100% real
+
+1. **Equipos y precios reales** — hoy son de ejemplo (en Instagram aparecen nombres
+   como Sharks, Strike y Orion, sin confirmar).
+2. **Fotos oficiales** del club para galería y programas.
+3. **Logo en alta resolución** (el actual es una foto de perfil recortada).
+4. **Pasarela de pago** real: Transbank, Flow o Mercado Pago.
+5. **Backend y cuentas** con roles (directora, coach, tesorería) en vez de
+   `localStorage` y una pantalla de acceso de demo.
+
+Detalle técnico y guía para adaptarlo: ver `README.md`.
 
 ## Comparación con soluciones del mercado
 
-Existen plataformas ya hechas para esto (iClassPro, Amilia, TeamLinkt, Communiti), pero son SaaS pagado en USD pensado para academias grandes/cadenas. Para un club puntual como este, un sistema propio sale más barato y a la medida — de ahí la decisión de construir este prototipo en vez de contratar una de esas herramientas.
+Existen plataformas ya hechas (iClassPro, Amilia, TeamLinkt, Communiti), pero son
+SaaS en dólares pensado para academias grandes. Para un club puntual como este, un
+sistema propio sale más barato y a la medida — de ahí la decisión de construirlo.

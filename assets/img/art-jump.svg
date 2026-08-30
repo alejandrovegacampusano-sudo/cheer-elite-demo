@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" width="900" height="700" role="img" aria-label="JUMP">
+  <defs>
+  <linearGradient id="bgartjump" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0" stop-color="#fff5db" /><stop offset="1" stop-color="#e0b95a" />
+  </linearGradient>
+  <radialGradient id="spotartjump" cx="50%" cy="14%" r="72%">
+  <stop offset="0" stop-color="#ffffff" stop-opacity=".78" /><stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+  </radialGradient>
+  <linearGradient id="fadeartjump" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#000" stop-opacity="0" /><stop offset="1" stop-color="#000" stop-opacity=".55" />
+  </linearGradient>
+  <pattern id="dotsartjump" width="16" height="16" patternUnits="userSpaceOnUse">
+  <circle cx="3" cy="3" r="1.7" fill="#0a0806" opacity=".2" />
+  </pattern>
+  <clipPath id="clipartjump"><rect width="900" height="700" /></clipPath>
+  </defs>
+  <g clip-path="url(#clipartjump)">
+  <rect width="900" height="700" fill="url(#bgartjump)" />
+  <rect width="900" height="700" fill="url(#spotartjump)" />
+  <rect width="900" height="700" fill="url(#dotsartjump)" />
+  <text x="450" y="434" text-anchor="middle" font-family="Impact, 'Arial Black', 'Helvetica Neue', sans-serif" font-size="280" fill="#0a0806" opacity=".08" letter-spacing="6">JUMP</text>
+  <path d="M90 570 Q450 180 810 570" fill="none" stroke="#0a0806" stroke-width="3" opacity="0.2" stroke-linecap="round" stroke-dasharray="12 14" />
+  <g transform="translate(450 364) rotate(0) scale(1.05)" opacity="1">
+  <g fill="none" stroke="#0a0806" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M-24 -62 L-48 -80 L-100 -96" /><path d="M24 -62 L48 -80 L100 -96" />
+  </g>
+  <g fill="none" stroke="#0a0806" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M-13 2 L-72 -8 L-128 -30" /><path d="M13 2 L72 -8 L128 -30" />
+  </g>
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#0a0806" />
+  <circle cx="-24" cy="-64" r="12" fill="#0a0806" />
+  <circle cx="24" cy="-64" r="12" fill="#0a0806" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#0a0806" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#0a0806" />
+  <circle cx="0" cy="-106" r="20" fill="#0a0806" />
+  </g>
+  <g transform="translate(153 462) rotate(0) scale(0.62)" opacity="0.35">
+  <g fill="none" stroke="#0a0806" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M-24 -62 L-48 -80 L-100 -96" /><path d="M24 -62 L48 -80 L100 -96" />
+  </g>
+  <g fill="none" stroke="#0a0806" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M-13 2 L-72 -8 L-128 -30" /><path d="M13 2 L72 -8 L128 -30" />
+  </g>
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#0a0806" />
+  <circle cx="-24" cy="-64" r="12" fill="#0a0806" />
+  <circle cx="24" cy="-64" r="12" fill="#0a0806" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#0a0806" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#0a0806" />
+  <circle cx="0" cy="-106" r="20" fill="#0a0806" />
+  </g>
+  <g transform="translate(747 462) rotate(0) scale(0.62)" opacity="0.35">
+  <g fill="none" stroke="#0a0806" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M-24 -62 L-48 -80 L-100 -96" /><path d="M24 -62 L48 -80 L100 -96" />
+  </g>
+  <g fill="none" stroke="#0a0806" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M-13 2 L-72 -8 L-128 -30" /><path d="M13 2 L72 -8 L128 -30" />
+  </g>
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#0a0806" />
+  <circle cx="-24" cy="-64" r="12" fill="#0a0806" />
+  <circle cx="24" cy="-64" r="12" fill="#0a0806" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#0a0806" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#0a0806" />
+  <circle cx="0" cy="-106" r="20" fill="#0a0806" />
+  </g>
+  <rect x="253.2" y="44.3" width="7.7" height="2.9" rx="1.5" fill="#0a0806" opacity="0.45" transform="rotate(289 253.2 44.3)" /><rect x="842.1" y="67.4" width="12.3" height="4.7" rx="1.5" fill="#0a0806" opacity="0.24" transform="rotate(82 842.1 67.4)" /><rect x="122.5" y="512.8" width="12.4" height="4.7" rx="1.5" fill="#0a0806" opacity="0.38" transform="rotate(297 122.5 512.8)" /><rect x="497.0" y="412.5" width="11.7" height="4.5" rx="1.5" fill="#0a0806" opacity="0.25" transform="rotate(40 497.0 412.5)" /><rect x="135.2" y="495.8" width="5.2" height="2.0" rx="1.5" fill="#0a0806" opacity="0.27" transform="rotate(247 135.2 495.8)" /><rect x="573.2" y="81.3" width="9.0" height="3.4" rx="1.5" fill="#0a0806" opacity="0.55" transform="rotate(118 573.2 81.3)" /><rect x="513.8" y="316.6" width="8.3" height="3.2" rx="1.5" fill="#0a0806" opacity="0.30" transform="rotate(281 513.8 316.6)" /><rect x="126.3" y="79.9" width="8.7" height="3.3" rx="1.5" fill="#0a0806" opacity="0.30" transform="rotate(71 126.3 79.9)" /><rect x="546.9" y="12.0" width="13.7" height="5.2" rx="1.5" fill="#0a0806" opacity="0.33" transform="rotate(88 546.9 12.0)" /><rect x="378.4" y="401.1" width="7.1" height="2.7" rx="1.5" fill="#0a0806" opacity="0.24" transform="rotate(321 378.4 401.1)" /><rect x="890.2" y="59.3" width="5.8" height="2.2" rx="1.5" fill="#0a0806" opacity="0.35" transform="rotate(303 890.2 59.3)" /><rect x="118.5" y="354.5" width="9.0" height="3.4" rx="1.5" fill="#0a0806" opacity="0.55" transform="rotate(237 118.5 354.5)" /><rect x="165.9" y="120.7" width="8.9" height="3.4" rx="1.5" fill="#0a0806" opacity="0.51" transform="rotate(190 165.9 120.7)" /><rect x="702.1" y="483.5" width="6.0" height="2.3" rx="1.5" fill="#0a0806" opacity="0.48" transform="rotate(255 702.1 483.5)" /><rect x="263.0" y="563.4" width="13.9" height="5.3" rx="1.5" fill="#0a0806" opacity="0.46" transform="rotate(235 263.0 563.4)" /><rect x="851.4" y="119.8" width="5.4" height="2.0" rx="1.5" fill="#0a0806" opacity="0.32" transform="rotate(278 851.4 119.8)" /><rect x="536.9" y="212.2" width="10.3" height="3.9" rx="1.5" fill="#0a0806" opacity="0.30" transform="rotate(316 536.9 212.2)" /><rect x="155.4" y="93.3" width="10.9" height="4.2" rx="1.5" fill="#0a0806" opacity="0.47" transform="rotate(113 155.4 93.3)" /><rect x="709.8" y="448.1" width="6.4" height="2.4" rx="1.5" fill="#0a0806" opacity="0.53" transform="rotate(255 709.8 448.1)" /><rect x="469.6" y="485.0" width="10.2" height="3.9" rx="1.5" fill="#0a0806" opacity="0.26" transform="rotate(157 469.6 485.0)" /><rect x="770.7" y="183.8" width="10.0" height="3.8" rx="1.5" fill="#0a0806" opacity="0.23" transform="rotate(260 770.7 183.8)" /><rect x="716.1" y="560.1" width="12.6" height="4.8" rx="1.5" fill="#0a0806" opacity="0.36" transform="rotate(151 716.1 560.1)" />
+  <rect width="900" height="700" fill="url(#fadeartjump)" />
+  </g>
+</svg>
