@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="bg-mesh"><span></span><span></span><span></span></div>
   <header class="topbar">
     <a class="brand" href="#" aria-label="Inicio Dragones Elite">
       <span class="brand-mark">DE</span>
@@ -30,14 +31,14 @@
           <h1>Súmate al equipo.<br><em>Inscríbete en 3 minutos.</em></h1>
           <p>Elige categoría y equipo, completa la ficha de tu deportista y confirma la matrícula. Todo desde el celular, sin planillas ni WhatsApp perdido.</p>
         </div>
-        <div class="trust-card">
+        <div class="trust-card reveal">
           <div class="avatar">DE</div>
-          <div><strong>Academia Dragones Elite</strong><span>19 años de trayectoria · Iquique</span></div>
+          <div><strong>Academia Dragones Elite</strong><span><span class="stat-num" data-count="19">0</span> años de trayectoria · Iquique</span></div>
           <b>★ 4,9</b>
         </div>
       </div>
 
-      <div class="shell" id="enroll-shell">
+      <div class="shell reveal" id="enroll-shell">
         <nav class="steps" aria-label="Progreso de inscripción">
           <button class="step active" data-go="1"><span>1</span>Categoría</button>
           <button class="step" data-go="2"><span>2</span>Ficha</button>
@@ -105,9 +106,24 @@
       </div>
 
       <section class="benefits">
-        <article><span>01</span><h3>Sin planillas</h3><p>Cada ficha queda digital, ordenada por equipo y categoría.</p></article>
-        <article><span>02</span><h3>Pagos claros</h3><p>Matrícula y mensualidad definidas desde la inscripción.</p></article>
-        <article><span>03</span><h3>Todo en un lugar</h3><p>El club ve el estado de cada deportista sin perseguir WhatsApp.</p></article>
+        <article class="reveal"><span>01</span><h3>Sin planillas</h3><p>Cada ficha queda digital, ordenada por equipo y categoría.</p></article>
+        <article class="reveal"><span>02</span><h3>Pagos claros</h3><p>Matrícula y mensualidad definidas desde la inscripción.</p></article>
+        <article class="reveal"><span>03</span><h3>Todo en un lugar</h3><p>El club ve el estado de cada deportista sin perseguir WhatsApp.</p></article>
+      </section>
+
+      <section class="gallery">
+        <div class="gallery-head reveal">
+          <span class="eyebrow">Vida en la academia</span>
+          <h2 style="font-size:28px;margin:8px 0 0">Momentos Dragones Elite</h2>
+        </div>
+        <div class="gallery-grid">
+          <div class="gallery-tile reveal" style="--grad:linear-gradient(135deg,#ff5da2,#6c3ce0)"><span>Entrenamientos<small>Stunt & tumbling</small></span></div>
+          <div class="gallery-tile reveal" style="--grad:linear-gradient(135deg,#6c3ce0,#3d1e6d)"><span>Competencias<small>Nacionales e internacionales</small></span></div>
+          <div class="gallery-tile reveal" style="--grad:linear-gradient(135deg,#ffc93c,#ff5da2)"><span>Shows en vivo<small>Showcase de temporada</small></span></div>
+          <div class="gallery-tile reveal" style="--grad:linear-gradient(135deg,#3d1e6d,#ff5da2)"><span>Equipos por edad<small>Mini a Senior</small></span></div>
+          <div class="gallery-tile reveal" style="--grad:linear-gradient(135deg,#ff5da2,#ffc93c)"><span>19 años<small>Formando deportistas en Iquique</small></span></div>
+          <div class="gallery-tile reveal" style="--grad:linear-gradient(135deg,#6c3ce0,#ffc93c)"><span>Comunidad<small>+11 mil familias siguiéndonos</small></span></div>
+        </div>
       </section>
     </section>
 
@@ -130,5 +146,44 @@
   <footer><strong>DRAGONES ELITE</strong><span>Prototipo de inscripciones automatizadas · datos guardados solo en este navegador</span></footer>
   <div class="toast" id="toast" role="status"></div>
   <script src="app.js"></script>
+  <script>
+    // Scroll reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Animated counters
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const target = Number(el.dataset.count);
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            let current = 0;
+            const step = Math.max(1, Math.round(target / 40));
+            const tick = () => {
+              current = Math.min(target, current + step);
+              el.textContent = current;
+              if (current < target) requestAnimationFrame(tick);
+            };
+            tick();
+            counterObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      counterObserver.observe(el);
+    });
+
+    // Topbar shrink on scroll
+    const topbar = document.querySelector('.topbar');
+    window.addEventListener('scroll', () => {
+      topbar.classList.toggle('scrolled', window.scrollY > 12);
+    }, { passive: true });
+  </script>
 </body>
 </html>
