@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07070a">
+  <title>Portal de apoderados · Dragones Elite</title>
+  <meta name="description" content="Portal de apoderados de la Academia Dragones Elite: pagos, asistencia, horarios y avisos del club.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="assets/logo-dragones.png">
+  <link rel="preload" href="assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/core.css">
+  <link rel="stylesheet" href="assets/css/portal.css">
+</head>
+<body>
+  <div class="ambient"><i></i><i></i><i></i></div>
+
+  <!-- ================= Acceso ================= -->
+  <section class="gate" id="gate">
+    <div class="card gate-card">
+      <span class="brand-mark"><img src="assets/logo-dragones.png" alt="" width="56" height="56"></span>
+      <div>
+        <h1>Portal de apoderados</h1>
+        <p style="margin-top:8px">Entra con el WhatsApp que registraste en la inscripción para ver los pagos, la asistencia y los horarios de tu hija.</p>
+      </div>
+
+      <label class="field">
+        <span>WhatsApp del apoderado</span>
+        <div class="combo"><b>+56</b><input id="tel" inputmode="numeric" autocomplete="tel" placeholder="9 1234 5678"></div>
+        <span class="hint" id="tel-hint">Es el mismo número que dejaste al inscribir.</span>
+      </label>
+
+      <button class="btn btn-gold btn-block btn-lg" id="entrar">Entrar</button>
+      <button class="btn btn-ghost btn-sm btn-block" id="demo">Probar con una familia de ejemplo</button>
+
+      <p class="gate-note">
+        Demo sin servidor: no hay clave todavía. En producción se entra con un código
+        que el club envía por WhatsApp.
+      </p>
+      <a class="btn btn-ghost btn-sm" href="index.html">← Volver al sitio</a>
+    </div>
+  </section>
+
+  <!-- ================= Portal ================= -->
+  <div id="portal" hidden>
+    <header class="portal-top">
+      <a class="brand" href="index.html">
+        <span class="brand-mark"><img src="assets/logo-dragones.png" alt="" width="40" height="40"></span>
+        <span class="brand-text"><strong>DRAGONES</strong><small>Portal de apoderados</small></span>
+      </a>
+      <span class="grow"></span>
+      <a class="btn btn-ghost btn-sm" id="wa-club" href="#" target="_blank" rel="noopener">Escribir al club</a>
+      <button class="btn btn-solid btn-sm" id="salir"><span class="txt">Cerrar sesión</span></button>
+    </header>
+
+    <main class="portal-wrap">
+      <div class="hello">
+        <h1 id="saludo">Hola</h1>
+        <p id="bajada">Todo lo de tu familia en el club, en un solo lugar.</p>
+      </div>
+
+      <div class="kids" id="kids"></div>
+
+      <section class="athlete-hero" id="athlete-hero"></section>
+
+      <section class="pcard">
+        <header>
+          <h3>Mensualidad</h3>
+          <span class="grow"></span>
+          <span id="pago-estado"></span>
+        </header>
+        <div class="pcard-in" id="pago-box"></div>
+      </section>
+
+      <section class="pcard">
+        <header>
+          <h3>Asistencia</h3>
+          <span class="grow"></span>
+          <span class="tag mute" id="asis-pct"></span>
+        </header>
+        <div class="pcard-in" id="asis-box"></div>
+      </section>
+
+      <section class="pcard">
+        <header><h3>Avisos del club</h3></header>
+        <div class="pcard-in" id="avisos-box"></div>
+      </section>
+
+      <section class="pcard">
+        <header><h3>Próximas fechas</h3></header>
+        <div class="pcard-in"><div class="next-list" id="agenda-box"></div></div>
+      </section>
+
+      <section class="pcard">
+        <header>
+          <h3>Datos de la ficha</h3>
+          <span class="grow"></span>
+          <span class="tag mute">Los ve solo el club</span>
+        </header>
+        <div class="pcard-in">
+          <div class="form-grid">
+            <label class="field"><span>WhatsApp de contacto</span><div class="combo"><b>+56</b><input id="d-telefono" inputmode="numeric"></div></label>
+            <label class="field"><span>Correo</span><input id="d-email" type="email" placeholder="tucorreo@correo.cl"></label>
+            <label class="field"><span>Talla de uniforme</span>
+              <select id="d-talla"><option value="">Por definir</option><option>XS</option><option>S</option><option>M</option><option>L</option></select>
+            </label>
+            <label class="field"><span>Contacto de emergencia</span><input id="d-emergencia" placeholder="Nombre y teléfono"></label>
+            <label class="field full"><span>Alergias, lesiones o condiciones médicas</span><textarea id="d-medico" rows="2" placeholder="Ninguna"></textarea></label>
+          </div>
+          <button class="btn btn-gold" id="guardar-ficha" style="justify-self:start">Guardar cambios</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ================= Pago simulado ================= -->
+  <div class="sheet-veil" id="sheet-veil"></div>
+  <div class="sheet" id="sheet"></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/core.js"></script>
+  <script src="assets/js/apoderados.js"></script>
+</body>
+</html>

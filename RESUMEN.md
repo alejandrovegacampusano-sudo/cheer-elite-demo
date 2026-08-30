@@ -11,21 +11,29 @@ Repo: `github.com/alejandrovegacampusano-sudo/cheer-elite-demo`
 
 ## Qué es ahora
 
-Pasó de ser una página única de inscripción a **tres piezas conectadas**:
+Pasó de ser una página única de inscripción a **tres accesos distintos**, cada uno
+con su público:
 
-1. **Sitio público** (`index.html`) — landing de club profesional: hero a pantalla
-   completa con tipografía de cartel, programas por categoría, equipos con cupos
-   reales, historia del club, galería con visor, cuerpo técnico, testimonios,
-   preguntas frecuentes y CTA a WhatsApp.
-2. **Inscripción** (`inscripcion.html`) — tres pasos con sugerencia de categoría
-   por edad, cupos en vivo, descuento por hermanas, clase de prueba y resumen de
-   pago que se actualiza solo.
-3. **Panel del club** (`panel.html`) — la parte SaaS: resumen con métricas y
-   gráficos, listado de deportistas con ficha lateral, control de pagos con
-   recordatorio por WhatsApp, asistencia, calendario y ajustes.
+1. **Sitio público** (`index.html` + `inscripcion.html`) — para el mundo: hero a
+   pantalla completa con tipografía de cartel, programas por categoría, equipos con
+   cupos reales, historia, galería con visor, cuerpo técnico, testimonios, preguntas
+   frecuentes, y la inscripción en tres pasos con cupos en vivo y descuento por hermanas.
+2. **Portal de apoderados** (`apoderados.html`) — para las familias: entra con el
+   WhatsApp de la inscripción y ve solo lo suyo. Sus hijas (puede tener varias), la
+   mensualidad del mes con pago en línea, el historial, la asistencia clase por clase,
+   los horarios, los avisos del club y sus propios datos, que puede corregir.
+3. **Panel del club** (`panel.html`) — para la directiva y los sostenedores: dashboard
+   con métricas y gráficos, deportistas con ficha lateral, equipos, control de pagos con
+   recordatorio por WhatsApp, asistencia, calendario, avisos y ajustes.
 
-Las tres comparten un sistema de diseño (negro + dorado + blanco cálido) y una
-sola fuente de datos: cambiar un precio en `assets/js/data.js` lo cambia en todo.
+Los tres están separados —cada uno con su diseño y su código— pero comparten una sola
+fuente de datos, y eso es lo que los hace un sistema y no tres páginas sueltas:
+
+- El club marca un pago → la apoderada lo ve al instante en su portal.
+- La apoderada corrige un teléfono → el club lo ve en la ficha.
+- El club publica un aviso → aparece en el portal de todas las familias.
+- Una mamá inscribe a su hija → entra directo a su portal, ya con sesión, y la ficha
+  aparece en el panel del club.
 
 ## Lo que se agregó en esta versión
 
@@ -39,7 +47,8 @@ sola fuente de datos: cambiar un precio en `assets/js/data.js` lo cambia en todo
 - Un club sembrado y realista: 150+ deportistas repartidas en 8 equipos, con
   historial de pagos de 6 meses, asistencia y agenda, para que el panel se vea como
   una temporada en curso y no como una demo vacía.
-- Adaptación a móvil en las tres páginas y navegación por teclado en visor y menús.
+- Adaptación a móvil en las cuatro páginas —el portal de apoderados está pensado
+  para el celular primero— y navegación por teclado en visor y menús.
 
 ## Stack
 

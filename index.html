@@ -33,12 +33,12 @@
         <a href="#equipos" data-nav-link>Equipos</a>
         <a href="#club" data-nav-link>El club</a>
         <a href="#galeria" data-nav-link>Galería</a>
-        <a href="#plataforma" data-nav-link>Plataforma</a>
+        <a href="#accesos" data-nav-link>Accesos</a>
         <a href="#faq" data-nav-link>Preguntas</a>
       </nav>
 
       <div class="header-cta">
-        <a class="btn btn-ghost btn-sm" href="panel.html">Panel del club</a>
+        <a class="btn btn-ghost btn-sm" href="apoderados.html">Acceso apoderados</a>
         <a class="btn btn-gold btn-sm" href="inscripcion.html" data-magnetic>Inscribir <span class="ico">→</span></a>
         <button class="burger" data-menu-toggle aria-expanded="false" aria-label="Abrir menú"><span></span></button>
       </div>
@@ -51,10 +51,10 @@
     <a href="#equipos">Equipos</a>
     <a href="#club">El club</a>
     <a href="#galeria">Galería</a>
-    <a href="#plataforma">Plataforma</a>
+    <a href="#accesos">Accesos</a>
     <a href="#faq">Preguntas</a>
     <a class="btn btn-gold btn-lg" href="inscripcion.html">Inscribir deportista</a>
-    <a class="btn btn-ghost" href="panel.html">Panel del club</a>
+    <a class="btn btn-ghost" href="apoderados.html">Acceso apoderados</a>
   </div>
 
   <main>
@@ -253,45 +253,76 @@
       </div>
     </section>
 
-    <!-- ================= Plataforma / SaaS ================= -->
-    <section class="section" id="plataforma">
+    <!-- ================= Accesos ================= -->
+    <section class="section" id="accesos">
       <div class="wrap platform">
         <div>
-          <span class="eyebrow" data-reveal>La plataforma del club</span>
-          <h2 data-reveal style="--delay:80ms;font-size:clamp(30px,4.4vw,52px)">El club también<br>es software.</h2>
+          <span class="eyebrow" data-reveal>Después de inscribir</span>
+          <h2 data-reveal style="--delay:80ms;font-size:clamp(30px,4.4vw,52px)">El club, en el<br>teléfono de la casa.</h2>
           <p class="lead" data-reveal style="--delay:140ms;margin-top:18px">
-            Detrás de la inscripción hay un panel donde el club ve deportistas, pagos,
-            asistencia y cupos en tiempo real. Sin planillas y sin perseguir mensajes.
+            Cada familia tiene su propio acceso. Entras con tu WhatsApp y ves lo de tu hija:
+            si la mensualidad está al día, cuánto ha asistido, a qué hora entrena y los avisos
+            del club. Sin preguntar por interno, sin buscar en el grupo.
           </p>
 
           <div class="feature-list" data-stagger>
-            <div class="feature" data-reveal><i>◧</i><div><h4>Fichas digitales</h4><p>Datos, apoderado, contacto de emergencia y condiciones médicas, siempre a mano.</p></div></div>
-            <div class="feature" data-reveal><i>◈</i><div><h4>Control de pagos</h4><p>Matrícula y mensualidades por deportista, con morosidad y cobranza del mes.</p></div></div>
-            <div class="feature" data-reveal><i>◇</i><div><h4>Asistencia</h4><p>Pasar lista por equipo en el celular, en la misma pista.</p></div></div>
-            <div class="feature" data-reveal><i>◆</i><div><h4>Cupos y calendario</h4><p>Ocupación por equipo y agenda de competencias, evaluaciones y cierres de pago.</p></div></div>
+            <div class="feature" data-reveal><i>◈</i><div><h4>Tus pagos</h4><p>Estado del mes, historial y pago en línea desde el celular.</p></div></div>
+            <div class="feature" data-reveal><i>◎</i><div><h4>Su asistencia</h4><p>Cuántas clases fue y a cuántas faltó, clase por clase.</p></div></div>
+            <div class="feature" data-reveal><i>▤</i><div><h4>Fechas que importan</h4><p>Competencias, evaluaciones, reuniones y cierres de pago.</p></div></div>
+            <div class="feature" data-reveal><i>◔</i><div><h4>Avisos del club</h4><p>Uniformes, viajes y cambios de horario, en un solo lugar.</p></div></div>
           </div>
 
           <div class="row" style="margin-top:30px">
-            <a class="btn btn-gold" href="panel.html" data-magnetic>Entrar al panel <span class="ico">→</span></a>
-            <span class="pill"><i class="dot"></i>Demo con datos de ejemplo</span>
+            <a class="btn btn-gold" href="apoderados.html" data-magnetic>Entrar al portal <span class="ico">→</span></a>
+            <span class="pill"><i class="dot"></i>Con el WhatsApp de la inscripción</span>
           </div>
         </div>
 
         <div class="screen" data-reveal="right" data-tilt="4">
-          <div class="screen-bar"><i></i><i></i><i></i><span>panel.dragoneselite.cl</span></div>
+          <div class="screen-bar"><i></i><i></i><i></i><span>portal de apoderados</span></div>
           <div class="screen-body">
-            <div class="mini-kpis">
-              <div class="mini-kpi"><span>Activas</span><strong class="num">146</strong></div>
-              <div class="mini-kpi"><span>Al día</span><strong class="num">72%</strong></div>
-              <div class="mini-kpi"><span>Mes</span><strong class="num">$4,1M</strong></div>
+            <div class="mock-row">
+              <span class="mock-face">MV</span>
+              <div class="mock-txt">
+                <strong>Martina Vega</strong>
+                <span>Junior Inferno · Lun a Jue 18:30</span>
+              </div>
+              <span class="tag ok">Al día</span>
             </div>
-            <div class="mini-chart" id="mini-chart"></div>
-            <div class="mini-rows">
-              <div class="mini-row"><b>MV</b><span>Martina Vega · Junior Inferno</span><span class="tag ok">Al día</span></div>
-              <div class="mini-row"><b>AS</b><span>Antonella Soto · Youth Storm</span><span class="tag warn">Pendiente</span></div>
-              <div class="mini-row"><b>JM</b><span>Josefa Muñoz · Senior Elite</span><span class="tag ok">Al día</span></div>
+
+            <div class="mock-pay">
+              <div>
+                <span>Mensualidad de este mes</span>
+                <strong>$31.900</strong>
+              </div>
+              <span class="btn btn-gold btn-sm">Pagar</span>
+            </div>
+
+            <div class="mock-att">
+              <span>Asistencia · últimas 8 clases</span>
+              <div id="mock-asis"></div>
+            </div>
+
+            <div class="mock-row">
+              <div class="mock-txt">
+                <strong>Toma de medidas de uniformes</strong>
+                <span>Sábado 16:30 · Gimnasio</span>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="wrap" style="margin-top:clamp(28px,4vw,44px)">
+        <div class="card" data-reveal style="padding:clamp(20px,3vw,28px);display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+          <div style="flex:1;min-width:240px">
+            <h3 style="font-size:17px">¿Eres del equipo del club?</h3>
+            <p style="font-size:13.5px;color:var(--muted);margin-top:5px">
+              La directiva y el cuerpo técnico entran al panel de gestión: deportistas, pagos,
+              asistencia, cupos y calendario de toda la academia.
+            </p>
+          </div>
+          <a class="btn btn-ghost" href="panel.html">Entrar al panel del club <span class="ico">→</span></a>
         </div>
       </div>
     </section>
@@ -345,8 +376,8 @@
         </div>
         <div>
           <h5>Familias</h5>
-          <a href="inscripcion.html">Inscripción</a>
-          <a href="panel.html">Panel del club</a>
+          <a href="inscripcion.html">Inscribir deportista</a>
+          <a href="apoderados.html">Portal de apoderados</a>
           <a href="#" id="wa-link-2">WhatsApp</a>
         </div>
         <div>
@@ -358,7 +389,7 @@
       </div>
       <div class="footer-bottom">
         <span>© <span data-year></span> Academia Dragones Elite · Prototipo de plataforma</span>
-        <span>Datos guardados solo en este navegador · sin servidor</span>
+        <span><a href="panel.html" style="color:var(--muted-2)">Acceso del club</a> · datos guardados solo en este navegador</span>
       </div>
     </div>
   </footer>

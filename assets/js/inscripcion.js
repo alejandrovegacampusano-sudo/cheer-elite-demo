@@ -225,6 +225,9 @@
       notas: `Inscripción web · pago ${estado.pago}${estado.ficha.prueba ? ' · clase de prueba' : ''}`
     });
 
+    /* Deja la sesión del apoderado abierta: al salir de aquí entra directo a su portal */
+    Store.sesionApoderado.abrir(estado.ficha.telefono);
+
     $('#done-nombre').textContent = `¡Bienvenida, ${nueva.nombre.split(' ')[0]}!`;
     $('#done-copy').textContent = estado.ficha.prueba
       ? 'Reservamos el cupo para la clase de evaluación. El club confirmará el día y la hora por WhatsApp.'
@@ -232,7 +235,8 @@
     $('#done-card').innerHTML = `
       <b>${estado.categoria.nombre} · ${estado.equipo.nombre}</b>
       <span>${estado.equipo.horario} · Coach ${estado.equipo.coach}</span>
-      <span>${CLP(t.mensual)} mensual${t.matricula ? ` · matrícula ${CLP(t.matricula)}` : ' · matrícula pendiente'}</span>`;
+      <span>${CLP(t.mensual)} mensual${t.matricula ? ` · matrícula ${CLP(t.matricula)}` : ' · matrícula pendiente'}</span>
+      <span style="color:var(--gold)">Ya puedes entrar a tu portal con el +56 ${estado.ficha.telefono}</span>`;
     $('#done-code').textContent = `Código de inscripción ${nueva.id} · ${new Date().toLocaleDateString('es-CL')}`;
 
     ir(4);

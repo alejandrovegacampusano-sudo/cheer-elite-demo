@@ -87,6 +87,18 @@
         });
       }
     }));
+
+    /* Algunas familias tienen más de una hija en el club: comparten apoderado y
+       teléfono, para que el portal de apoderados muestre a las dos hermanas. */
+    const rand2 = rng(4242);
+    for (let i = 0; i < 12; i++) {
+      const a = lista[Math.floor(rand2() * lista.length)];
+      const b = lista[Math.floor(rand2() * lista.length)];
+      if (!a || !b || a.id === b.id) continue;
+      b.apoderado = a.apoderado;
+      b.telefono = a.telefono;
+      b.nombre = `${b.nombre.split(' ')[0]} ${a.apoderado.split(' ')[1]}`;
+    }
     return lista;
   }
 
@@ -152,6 +164,28 @@
   }
 
   function asistencia() { return read('asistencia', {}); }
+
+  function sembrarAvisos() {
+    const hoy = new Date();
+    const d = n => iso(new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate() + n));
+    return [
+      { id: 'V1', fecha: d(-1), titulo: 'Uniformes de competencia',
+        texto: 'La toma de medidas es el próximo sábado en el gimnasio. Si no pueden asistir, avisen por WhatsApp para coordinar otro horario.',
+        alcance: 'todos' },
+      { id: 'V2', fecha: d(-4), titulo: 'Cierre de mensualidades',
+        texto: 'Recuerden que la mensualidad vence los días 5. Después de esa fecha el estado cambia a pendiente en el portal.',
+        alcance: 'todos' },
+      { id: 'V3', fecha: d(-8), titulo: 'Viaje al Regional Norte Grande',
+        texto: 'Las deportistas convocadas viajan el viernes por la mañana. La reunión informativa con los apoderados es el miércoles a las 19:30.',
+        alcance: 'todos' }
+    ];
+  }
+
+  function avisos() {
+    let lista = read('avisos', null);
+    if (!lista) { lista = sembrarAvisos(); write('avisos', lista); }
+    return lista;
+  }
 
   const Store = {
     meses: mesesRecientes,
@@ -292,6 +326,58 @@
       });
     },
 
+    avisos,
+
+    publicarAviso(aviso) {
+      const lista = avisos();
+      lista.unshift({ ...aviso, id: `V${Date.now().toString().slice(-6)}`, fecha: iso(new Date()) });
+      write('avisos', lista);
+      return lista;
+    },
+
+    eliminarAviso(id) { write('avisos', avisos().filter(v => v.id !== id)); },
+
+    /* --- Apoderados ------------------------------------------------------- */
+
+    /* Un apoderado se identifica por su teléfono: puede tener varias hijas. */
+    hijasDe(telefono) {
+      const limpio = String(telefono).replace(/\D/g, '').slice(-9);
+      return deportistas().filter(a => a.telefono.slice(-9) === limpio);
+    },
+
+    /* Últimas clases de una deportista según el horario de su equipo */
+    ultimasClases(atleta, cuantas = 6) {
+      const eq = equipoPorId(atleta.equipo);
+      if (!eq) return [];
+      /* Días de entrenamiento leídos del horario configurado del equipo */
+      const mapa = { lun: 1, mar: 2, mié: 3, mie: 3, jue: 4, vie: 5, sáb: 6, sab: 6, dom: 0 };
+      const texto = eq.horario.toLowerCase();
+      let dias = Object.keys(mapa).filter(d => texto.includes(d)).map(d => mapa[d]);
+      if (texto.includes('a vie')) dias = [1, 2, 3, 4, 5];
+      if (texto.includes('a jue')) dias = [1, 2, 3, 4];
+      dias = [...new Set(dias)];
+      if (!dias.length) dias = [2, 4];
+
+      const clases = [];
+      const cursor = new Date();
+      for (let i = 0; i < 60 && clases.length < cuantas; i++) {
+        if (dias.includes(cursor.getDay())) {
+          const fecha = iso(cursor);
+          if (fecha >= atleta.ingreso) {
+            clases.push({ fecha, presente: Store.asistenciaDe(atleta.id, fecha) });
+          }
+        }
+        cursor.setDate(cursor.getDate() - 1);
+      }
+      return clases;
+    },
+
+    sesionApoderado: {
+      actual: () => read('apoderado', null),
+      abrir: telefono => write('apoderado', String(telefono).replace(/\D/g, '').slice(-9)),
+      cerrar: () => write('apoderado', null)
+    },
+
     sesion: {
       abierta: () => read('sesion', false),
       abrir: () => write('sesion', { desde: Date.now() }),
@@ -299,7 +385,7 @@
     },
 
     reiniciar() {
-      ['atletas', 'pagos', 'eventos', 'asistencia'].forEach(k => localStorage.removeItem(NS + k));
+      ['atletas', 'pagos', 'eventos', 'asistencia', 'avisos'].forEach(k => localStorage.removeItem(NS + k));
     },
 
     exportarCSV() {

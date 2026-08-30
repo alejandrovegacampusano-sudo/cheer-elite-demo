@@ -43,6 +43,7 @@
     pagos:       ['Pagos', 'Mensualidades por deportista'],
     asistencia:  ['Asistencia', 'Pasar lista por equipo y fecha'],
     calendario:  ['Calendario', 'Competencias, entrenamientos y cierres'],
+    avisos:      ['Avisos', 'Lo que las familias ven en su portal'],
     ajustes:     ['Ajustes', 'Configuración del club y datos del prototipo']
   };
 
@@ -84,6 +85,7 @@
       pagos: pintarPagos,
       asistencia: pintarAsistencia,
       calendario: pintarCalendario,
+      avisos: pintarAvisos,
       ajustes: pintarAjustes
     })[vista]?.();
   }
@@ -676,6 +678,39 @@
     pintarCalendario();
   }
 
+  /* ======================= Avisos ======================= */
+
+  function pintarAvisos() {
+    const lista = Store.avisos();
+    $('#lista-avisos').innerHTML = lista.length ? lista.map(v => `
+      <div class="ev-item" style="grid-template-columns:1fr auto">
+        <div>
+          <h4>${esc(v.titulo)}</h4>
+          <p style="margin-top:4px;color:var(--muted);font-size:12.5px">${esc(v.texto)}</p>
+          <p style="margin-top:6px">${new Date(v.fecha + 'T12:00').toLocaleDateString('es-CL', { day: 'numeric', month: 'long' })}</p>
+        </div>
+        <button class="btn btn-ghost btn-sm" data-borrar-aviso="${v.id}" style="color:var(--alert);border-color:rgba(255,106,77,.3)">Quitar</button>
+      </div>`).join('') : '<p class="empty">Todavía no hay avisos publicados.</p>';
+
+    $$('#lista-avisos [data-borrar-aviso]').forEach(b => b.addEventListener('click', () => {
+      Store.eliminarAviso(b.dataset.borrarAviso);
+      toast('Aviso quitado del portal.');
+      pintarAvisos();
+    }));
+  }
+
+  function publicarAviso() {
+    const titulo = $('#av-titulo').value.trim();
+    const texto = $('#av-texto').value.trim();
+    if (titulo.length < 4) return toast('Escribe un título para el aviso.', 'err');
+    if (texto.length < 10) return toast('El mensaje es muy corto.', 'err');
+    Store.publicarAviso({ titulo, texto, alcance: 'todos' });
+    $('#av-titulo').value = '';
+    $('#av-texto').value = '';
+    toast('Aviso publicado en el portal de apoderados.');
+    pintarAvisos();
+  }
+
   /* ======================= Ajustes ======================= */
 
   function pintarAjustes() {
@@ -751,6 +786,7 @@
     $('#mes-next').addEventListener('click', () => { ui.calMes = new Date(ui.calMes.getFullYear(), ui.calMes.getMonth() + 1, 1); pintarCalendario(); });
     $('#hoy').addEventListener('click', () => { ui.calMes = new Date(new Date().getFullYear(), new Date().getMonth(), 1); pintarCalendario(); });
     $('#ev-crear').addEventListener('click', crearEvento);
+    $('#av-crear').addEventListener('click', publicarAviso);
 
     $('#exportar').addEventListener('click', exportarCSV);
     $('#exportar-2').addEventListener('click', exportarCSV);

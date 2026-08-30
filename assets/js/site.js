@@ -251,24 +251,14 @@
     }));
   }
 
-  /* --- Mini gráfico del bloque plataforma ---------------------------------- */
+  /* --- Maqueta del portal de apoderados ------------------------------------- */
 
-  function pintarMiniChart() {
-    const serie = Store.serieIngresos(6);
-    const max = Math.max(...serie.map(s => s.total), 1);
-    $('#mini-chart').innerHTML = serie.map((s, i) =>
-      `<i style="height:${Math.max(8, (s.total / max) * 100)}%;animation-delay:${i * 70}ms" title="${s.mes}: ${CLP(s.total)}"></i>`).join('');
-  }
-
-  /* --- KPIs de la maqueta del panel ---------------------------------------- */
-
-  function pintarMiniKpis() {
-    const r = Store.resumen();
-    const kpis = $$('.mini-kpi strong');
-    if (!kpis.length) return;
-    kpis[0].textContent = r.activas;
-    kpis[1].textContent = `${Math.round(r.cobranza * 100)}%`;
-    kpis[2].textContent = `$${(r.recaudado / 1e6).toFixed(1)}M`;
+  function pintarMock() {
+    const caja = $('#mock-asis');
+    if (!caja) return;
+    const clases = [1, 1, 1, 0, 1, 1, 1, 1];
+    caja.innerHTML = clases.map(p =>
+      `<i style="background:${p ? 'var(--ok)' : 'var(--alert)'}"></i>`).join('');
   }
 
   /* --- Enlaces de contacto -------------------------------------------------- */
@@ -295,8 +285,7 @@
     pintarCoaches();
     pintarTestimonios();
     pintarFaq();
-    pintarMiniChart();
-    pintarMiniKpis();
+    pintarMock();
     pintarContacto();
     initReveal();
     initCounters();

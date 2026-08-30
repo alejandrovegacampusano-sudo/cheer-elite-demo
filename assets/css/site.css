@@ -447,6 +447,20 @@
 .mini-row { display: grid; grid-template-columns: 26px 1fr auto; gap: 10px; align-items: center; padding: 10px 12px; border-radius: var(--r-s); background: rgba(255, 255, 255, .022); font-size: 12px; }
 .mini-row b { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: rgba(232, 200, 106, .12); color: var(--gold); font-size: 10px; }
 
+/* Maqueta del portal de apoderados dentro del bloque de accesos */
+.mock-row { display: flex; align-items: center; gap: 12px; padding: 13px 14px; border-radius: var(--r-s); background: rgba(255, 255, 255, .028); border: 1px solid var(--line-soft); }
+.mock-face { width: 38px; height: 38px; flex: 0 0 auto; border-radius: 12px; display: grid; place-items: center; background: var(--grad-gold); color: #100d06; font-weight: 800; font-size: 12.5px; }
+.mock-txt { flex: 1; min-width: 0; }
+.mock-txt strong { display: block; font-size: 13px; }
+.mock-txt span { display: block; font-size: 11px; color: var(--muted-2); }
+.mock-pay { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px; border-radius: var(--r-s); background: rgba(255, 255, 255, .028); border: 1px solid var(--line-soft); }
+.mock-pay span { font-size: 10.5px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted-2); }
+.mock-pay strong { display: block; margin-top: 6px; font-family: Manrope, sans-serif; font-size: 24px; color: var(--gold); }
+.mock-att { padding: 14px 16px; border-radius: var(--r-s); background: rgba(255, 255, 255, .028); border: 1px solid var(--line-soft); }
+.mock-att > span { font-size: 10.5px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted-2); }
+.mock-att > div { display: flex; gap: 7px; margin-top: 11px; }
+.mock-att i { width: 13px; height: 13px; border-radius: 50%; opacity: .9; }
+
 /* --- FAQ ------------------------------------------------------------------- */
 
 .faq { display: grid; max-width: 880px; margin-inline: auto; }

@@ -6,13 +6,17 @@ sin frameworks ni build: se publica tal cual en GitHub Pages.
 
 **Publicado en:** https://alejandrovegacampusano-sudo.github.io/cheer-elite-demo/
 
-## Qué incluye
+## Tres accesos, tres audiencias
 
-| Página | Para qué sirve |
-|---|---|
-| `index.html` | Landing del club: hero, programas, equipos con cupos reales, historia, galería, cuerpo técnico, testimonios, plataforma, preguntas frecuentes. |
-| `inscripcion.html` | Inscripción en 3 pasos: categoría y equipo → ficha de la deportista → confirmación con resumen de pago. |
-| `panel.html` | Panel del club: resumen con métricas y gráficos, deportistas, equipos, pagos, asistencia, calendario y ajustes. |
+| Acceso | Para quién | Qué ve |
+|---|---|---|
+| **Sitio público** (`index.html`, `inscripcion.html`) | El mundo y las familias nuevas | Quién es el club, equipos con cupos reales, galería, e inscripción en 3 pasos. |
+| **Portal de apoderados** (`apoderados.html`) | La mamá o el papá de cada deportista | Solo lo suyo: sus hijas, sus pagos, su asistencia, sus horarios y los avisos del club. |
+| **Panel del club** (`panel.html`) | Directiva, sostenedores y cuerpo técnico | Todo: dashboard, deportistas, equipos, pagos, asistencia, calendario y avisos. |
+
+Están separados a propósito —cada uno con su CSS, su JS y su público— pero comparten
+la misma fuente de datos: si el club marca un pago, la apoderada lo ve al instante; si
+la apoderada corrige un teléfono, el club lo ve en la ficha.
 
 ### Sitio público
 - Hero con tipografía Anton, degradado tornasol animado, tarjetas flotantes y parallax.
@@ -30,22 +34,32 @@ sin frameworks ni build: se publica tal cual en GitHub Pages.
 - Validación con mensajes claros y aviso cuando la edad no calza con la categoría.
 - Al confirmar, la deportista queda registrada y aparece de inmediato en el panel.
 
+### Portal de apoderados
+- Entra con el WhatsApp que dejó en la inscripción; puede tener varias hijas y cambia entre ellas.
+- Tarjeta de la deportista: equipo, horario, coach, antigüedad.
+- Mensualidad del mes con pago en línea simulado e historial de 6 meses.
+- Asistencia clase por clase con lectura en lenguaje humano.
+- Avisos que publica el club y próximas fechas del calendario.
+- Puede corregir sus propios datos (teléfono, correo, talla, emergencia, condición médica) y el cambio llega a la ficha del club.
+- Al terminar la inscripción entra directo a su portal, ya con la sesión abierta.
+
 ### Panel del club
 - **Resumen**: deportistas activas, recaudación del mes, cobranza, ocupación de cupos, gráfico de ingresos de 6 meses, dona de ocupación, últimas inscripciones y agenda.
 - **Deportistas**: buscador, filtros por equipo y estado, orden por columna, paginación, ficha lateral con historial de pagos y acciones (pausar, beca, cambiar de equipo, eliminar), exportación a CSV.
 - **Pagos**: por mes, ordenados por urgencia, con marcar/revertir pago y recordatorio por WhatsApp prellenado.
 - **Asistencia**: pasar lista por equipo y fecha desde el celular.
 - **Calendario**: mes navegable con eventos por tipo y alta de nuevos eventos.
+- **Avisos**: publica mensajes que aparecen de inmediato en el portal de todas las familias.
 - **Ajustes**: datos del club, valores por categoría, exportación y reinicio de los datos de ejemplo.
 
 ## Estructura
 
 ```
-index.html · inscripcion.html · panel.html
+index.html · inscripcion.html · apoderados.html · panel.html
 assets/
-  css/  fonts.css  core.css (sistema de diseño)  site.css  panel.css
+  css/  fonts.css  core.css (sistema de diseño)  site.css  portal.css  panel.css
   js/   data.js (datos del club)  store.js (persistencia)  core.js (UI común)
-        site.js  inscripcion.js  panel.js
+        site.js  inscripcion.js  apoderados.js  panel.js
   img/  art-*.svg (ilustraciones de marca)
   fonts/ Anton, DM Sans, Manrope auto-alojadas (OFL)
 tools/gen-art.js  → regenera las ilustraciones: node tools/gen-art.js
@@ -69,8 +83,10 @@ tools/gen-art.js  → regenera las ilustraciones: node tools/gen-art.js
    `assets/js/store.js` (su interfaz ya está aislada del resto).
 2. **Pasarela de pago.** El cobro es simulado; falta integrar Transbank, Flow o
    Mercado Pago en el paso 3 de la inscripción.
-3. **Cuentas y roles.** El acceso al panel es una pantalla de demo: cualquier clave
-   entra. En producción se necesita autenticación con roles (directora, coach, tesorería).
+3. **Cuentas y roles.** Los dos accesos son pantallas de demo: al panel entra cualquier
+   clave y al portal basta el teléfono. En producción hacen falta cuentas reales: roles
+   para el club (directora, coach, tesorería) y verificación por código de WhatsApp para
+   los apoderados.
 4. **Datos reales del club.** Los nombres de equipos, precios y logros son de ejemplo.
    En Instagram aparecen nombres como Sharks, Strike y Orion, sin confirmar.
 5. **Fotografías oficiales.** Las ilustraciones vectoriales son un puente hasta tener
