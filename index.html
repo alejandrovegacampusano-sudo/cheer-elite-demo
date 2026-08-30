@@ -90,7 +90,7 @@
         <div class="hero-visual" data-reveal="zoom" style="--delay:200ms">
           <div class="hero-ring" aria-hidden="true"></div>
           <div class="hero-frame" data-parallax="0.04">
-            <img src="assets/img/art-hero.svg" alt="Ilustración de un stunt de cheerleading: bases sosteniendo a una flyer en liberty">
+            <img data-foto="hero" src="assets/img/art-hero.svg" alt="Stunt de cheerleading: bases sosteniendo a una flyer en liberty">
           </div>
           <div class="float-card a">
             <strong class="num">32 cupos</strong>
@@ -151,12 +151,15 @@
         <div class="spread section-head" style="max-width:none">
           <div>
             <span class="eyebrow" data-reveal>Programas</span>
-            <h2 data-reveal style="--delay:80ms">Un equipo para<br>cada edad.</h2>
+            <h2 class="serif" data-reveal style="--delay:80ms">Un equipo para<br><em>cada edad.</em></h2>
           </div>
-          <p class="lead" data-reveal style="--delay:160ms;max-width:380px">
-            Cinco categorías competitivas y tres programas abiertos. La ubicación final
-            se define en la clase de evaluación, sin costo.
-          </p>
+          <div data-reveal style="--delay:160ms;max-width:340px;display:grid;gap:16px">
+            <p class="lead" style="margin:0">
+              Cinco categorías competitivas y tres programas abiertos. La ubicación final
+              se define en la clase de evaluación, sin costo.
+            </p>
+            <p class="note"><b>Ojo</b>La edad manda para entrar, pero el nivel manda para competir. Nadie sube a un equipo antes de estar lista.</p>
+          </div>
         </div>
 
         <div class="program-grid" id="program-grid" data-stagger></div>
@@ -174,7 +177,7 @@
       <div class="wrap">
         <div class="section-head">
           <span class="eyebrow" data-reveal>Equipos y horarios</span>
-          <h2 data-reveal style="--delay:80ms">Dónde entrena cada una.</h2>
+          <h2 class="serif" data-reveal style="--delay:80ms">Dónde entrena <em>cada una.</em></h2>
           <p class="lead" data-reveal style="--delay:140ms">Cupos reales de la temporada. Cuando un equipo se llena, se abre lista de espera.</p>
         </div>
 
@@ -188,7 +191,7 @@
       <div class="wrap">
         <div class="section-head">
           <span class="eyebrow" data-reveal>Cómo se entra</span>
-          <h2 data-reveal style="--delay:80ms">Tres pasos y estás dentro.</h2>
+          <h2 class="serif" data-reveal style="--delay:80ms">Tres pasos y <em>estás dentro.</em></h2>
         </div>
 
         <div class="steps-3" data-stagger>
@@ -208,9 +211,32 @@
 
         <div class="section-head" style="margin:80px 0 0">
           <span class="eyebrow" data-reveal>Historia</span>
-          <h2 data-reveal style="--delay:80ms">De un gimnasio prestado<br>a la ruta internacional.</h2>
+          <h2 class="serif" data-reveal style="--delay:80ms">De un gimnasio prestado<br><em>a la ruta internacional.</em></h2>
         </div>
         <div class="timeline" id="timeline" data-stagger></div>
+      </div>
+    </section>
+
+    <!-- ================= Cinta ================= -->
+    <section class="band">
+      <div class="band-bg" data-parallax="0.06">
+        <img data-foto="banda" src="assets/img/art-team.svg" alt="El equipo completo de la academia">
+      </div>
+      <div class="wrap">
+        <div class="band-in">
+          <span class="folio" data-reveal>Lo que se lleva puesto</span>
+          <h2 data-reveal style="--delay:80ms">Aquí nadie sube sola.<br><em>Suben todas o no sube nadie.</em></h2>
+          <p data-reveal style="--delay:140ms" class="measure">
+            Un stunt se sostiene con cuatro personas que confían entre sí. Eso no se enseña
+            en una clase: se construye en dos años de entrenamientos, viajes, caídas y
+            vuelta a levantarse. Es lo que las deportistas se llevan cuando dejan el club.
+          </p>
+          <div class="band-meta" data-reveal style="--delay:200ms">
+            <div><strong class="num" data-count="19">0</strong><span>Años formando</span></div>
+            <div><strong class="num" data-count="153">0</strong><span>Deportistas hoy</span></div>
+            <div><strong class="num" data-count="94" data-suffix="%">0</strong><span>Renuevan temporada</span></div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -220,10 +246,10 @@
         <div class="spread section-head" style="max-width:none">
           <div>
             <span class="eyebrow" data-reveal>Vida en la academia</span>
-            <h2 data-reveal style="--delay:80ms">Momentos Dragones.</h2>
+            <h2 class="serif" data-reveal style="--delay:80ms">Momentos <em>Dragones.</em></h2>
           </div>
           <p class="lead" data-reveal style="max-width:330px;--delay:140ms">
-            Ilustraciones de marca mientras llegan las fotos oficiales de la temporada.
+            Entrenamientos, competencias y la vida del gimnasio, temporada tras temporada.
           </p>
         </div>
 
@@ -236,7 +262,7 @@
       <div class="wrap">
         <div class="section-head">
           <span class="eyebrow" data-reveal>Cuerpo técnico</span>
-          <h2 data-reveal style="--delay:80ms">Quién entrena a tu hija.</h2>
+          <h2 class="serif" data-reveal style="--delay:80ms">Quién entrena <em>a tu hija.</em></h2>
           <p class="lead" data-reveal style="--delay:140ms">Todo el equipo está formado en seguridad de stunt y protocolo de lesiones.</p>
         </div>
         <div class="coach-grid" id="coach-grid" data-stagger></div>
@@ -258,7 +284,7 @@
       <div class="wrap platform">
         <div>
           <span class="eyebrow" data-reveal>Después de inscribir</span>
-          <h2 data-reveal style="--delay:80ms;font-size:clamp(30px,4.4vw,52px)">El club, en el<br>teléfono de la casa.</h2>
+          <h2 class="serif" data-reveal style="--delay:80ms;font-size:clamp(30px,4.4vw,52px)">El club, en el<br><em>teléfono de la casa.</em></h2>
           <p class="lead" data-reveal style="--delay:140ms;margin-top:18px">
             Cada familia tiene su propio acceso. Entras con tu WhatsApp y ves lo de tu hija:
             si la mensualidad está al día, cuánto ha asistido, a qué hora entrena y los avisos
@@ -332,7 +358,7 @@
       <div class="wrap">
         <div class="section-head center">
           <span class="eyebrow" data-reveal>Preguntas frecuentes</span>
-          <h2 data-reveal style="--delay:80ms">Lo que preguntan las familias.</h2>
+          <h2 class="serif" data-reveal style="--delay:80ms">Lo que preguntan <em>las familias.</em></h2>
         </div>
         <div class="faq" id="faq-list"></div>
       </div>

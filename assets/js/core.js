@@ -155,6 +155,45 @@ function initPageTransitions() {
   window.addEventListener('pageshow', e => { if (e.persisted) veil.classList.remove('on'); });
 }
 
+/* --- Fotos reales ----------------------------------------------------------- */
+
+/* El sitio se dibuja con ilustraciones de marca. Si el club deja una foto en
+   assets/fotos/<nombre>.jpg (o .webp), esta función la detecta y la pone en su
+   lugar: nadie tiene que tocar código para cambiar una imagen.
+   La búsqueda es perezosa —solo cuando el hueco se acerca a la pantalla— para
+   no pedir archivos de secciones que el visitante nunca va a ver. */
+function initFotos(root = document) {
+  const buscar = el => {
+    const rutas = ['jpg', 'webp'].map(ext => `assets/fotos/${el.dataset.foto}.${ext}`);
+    const probar = i => {
+      if (i >= rutas.length) return;
+      const prueba = new Image();
+      prueba.onload = () => {
+        if (el.tagName === 'IMG') el.src = rutas[i];
+        else el.style.backgroundImage = `url("${rutas[i]}")`;
+        el.classList.add('con-foto');
+        el.closest('[data-foto-host]')?.classList.add('con-foto');
+      };
+      prueba.onerror = () => probar(i + 1);
+      prueba.src = rutas[i];
+    };
+    probar(0);
+  };
+
+  const pendientes = $$('[data-foto]', root).filter(el => !el.dataset.fotoLista);
+  pendientes.forEach(el => { el.dataset.fotoLista = '1'; });
+
+  if (!('IntersectionObserver' in window)) { pendientes.forEach(buscar); return; }
+  const io = new IntersectionObserver(entradas => {
+    entradas.forEach(e => {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      buscar(e.target);
+    });
+  }, { rootMargin: '600px 0px' });
+  pendientes.forEach(el => io.observe(el));
+}
+
 /* --- Cabecera -------------------------------------------------------------- */
 
 function initHeader() {
@@ -203,6 +242,7 @@ function initHeader() {
 /* --- Arranque -------------------------------------------------------------- */
 
 function bootUI() {
+  initFotos();
   initReveal();
   initCounters();
   initParallax();
@@ -215,4 +255,4 @@ function bootUI() {
 
 document.addEventListener('DOMContentLoaded', bootUI);
 
-window.DEUI = { toast, initReveal, initCounters, $, $$, noMotion };
+window.DEUI = { toast, initReveal, initCounters, initFotos, $, $$, noMotion };

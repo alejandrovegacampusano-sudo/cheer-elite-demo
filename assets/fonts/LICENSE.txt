@@ -1,6 +1,7 @@
 Tipografías auto-alojadas en este proyecto
 ==========================================
 
+Playfair Display — Claus Eggers Sørensen (SIL Open Font License 1.1)
 Anton      — Vernon Adams, Cyreal (SIL Open Font License 1.1)
 DM Sans    — Colophon Foundry, Jonny Pinhorn, Indian Type Foundry (SIL Open Font License 1.1)
 Manrope    — Mikhail Sharanda (SIL Open Font License 1.1)

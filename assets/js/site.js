@@ -4,9 +4,10 @@
 
 (function () {
   const { CLUB, CATEGORIAS, PROGRAMAS, COACHES, TESTIMONIOS, FAQ, HITOS, CLP, todosLosEquipos, Store } = window.DE;
-  const { initReveal, initCounters } = window.DEUI;
+  const { initReveal, initCounters, initFotos } = window.DEUI;
 
   const iniciales = nombre => nombre.split(' ').map(p => p[0]).slice(0, 2).join('').toUpperCase();
+  const slug = txt => txt.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
   /* --- Cifras reales del club en el hero ---------------------------------- */
 
@@ -31,7 +32,7 @@
   function pintarProgramas() {
     $('#program-grid').innerHTML = CATEGORIAS.map(cat => `
       <a class="program${cat.destacado ? ' featured' : ''}" href="inscripcion.html?cat=${cat.id}" data-reveal>
-        <div class="program-art"><img src="assets/img/${cat.art}.svg" alt="" loading="lazy"></div>
+        <div class="program-art"><img data-foto="programa-${cat.id}" src="assets/img/${cat.art}.svg" alt="" loading="lazy"></div>
         <span class="pill lvl">${cat.destacado ? '★ ' : ''}${cat.nivel}</span>
         <h3>${cat.nombre}</h3>
         <span class="age">${cat.edadTxt}</span>
@@ -129,14 +130,16 @@
     { img: 'art-jump',     t: 'Jumps',              s: 'Toe touch sincronizado' },
     { img: 'art-toss',     t: 'Basket toss',        s: 'Junior Inferno · rutina 2026' },
     { img: 'art-podium',   t: 'Podio nacional',     s: 'Senior Elite' },
+    { img: 'art-team',     t: 'La familia',         s: 'Cierre de temporada' },
     { img: 'art-tumbling', t: 'Pista de tumbling',  s: 'Series de flic flac' },
-    { img: 'art-team',     t: 'La familia',         s: 'Cierre de temporada' }
+    { img: 'art-class',    t: 'Las más chicas',     s: 'Dragoncitos · primera clase' },
+    { img: 'art-hero',     t: 'Antes de salir',     s: 'Camarín, minutos previos' }
   ];
 
   function pintarGaleria() {
     $('#gallery').innerHTML = SHOTS.map((s, i) => `
       <figure class="shot" data-reveal="zoom" data-shot="${i}">
-        <img src="assets/img/${s.img}.svg" alt="${s.t}" loading="lazy">
+        <img data-foto="galeria-${i + 1}" src="assets/img/${s.img}.svg" alt="${s.t}" loading="lazy">
         <figcaption>${s.t}<small>${s.s}</small></figcaption>
       </figure>`).join('');
 
@@ -153,7 +156,8 @@
     let idx = 0;
     const mostrar = i => {
       idx = (i + SHOTS.length) % SHOTS.length;
-      $('img', box).src = `assets/img/${SHOTS[idx].img}.svg`;
+      const enGaleria = $(`#gallery [data-shot="${idx}"] img`);
+      $('img', box).src = enGaleria ? enGaleria.src : `assets/img/${SHOTS[idx].img}.svg`;
       $('img', box).alt = SHOTS[idx].t;
       $('.cap', box).textContent = `${SHOTS[idx].t} — ${SHOTS[idx].s}`;
     };
@@ -178,7 +182,7 @@
   function pintarCoaches() {
     $('#coach-grid').innerHTML = COACHES.map(c => `
       <article class="card coach" data-reveal>
-        <span class="ini">${iniciales(c.nombre)}</span>
+        <span class="ini" data-foto="coach-${slug(c.nombre)}"><span class="ini-text">${iniciales(c.nombre)}</span></span>
         <div>
           <h3>${c.nombre}</h3>
           <span class="rol">${c.rol}</span>
@@ -192,11 +196,11 @@
 
   function pintarTestimonios() {
     const track = $('#quote-track');
-    track.innerHTML = TESTIMONIOS.map(t => `
+    track.innerHTML = TESTIMONIOS.map((t, i) => `
       <blockquote class="quote">
         <p>“${t.texto}”</p>
         <footer>
-          <span class="ini">${iniciales(t.autor)}</span>
+          <span class="ini" data-foto="testimonio-${i + 1}"><span class="ini-text">${iniciales(t.autor)}</span></span>
           <div><strong>${t.autor}</strong><span>${t.rol}</span></div>
         </footer>
       </blockquote>`).join('');
@@ -289,5 +293,6 @@
     pintarContacto();
     initReveal();
     initCounters();
+    initFotos();
   });
 })();

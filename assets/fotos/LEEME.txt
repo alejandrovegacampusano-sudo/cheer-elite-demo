@@ -1,0 +1,56 @@
+FOTOS DEL CLUB
+==============
+
+Deja aquí las fotos con estos nombres exactos y aparecen solas en el sitio.
+No hay que tocar código ni avisar a nadie: la página busca el archivo y, si
+existe, reemplaza la ilustración. Si no existe, se sigue viendo la ilustración.
+
+Sirven .jpg, .webp, .png (en ese orden de preferencia).
+
+LO MÁS IMPORTANTE (con estas tres ya cambia el sitio)
+-----------------------------------------------------
+  hero.jpg          Vertical (4:5 o más alta). Un stunt, una pirámide o el
+                    equipo en pose. Deja aire arriba: encima va el título.
+  banda.jpg         Horizontal y ancha (16:9). El equipo completo, de cuerpo
+                    entero. Se ve a pantalla completa con el texto a la izquierda,
+                    así que lo importante debe quedar hacia la derecha.
+  galeria-1.jpg     Horizontal. Es la pieza grande del mosaico.
+
+GALERÍA (8 piezas)
+------------------
+  galeria-1.jpg     Grande, izquierda  · stunt en grupo
+  galeria-2.jpg     Chica              · jumps
+  galeria-3.jpg     Chica              · basket toss
+  galeria-4.jpg     Ancha              · podio
+  galeria-5.jpg     Grande             · la familia
+  galeria-6.jpg     Chica              · tumbling
+  galeria-7.jpg     Chica              · las más chicas
+  galeria-8.jpg     Ancha              · antes de salir a competir
+
+PROGRAMAS (una por categoría, horizontales)
+-------------------------------------------
+  programa-tiny.jpg      programa-mini.jpg     programa-youth.jpg
+  programa-junior.jpg    programa-senior.jpg
+
+CUERPO TÉCNICO (retratos verticales 4:5)
+----------------------------------------
+  coach-valentina-soto.jpg
+  coach-matias-fuentes.jpg
+  coach-camila-ruiz.jpg
+  coach-ignacio-perez.jpg
+
+  El nombre del archivo sale del nombre del coach en minúsculas, sin tildes y
+  con guiones. Si cambias un coach en assets/js/data.js, renombra su foto igual.
+
+TESTIMONIOS (cuadradas, cara visible)
+-------------------------------------
+  testimonio-1.jpg   testimonio-2.jpg   testimonio-3.jpg   testimonio-4.jpg
+
+RECOMENDACIONES
+---------------
+- Manda el original más grande que tengas: el navegador la achica, pero de una
+  foto chica no se puede sacar una grande.
+- Ideal entre 1600 y 2400 px de ancho, guardada al 80% de calidad.
+- Horizontal para galería y programas; vertical para hero y retratos.
+- Antes de publicar fotos de menores, el club debe tener la autorización de
+  imagen firmada por los apoderados de cada niña que aparezca.

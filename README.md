@@ -70,9 +70,19 @@ tools/gen-art.js  → regenera las ilustraciones: node tools/gen-art.js
 1. **Equipos, horarios, precios y cupos** → `assets/js/data.js`. Todo el sitio y el
    panel leen de ahí: cambiar un precio actualiza landing, inscripción y panel.
 2. **WhatsApp, correo y dirección** → objeto `CLUB` en el mismo archivo.
-3. **Fotos reales** → dejar los archivos en `assets/img/` y reemplazar el nombre del
-   arte: campo `art` de cada categoría en `data.js` y la lista `SHOTS` al inicio de
-   `assets/js/site.js`. Sirven `.jpg`, `.webp` o `.svg` con la misma proporción.
+3. **Fotos reales** → dejar los archivos en `assets/fotos/` con el nombre que indica
+   `assets/fotos/LEEME.txt` y listo: la página los detecta al cargar y reemplaza la
+   ilustración. No hay que tocar código ni una lista de imágenes. Mientras una foto no
+   exista, esa pieza sigue mostrando su ilustración, así que se puede ir subiendo de a poco.
+
+   | Archivo | Dónde aparece | Formato |
+   |---|---|---|
+   | `hero.jpg` | Portada, junto al titular | Vertical, aire arriba |
+   | `banda.jpg` | Cinta a pantalla completa | Horizontal 16:9, motivo a la derecha |
+   | `galeria-1..8.jpg` | Mosaico "Momentos Dragones" | 1 y 5 grandes, 4 y 8 anchas |
+   | `programa-<categoría>.jpg` | Tarjetas de programas | Horizontal |
+   | `coach-<nombre-con-guiones>.jpg` | Cuerpo técnico | Vertical 4:5 |
+   | `testimonio-1..4.jpg` | Carrusel de testimonios | Cuadrada |
 4. **Logo en alta resolución** → reemplazar `assets/logo-dragones.png` (el actual es
    una foto de perfil de Instagram recortada).
 

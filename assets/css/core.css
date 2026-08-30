@@ -44,6 +44,11 @@
   --shell: 1220px;
   --gutter: clamp(18px, 4vw, 40px);
 
+  /* Tipografías */
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-poster: Anton, Impact, sans-serif;
+  --font-ui: Manrope, system-ui, sans-serif;
+
   /* Curvas */
   --ease: cubic-bezier(.22, .8, .28, 1);
   --ease-out: cubic-bezier(.16, 1, .3, 1);
@@ -126,12 +131,80 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 @keyframes shine { to { background-position: 260% center; } }
 
+/* --- Recursos editoriales --------------------------------------------------- */
+
+/* Titular de revista: serif de alto contraste con la bastardilla en dorado */
+.serif {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -.015em;
+  line-height: 1.02;
+}
+.serif em { font-style: italic; font-weight: 400; color: var(--gold); }
+
+/* Numeración de sección, como el folio de una revista */
+.folio {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 10.5px; font-weight: 800;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--muted-2);
+}
+.folio::after { content: ''; flex: 1; height: 1px; background: var(--line-soft); }
+
+/* Nota al margen, como el post-it de una maqueta */
+.note {
+  position: relative;
+  padding: 16px 18px;
+  border: 1px dashed rgba(232, 200, 106, .35);
+  border-radius: 4px;
+  background: rgba(232, 200, 106, .05);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--gold-soft);
+  transform: rotate(-1.2deg);
+}
+.note::before {
+  content: '';
+  position: absolute; top: -9px; left: 50%;
+  width: 62px; height: 17px;
+  transform: translateX(-50%) rotate(1.5deg);
+  background: rgba(232, 200, 106, .22);
+  border: 1px solid rgba(232, 200, 106, .18);
+}
+.note b { font-style: normal; font-family: var(--font-ui); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; display: block; margin-bottom: 5px; color: var(--muted); }
+
+/* Capitular y cita destacada */
+.dropcap::first-letter {
+  float: left;
+  font-family: var(--font-serif);
+  font-size: 3.4em;
+  line-height: .82;
+  padding: 6px 10px 0 0;
+  color: var(--gold);
+}
+.pullquote {
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 2.6vw, 30px);
+  line-height: 1.25;
+  font-style: italic;
+  color: var(--ink);
+  padding-left: 22px;
+  border-left: 2px solid var(--gold);
+}
+
+/* Medida de lectura cómoda: ningún párrafo más ancho que esto */
+.measure { max-width: 62ch; }
+
 /* --- Layout --------------------------------------------------------------- */
 
 .wrap { width: 100%; max-width: var(--shell); margin-inline: auto; padding-inline: var(--gutter); }
 .section { padding: clamp(56px, 7.5vw, 108px) 0; position: relative; }
 .section-head { display: grid; gap: 18px; max-width: 720px; margin-bottom: clamp(32px, 5vw, 56px); }
 .section-head h2 { font-size: clamp(30px, 4.6vw, 54px); }
+.section-head.editorial h2 { font-family: var(--font-serif); font-weight: 500; letter-spacing: -.015em; line-height: 1.02; font-size: clamp(32px, 5vw, 60px); }
+.section-head.editorial h2 em { font-style: italic; color: var(--gold); }
 .section-head.center { margin-inline: auto; text-align: center; justify-items: center; }
 .stack { display: grid; gap: 16px; }
 .row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
@@ -364,6 +437,14 @@ body.booting .page-veil { opacity: 1; }
 .toast.on { opacity: 1; transform: none; }
 .toast b { color: var(--gold); }
 .toast.err b { color: var(--alert); }
+
+/* --- Fotos ------------------------------------------------------------------ */
+
+/* Cualquier elemento con data-foto se cambia solo si el archivo existe
+   en assets/fotos/. Mientras no exista, se ve la ilustración de marca. */
+[data-foto] { background-size: cover; background-position: center; }
+.con-foto .ini-text { display: none; }
+.con-foto { background-color: transparent !important; }
 
 /* --- Barra de progreso ----------------------------------------------------- */
 
