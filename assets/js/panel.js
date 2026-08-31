@@ -13,6 +13,8 @@
   const DOW = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
 
   const iniciales = n => n.split(' ').map(p => p[0]).slice(0, 2).join('').toUpperCase();
+  /* El club es mixto: los estados concuerdan con cada deportista */
+  const conGenero = (a, fem, masc) => (a.genero === 'm' ? masc : fem);
   const esc = t => { const d = document.createElement('div'); d.textContent = t ?? ''; return d.innerHTML; };
   const mesLindo = clave => {
     const [a, m] = clave.split('-');
@@ -98,7 +100,7 @@
 
     $('#kpis').innerHTML = `
       <article class="kpi gold">
-        <span>Deportistas activas</span>
+        <span>Deportistas en actividad</span>
         <strong class="num">${r.activas}</strong>
         <small>${r.pausas} en pausa · ${r.total} fichas totales</small>
       </article>
@@ -440,7 +442,7 @@
       </div>
       <div class="drawer-body">
         <div class="row">
-          <span class="tag ${a.estado === 'activa' ? 'ok' : 'mute'}">${a.estado === 'activa' ? 'Activa' : 'En pausa'}</span>
+          <span class="tag ${a.estado === 'activa' ? 'ok' : 'mute'}">${a.estado === 'activa' ? conGenero(a, 'Activa', 'Activo') : 'En pausa'}</span>
           ${a.beca ? '<span class="tag info">Beca 50%</span>' : ''}
           ${a.origen === 'web' ? '<span class="tag warn">Inscripción web</span>' : ''}
         </div>
@@ -480,7 +482,7 @@
         <div>
           <h4>Acciones</h4>
           <div class="row" style="margin-top:10px">
-            <button class="btn btn-solid btn-sm" data-accion="estado">${a.estado === 'activa' ? 'Pausar temporada' : 'Reactivar'}</button>
+    <button class="btn btn-solid btn-sm" data-accion="estado">${a.estado === 'activa' ? 'Pausar temporada' : 'Reactivar'}</button>
             <button class="btn btn-solid btn-sm" data-accion="beca">${a.beca ? 'Quitar beca' : 'Asignar beca 50%'}</button>
             <button class="btn btn-solid btn-sm" data-accion="equipo">Cambiar de equipo</button>
             <button class="btn btn-ghost btn-sm" data-accion="eliminar" style="color:var(--alert);border-color:rgba(255,106,77,.3)">Eliminar ficha</button>

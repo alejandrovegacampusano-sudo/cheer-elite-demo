@@ -124,7 +124,22 @@ Nunca imágenes generadas con IA haciéndose pasar por las deportistas reales.
 
 ---
 
-## 9. Antipatrones (ya cometidos en este repo)
+## 9. El club, según sus propias fotos
+
+Revisando material real de `@dragoneselite` aparecieron dos cosas que el
+prototipo tenía mal:
+
+- **El club es mixto.** En las fotos del equipo mayor hay varones con uniforme
+  Dragones Elite. Todo el texto estaba escrito para niñas ("tu hija", "las
+  deportistas"). Corregido en las cuatro páginas; la ficha ahora registra
+  género y los estados concuerdan.
+- **La paleta es más ancha que negro + dorado.** El telón de competencia es
+  negro con dorado y cromo, pero el uniforme lleva el logo en **celeste** con
+  acentos **cobre/naranja** sobre gris perla. Falta confirmarlo contra el
+  archivo original del logo: el que hay en el repo es una miniatura de 165px
+  recortada de Instagram (65% negro, 8% dorado, 16% grises, 9% rojo).
+
+## 10. Antipatrones (ya cometidos en este repo)
 
 1. Maquetar el panel con aire de landing. → Filas de 67px, 12 por página.
 2. Elegir un color de texto "que se ve bien" sin medir. → 3.3:1.
@@ -134,3 +149,5 @@ Nunca imágenes generadas con IA haciéndose pasar por las deportistas reales.
 6. `clip-path` en el contenedor de una animación de entrada: recorta a los
    hijos que sobresalen.
 7. No resetear el margen de `<figure>`: descuadra cualquier grilla.
+8. Escribir el sitio de un club real sin mirar sus fotos: quedó de un solo
+   género durante todo el desarrollo.

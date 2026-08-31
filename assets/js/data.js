@@ -99,11 +99,11 @@ const TESTIMONIOS = [
 ];
 
 const FAQ = [
-  { q: '¿Necesita experiencia previa para entrar?', a: 'No. Tiny, Mini y Prep Team parten desde cero. En las categorías competitivas hacemos una clase de evaluación para ubicar a la deportista en el equipo que le corresponde por edad y nivel.' },
+  { q: '¿Necesita experiencia previa para entrar?', a: 'No. Tiny, Mini y Prep Team parten desde cero. En las categorías competitivas hacemos una clase de evaluación para ubicar a cada deportista en el equipo que le corresponde por edad y nivel.' },
   { q: '¿Qué incluye la mensualidad?', a: 'Las clases semanales de su equipo, la preparación física y el acompañamiento del cuerpo técnico. Uniforme de competencia, viajes e inscripciones a campeonatos se cobran aparte y se avisan con anticipación.' },
   { q: '¿Cómo se paga?', a: 'Matrícula al inscribirse y mensualidad dentro de los primeros 5 días de cada mes. En el panel del club queda registrado el estado de cada pago, y las familias reciben recordatorio por WhatsApp.' },
-  { q: '¿Hay descuento por hermanas?', a: 'Sí: 15% de descuento en la mensualidad de la segunda hija en adelante. Se aplica automáticamente al inscribir con el mismo apoderado.' },
-  { q: '¿Qué pasa si mi hija se lesiona?', a: 'Todo el cuerpo técnico está formado en seguridad de stunt y hay protocolo de accidentes. Ante una lesión, la mensualidad se congela mientras dure la recuperación acreditada.' },
+  { q: '¿Hay descuento por hermanas?', a: 'Sí: 15% de descuento en la mensualidad del segundo hijo o hija en adelante. Se aplica automáticamente al inscribir con el mismo apoderado.' },
+  { q: '¿Qué pasa si se lesiona?', a: 'Todo el cuerpo técnico está formado en seguridad de stunt y hay protocolo de accidentes. Ante una lesión, la mensualidad se congela mientras dure la recuperación acreditada.' },
   { q: '¿Se puede probar antes de inscribirse?', a: 'Sí. La primera clase es de prueba y sin costo. Se agenda desde el formulario de inscripción marcando la opción "clase de prueba".' }
 ];
 

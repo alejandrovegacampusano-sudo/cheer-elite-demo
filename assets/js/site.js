@@ -268,7 +268,7 @@
   /* --- Enlaces de contacto -------------------------------------------------- */
 
   function pintarContacto() {
-    const url = `https://wa.me/${CLUB.whatsapp}?text=${encodeURIComponent('Hola, quiero información para inscribir a mi hija en Dragones Elite.')}`;
+    const url = `https://wa.me/${CLUB.whatsapp}?text=${encodeURIComponent('Hola, quiero información para inscribir a mi hijo o hija en Dragones Elite.')}`;
     ['#wa-link', '#wa-link-2', '#wa-float'].forEach(sel => {
       const el = $(sel);
       if (el) { el.href = url; el.target = '_blank'; el.rel = 'noopener'; }

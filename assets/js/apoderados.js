@@ -53,8 +53,8 @@
     const primerNombre = estado.activa.apoderado.split(' ')[0];
     $('#saludo').textContent = `Hola, ${primerNombre}`;
     $('#bajada').textContent = estado.hijas.length > 1
-      ? `Tienes ${estado.hijas.length} deportistas en el club. Elige a cuál quieres ver.`
-      : 'Todo lo de tu hija en el club, en un solo lugar.';
+      ? `Tienes ${estado.hijas.length} deportistas en el club. Elige a quién quieres ver.`
+      : 'Todo lo de tu deportista en el club, en un solo lugar.';
 
     pintarHijas();
     pintarDeportista();

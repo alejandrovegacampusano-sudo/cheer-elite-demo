@@ -110,6 +110,7 @@
       telefono: v('f-telefono').replace(/\D/g, ''),
       email: v('f-email'),
       talla: v('f-talla'),
+      genero: v('f-genero'),
       medico: v('f-medico'),
       emergencia: v('f-emergencia'),
       prueba: campo('f-prueba').checked,
@@ -222,13 +223,14 @@
       medico: estado.ficha.medico,
       emergencia: estado.ficha.emergencia,
       talla: estado.ficha.talla,
+      genero: estado.ficha.genero,
       notas: `Inscripción web · pago ${estado.pago}${estado.ficha.prueba ? ' · clase de prueba' : ''}`
     });
 
     /* Deja la sesión del apoderado abierta: al salir de aquí entra directo a su portal */
     Store.sesionApoderado.abrir(estado.ficha.telefono);
 
-    $('#done-nombre').textContent = `¡Bienvenida, ${nueva.nombre.split(' ')[0]}!`;
+    $('#done-nombre').textContent = `${estado.ficha.genero === 'm' ? '¡Bienvenido' : '¡Bienvenida'}, ${nueva.nombre.split(' ')[0]}!`;
     $('#done-copy').textContent = estado.ficha.prueba
       ? 'Reservamos el cupo para la clase de evaluación. El club confirmará el día y la hora por WhatsApp.'
       : 'La ficha quedó registrada. El club se contactará por WhatsApp para coordinar uniforme y horarios.';

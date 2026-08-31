@@ -32,6 +32,7 @@
     };
   }
 
+  const NOMBRES_M = ['Matías', 'Benjamín', 'Vicente', 'Agustín', 'Tomás', 'Lucas', 'Joaquín', 'Cristóbal', 'Diego', 'Bastián', 'Emilio', 'Maximiliano'];
   const NOMBRES = ['Martina', 'Antonella', 'Fernanda', 'Josefa', 'Valentina', 'Camila', 'Isidora', 'Emilia', 'Florencia', 'Catalina', 'Amanda', 'Agustina', 'Renata', 'Julieta', 'Trinidad', 'Magdalena', 'Sofía', 'Rafaela', 'Maite', 'Colomba', 'Ignacia', 'Anaís', 'Krishna', 'Belén', 'Constanza', 'Javiera', 'Amaya', 'Pascale', 'Laura', 'Mía'];
   const APELLIDOS = ['Vega', 'Rojas', 'Soto', 'Muñoz', 'Díaz', 'Pérez', 'Araya', 'Cortés', 'Fuentes', 'Riquelme', 'Salinas', 'Cáceres', 'Bravo', 'Yáñez', 'Peña', 'Contreras', 'Godoy', 'Molina', 'Tapia', 'Guerrero', 'Reyes', 'Navarro', 'Espinoza', 'Valdés', 'Carrasco', 'Ibarra', 'Zapata', 'Maldonado'];
   const TUTORES = ['Paulina', 'Rodrigo', 'Carolina', 'Marcela', 'Cristián', 'Andrea', 'Jorge', 'Daniela', 'Patricia', 'Sebastián', 'Verónica', 'Claudio', 'Pamela', 'Nicolás'];
@@ -68,9 +69,14 @@
         const antiguedadMeses = Math.floor(rand() * 46);
         const ingreso = new Date(hoy.getFullYear(), hoy.getMonth() - antiguedadMeses, 1 + Math.floor(rand() * 27));
         const apellido = enOrden(APELLIDOS, lista.length, 5);
+        /* El club es mixto: en cheer competitivo los equipos coed son la norma
+           en las categorías mayores. Uno de cada cinco es varón. */
+        const varon = lista.length % 5 === 2;
+        const nombrePila = varon ? enOrden(NOMBRES_M, lista.length, 3) : enOrden(NOMBRES, lista.length, 7);
         lista.push({
           id: `A${(1000 + lista.length).toString()}`,
-          nombre: `${enOrden(NOMBRES, lista.length, 7)} ${apellido}`,
+          genero: varon ? 'm' : 'f',
+          nombre: `${nombrePila} ${apellido}`,
           nacimiento: iso(nac),
           equipo: eq.id,
           categoria: cat.id,
@@ -201,7 +207,7 @@
       const lista = deportistas();
       const id = `A${2000 + lista.filter(a => a.origen === 'web').length}`;
       const cat = categoriaPorId(datos.categoria);
-      const nueva = { ...datos, id, origen: 'web', estado: 'activa', beca: false, ingreso: iso(new Date()) };
+      const nueva = { ...datos, id, origen: 'web', estado: 'activa', beca: false, ingreso: iso(new Date()), genero: datos.genero || 'f' };
       lista.unshift(nueva);
       write('atletas', lista);
 
@@ -390,12 +396,12 @@
 
     exportarCSV() {
       const mes = Store.mesActual();
-      const cabecera = ['ID', 'Deportista', 'Nacimiento', 'Categoría', 'Equipo', 'Apoderado', 'Teléfono', 'Estado', 'Mensualidad', 'Pago del mes'];
+      const cabecera = ['ID', 'Deportista', 'Nacimiento', 'Género', 'Categoría', 'Equipo', 'Apoderado', 'Teléfono', 'Estado', 'Mensualidad', 'Pago del mes'];
       const filas = deportistas().map(a => {
         const eq = equipoPorId(a.equipo) || {};
         const cat = categoriaPorId(a.categoria) || {};
         const pago = Store.pagoDe(a.id, mes) || {};
-        return [a.id, a.nombre, a.nacimiento, cat.nombre || '', eq.nombre || '', a.apoderado, `+56${a.telefono}`, a.estado, pago.monto || cat.precio || '', pago.estado || 'sin registro'];
+        return [a.id, a.nombre, a.nacimiento, a.genero === 'm' ? 'M' : 'F', cat.nombre || '', eq.nombre || '', a.apoderado, `+56${a.telefono}`, a.estado, pago.monto || cat.precio || '', pago.estado || 'sin registro'];
       });
       return [cabecera, ...filas]
         .map(fila => fila.map(v => `"${String(v).replace(/"/g, '""')}"`).join(','))
