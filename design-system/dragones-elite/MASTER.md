@@ -159,7 +159,23 @@ en `assets/js/fuego.js`.
 - Las brasas se detienen cuando el hero sale de pantalla o la pestaña se oculta.
 - "Elite" no se parte en letras: el degradado de fuego se rompería.
 
-## 11. Antipatrones (ya cometidos en este repo)
+## 11. Finanzas
+
+- **La pantalla de entrada del panel es "Hoy", no un dashboard.** Muestra solo lo que
+  necesita una decisión humana; lo que el sistema resolvió va en la bitácora.
+- **Agrupar lo repetido.** 13 familias atrasadas son una tarjeta con la lista, no 13 tarjetas.
+- **Colores de serie** (validados con el script de dataviz sobre `#121117`: banda de
+  luminosidad, separación para daltonismo y contraste 3:1):
+  `--serie-ingreso #c08a00` · `--serie-egreso #4f8ad4` · `--serie-saldo #6f6b7a`.
+  El oro y el rojo de marca no se usan como serie: el oro es acento y el rojo es alerta.
+- Los gráficos se dibujan **al ancho real de su caja** (se mide antes de pintar); un
+  `viewBox` fijo con `height` fijo encoge el gráfico y apelotona las etiquetas.
+- Todo gráfico tiene tooltip con mouse y teclado, leyenda y **"Ver como tabla"**.
+- Montos con `font-variant-numeric: tabular-nums` y alineados a la derecha.
+- Los mensajes explican el **porqué** de cada decisión del sistema ("Nombre del apoderado
+  y monto calzan", "El monto calza con 2 familias").
+
+## 12. Antipatrones (ya cometidos en este repo)
 
 1. Maquetar el panel con aire de landing. → Filas de 67px, 12 por página.
 2. Elegir un color de texto "que se ve bien" sin medir. → 3.3:1.
@@ -174,3 +190,6 @@ en `assets/js/fuego.js`.
 9. Poner la foto de referencia de una menor que no es del club en la vista
    previa para compartir: viaja por WhatsApp como si fuera una deportista
    Dragones. La imagen OG usa solo arte propio hasta tener fotos autorizadas.
+10. Que un proceso automático escriba datos que aún no se han sembrado: el piloto leyó
+    las mensualidades directo de `localStorage` antes de que existieran y borró el
+    historial de la temporada. Siempre leer a través de `Store`.

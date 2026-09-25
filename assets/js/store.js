@@ -122,7 +122,7 @@
         const r = rand();
         let estado = 'pagado';
         if (esActual) estado = r < 0.72 ? 'pagado' : (r < 0.93 ? 'pendiente' : 'vencido');
-        else if (r < 0.04) estado = 'vencido';
+        else if (r < 0.015) estado = 'vencido';
         pagos[`${a.id}|${mes}`] = {
           estado,
           monto,

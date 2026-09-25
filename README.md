@@ -61,11 +61,43 @@ Concepto **"dragón en vuelo"**: negro profundo con fuego (rojo, brasa y oro).
 ### Panel del club
 - **Resumen**: deportistas activas, recaudación del mes, cobranza, ocupación de cupos, gráfico de ingresos de 6 meses, dona de ocupación, últimas inscripciones y agenda.
 - **Deportistas**: buscador, filtros por equipo y estado, orden por columna, paginación, ficha lateral con historial de pagos y acciones (pausar, beca, cambiar de equipo, eliminar), exportación a CSV.
-- **Pagos**: por mes, ordenados por urgencia, con marcar/revertir pago y recordatorio por WhatsApp prellenado.
+- **Mensualidades**: por mes, ordenadas por urgencia, con marcar/revertir pago y recordatorio por WhatsApp prellenado.
 - **Asistencia**: pasar lista por equipo y fecha desde el celular.
 - **Calendario**: mes navegable con eventos por tipo y alta de nuevos eventos.
 - **Avisos**: publica mensajes que aparecen de inmediato en el portal de todas las familias.
 - **Ajustes**: datos del club, valores por categoría, exportación y reinicio de los datos de ejemplo.
+
+### Finanzas y piloto automático
+Pensado desde el entrenador: **lo que quiere dejar de hacer para dedicarse a entrenar.**
+El sistema hace el trabajo administrativo y la persona solo decide lo que un sistema
+no debería decidir solo. La unidad es la **familia**: los hermanos comparten una sola
+cuenta, un solo mensaje y un solo pago.
+
+| Hoy se hace a mano | Lo hace el sistema |
+|---|---|
+| Cargar la mensualidad a cada deportista | El piloto la carga el día 1, con su beca |
+| Perseguir por WhatsApp a quien no pagó | Recordatorios escalonados (−3, +1 y +10 días), uno por familia, nunca repetidos |
+| Revisar el banco para ver quién transfirió | Se sube la cartola CSV y reconoce el pago por nombre del apoderado o del hijo y por monto |
+| Hacer comprobantes | Cada pago genera uno con folio correlativo, imprimible |
+| Llevar las cuotas del viaje en un cuaderno | Cobros en cuotas con avance y "quién falta" |
+| Armar el Excel de la rendición | Rendición mensual con cascada, publicada sola en el portal |
+
+- **Hoy**: la pantalla de entrada. Solo lo que necesita una decisión (transferencias sin
+  identificar, familias con más de 30 días, cuotas por vencer, gastos sin boleta) y lo que
+  hizo el piloto, con el tiempo estimado que ahorró y cómo se calcula.
+- **Familias**: estado de cuenta por apoderado, antigüedad de la deuda, registrar pago
+  de varios cargos a la vez, convenios de pago (el piloto deja de insistir), comprobantes
+  y anulación.
+- **Cuotas**: viajes, uniformes o torneos en N cuotas para todo el club, una categoría o
+  un equipo; grilla deportista × cuota.
+- **Caja**: saldo, ingresos y egresos de 6 meses, movimientos con respaldo y conciliación
+  de la cartola bancaria (leída en el navegador, no se sube a ningún servidor).
+- **Rendición**: saldo inicial → ingresos → egresos → saldo final. Lo publicado queda fijo.
+- **Piloto automático**: reglas editables (día de vencimiento, días y textos de cada
+  recordatorio, cuándo escalar, conciliación automática, día de la rendición), cola de
+  WhatsApp y bitácora.
+- **Portal de apoderados**: estado de cuenta de toda la familia, pagar todo de una vez con
+  comprobante al instante, y "Cuentas claras del club" con la rendición (solo totales).
 
 ## Estructura
 
@@ -74,8 +106,9 @@ index.html · inscripcion.html · apoderados.html · panel.html
 legal.html · privacidad.html · 404.html
 assets/
   css/  fonts.css  core.css (sistema de diseño)  site.css  portal.css  panel.css
-        fuego.css (secciones y efectos de la portada)
+        fuego.css (secciones y efectos de la portada)  finanzas.css
   js/   data.js (datos del club)  store.js (persistencia)  core.js (UI común)
+        finanzas.js (cuentas, conciliación y piloto)  panel-finanzas.js (vistas)
         site.js  inscripcion.js  apoderados.js  panel.js
         fuego.js (movimiento de la portada)  consentimiento.js
   img/  art-*.svg, volando-*.svg, escamas.svg (ilustraciones de marca)
@@ -134,7 +167,12 @@ consentimiento expreso del apoderado y acceso restringido.
    `assets/js/store.js` (su interfaz ya está aislada del resto).
 2. **Pasarela de pago.** El cobro es simulado; falta integrar Transbank, Flow o
    Mercado Pago en el paso 3 de la inscripción.
-3. **Cuentas y roles.** Los dos accesos son pantallas de demo: al panel entra cualquier
+3. **Piloto en el servidor y WhatsApp Business.** Hoy el piloto corre al abrir el panel o
+   el portal, y los recordatorios quedan en una cola que se envía con un toque. En
+   producción corre cada mañana en el servidor y los mensajes salen solos por la API de
+   WhatsApp Business (Meta cobra por conversación iniciada). La conciliación puede pasar
+   de subir la cartola a leerla directo del banco con un agregador (p. ej. Fintoc).
+4. **Cuentas y roles.** Los dos accesos son pantallas de demo: al panel entra cualquier
    clave y al portal basta el teléfono. En producción hacen falta cuentas reales: roles
    para el club (directora, coach, tesorería) y verificación por código de WhatsApp para
    los apoderados.

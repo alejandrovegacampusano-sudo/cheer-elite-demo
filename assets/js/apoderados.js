@@ -59,6 +59,7 @@
     pintarHijas();
     pintarDeportista();
     pintarPago();
+    pintarRendicion();
     pintarAsistencia();
     pintarAvisos();
     pintarAgenda();
@@ -98,47 +99,79 @@
       ${a.estado === 'pausa' ? '<span class="tag mute">Temporada en pausa</span>' : ''}`;
   }
 
+  /* Estado de cuenta de la FAMILIA: todos los hijos, mensualidades y cuotas
+     extra juntas. Se paga todo de una vez y sale el comprobante al tiro. */
   function pintarPago() {
+    const F = window.DE.Finanzas;
+    const fam = F.familia(estado.telefono);
+    const hoy = F.hoy();
+    const aPagar = fam ? fam.impagos.filter(c => c.estado === 'vencido' || F.diasEntre(hoy, c.vence) <= 31) : [];
+    const total = aPagar.reduce((s, c) => s + c.monto, 0);
+    const vencido = aPagar.filter(c => c.estado === 'vencido').reduce((s, c) => s + c.monto, 0);
+
+    $('#pago-estado').innerHTML = !aPagar.length ? '<span class="tag ok">Al día</span>'
+      : vencido ? '<span class="tag alert">Con saldo vencido</span>' : '<span class="tag warn">Por pagar</span>';
+
     const a = estado.activa;
-    const mes = Store.mesActual();
-    const pago = Store.pagoDe(a.id, mes);
-    const cat = categoriaPorId(a.categoria) || {};
-    const monto = pago ? pago.monto : cat.precio;
-
-    const etiqueta = !pago ? '<span class="tag mute">Sin registro</span>'
-      : pago.estado === 'pagado' ? '<span class="tag ok">Al día</span>'
-      : pago.estado === 'pendiente' ? '<span class="tag warn">Pendiente</span>'
-      : '<span class="tag alert">Vencida</span>';
-    $('#pago-estado').innerHTML = etiqueta;
-
     const meses = Store.meses(6).slice().reverse();
+    const comps = F.comprobantes().filter(c => c.familia === estado.telefono && !c.anulado).slice(0, 4);
+
     $('#pago-box').innerHTML = `
       <div class="money-row">
-        <div class="amount">${CLP(monto)}<small>${mesLindo(mes)}${a.beca ? ' · con beca del 50%' : ''}</small></div>
-        ${pago && pago.estado === 'pagado'
-          ? `<span class="tag ok">Pagada el ${pago.fecha ? fechaLinda(pago.fecha) : 'este mes'}</span>`
-          : '<button class="btn btn-gold" id="pagar">Pagar ahora <span class="ico">→</span></button>'}
+        <div class="amount">${CLP(total)}<small>${aPagar.length ? `${aPagar.length === 1 ? '1 cargo' : `${aPagar.length} cargos`}${estado.hijas.length > 1 ? ' de toda la familia' : ''}` : 'Nada pendiente'}</small></div>
+        ${aPagar.length ? '<button class="btn btn-gold" id="pagar">Pagar <span class="ico">→</span></button>' : '<span class="tag ok">Todo pagado</span>'}
       </div>
-      <div class="timeline-pay">
-        ${meses.map(m => {
-          const p = Store.pagoDe(a.id, m);
-          if (!p) return '';
-          const tag = p.estado === 'pagado' ? '<span class="tag ok">Pagada</span>'
-            : p.estado === 'pendiente' ? '<span class="tag warn">Pendiente</span>'
-            : '<span class="tag alert">Vencida</span>';
-          return `<div class="pay-line">
-            <span>${mesLindo(m)}</span>
-            <b>${CLP(p.monto)}${p.medio ? ` · ${p.medio}` : ''}</b>
-            ${tag}
-          </div>`;
-        }).join('')}
-      </div>
+      ${aPagar.length ? `<div class="timeline-pay">${aPagar.map(c => `
+        <div class="pay-line cargo">
+          <span>${esc(c.concepto)}${estado.hijas.length > 1 ? ` · ${esc(c.atleta.nombre.split(' ')[0])}` : ''}</span>
+          <b>${CLP(c.monto)}</b>
+          ${c.estado === 'vencido' ? '<span class="tag alert">Vencida</span>' : `<span class="tag mute">Vence ${F.fechaCorta(c.vence)}</span>`}
+        </div>`).join('')}</div>` : ''}
+
+      <details class="historial">
+        <summary>Historial de mensualidades de ${esc(a.nombre.split(' ')[0])}</summary>
+        <div class="timeline-pay">
+          ${meses.map(m => {
+            const p = Store.pagoDe(a.id, m);
+            if (!p) return '';
+            const tag = p.estado === 'pagado' ? '<span class="tag ok">Pagada</span>'
+              : p.estado === 'pendiente' ? '<span class="tag warn">Pendiente</span>'
+              : '<span class="tag alert">Vencida</span>';
+            return `<div class="pay-line"><span>${mesLindo(m)}</span><b>${CLP(p.monto)}${p.medio ? ` · ${p.medio}` : ''}</b>${tag}</div>`;
+          }).join('')}
+        </div>
+      </details>
+
+      ${comps.length ? `<div class="comprobantes-portal"><h4>Tus comprobantes</h4>${comps.map(c => `
+        <button class="pay-line cargo" data-comp="${c.folio}"><span>N° ${c.folio} · ${F.fechaCorta(c.fecha)}</span><b>${CLP(c.total)}</b><span class="tag mute">Ver</span></button>`).join('')}</div>` : ''}
+
       <p style="font-size:11.5px;color:var(--muted-2)">
-        La mensualidad vence los días 5. Uniforme, viajes e inscripciones a campeonatos se cobran aparte.
+        La mensualidad vence el día ${F.piloto().diaVence} de cada mes. Aquí aparecen también las cuotas de viajes y uniformes.
       </p>`;
 
-    const btn = $('#pagar');
-    if (btn) btn.addEventListener('click', () => abrirPago(monto, mes));
+    $('#pagar')?.addEventListener('click', () => abrirPago(aPagar));
+    $$('#pago-box [data-comp]').forEach(b => b.addEventListener('click', () =>
+      F.imprimirComprobante(F.comprobantes().find(c => c.folio === Number(b.dataset.comp)))));
+  }
+
+  /* Rendición publicada: los totales del club, sin datos de otras familias */
+  function pintarRendicion() {
+    const F = window.DE.Finanzas;
+    const r = F.ultimaRendicionPublicada();
+    if (!r) { $('#rendicion-box').innerHTML = '<p class="empty">El club aún no publica su primera rendición.</p>'; $('#rend-mes').textContent = ''; return; }
+    const c = r.copia;
+    $('#rend-mes').textContent = F.mesLargo(r.mes);
+    const max = Math.max(...c.egresos.map(x => x.monto), 1);
+    $('#rendicion-box').innerHTML = `
+      <div class="rend-portal">
+        <div><span>Entró</span><b>${CLP(c.totalIn)}</b></div>
+        <div><span>Salió</span><b>${CLP(c.totalEg)}</b></div>
+        <div><span>Quedó en caja</span><b>${CLP(c.final)}</b></div>
+      </div>
+      <h4 class="rend-sub">En qué se usó la plata</h4>
+      <ul class="barras-h">${c.egresos.slice(0, 6).map(x => `
+        <li><span>${esc(x.nombre)}</span><i style="--p:${(x.monto / max * 100).toFixed(1)}%"></i><b>${CLP(x.monto)}</b></li>`).join('')}</ul>
+      <p style="font-size:11.5px;color:var(--muted-2)">Publicada el ${F.fechaCorta(r.fecha)}. ${Math.round(c.cobranza * 100)}% de las mensualidades del mes se pagaron. No se muestran datos de otras familias.</p>`;
   }
 
   function pintarAsistencia() {
@@ -214,12 +247,14 @@
 
   /* ======================= Pago simulado ======================= */
 
-  function abrirPago(monto, mes) {
+  function abrirPago(cargos) {
+    const F = window.DE.Finanzas;
+    const total = cargos.reduce((s, c) => s + c.monto, 0);
     $('#sheet').innerHTML = `
       <span class="grip"></span>
-      <h3>Pagar mensualidad</h3>
-      <p style="font-size:13px;color:var(--muted)">${esc(estado.activa.nombre)} · ${mesLindo(mes)}</p>
-      <div class="total"><span>Total</span><b>${CLP(monto)}</b></div>
+      <h3>Pagar</h3>
+      <p style="font-size:13px;color:var(--muted)">${cargos.length === 1 ? esc(cargos[0].concepto) : `${cargos.length} cargos`}${estado.hijas.length > 1 ? ' de toda la familia' : ` de ${esc(estado.activa.nombre)}`}</p>
+      <div class="total"><span>Total</span><b>${CLP(total)}</b></div>
       <div class="field">
         <span>Forma de pago</span>
         <select id="medio">
@@ -238,12 +273,9 @@
 
     $('#cancelar-pago').addEventListener('click', cerrarPago);
     $('#confirmar-pago').addEventListener('click', () => {
-      const medio = $('#medio').value;
-      Store.marcarPago(estado.activa.id, mes, 'pagado');
-      const mapa = Store.pagos();
-      mapa[`${estado.activa.id}|${mes}`].medio = medio;
+      const comp = F.aplicarPago(cargos.map(c => c.id), { medio: $('#medio').value, origen: 'portal' });
       cerrarPago();
-      toast('¡Pago registrado! El club lo ve al instante en su panel.');
+      toast(comp ? `¡Pago registrado! Comprobante N° ${comp.folio}. El club ya lo ve en su panel.` : 'Esos cargos ya estaban pagados.');
       pintarPago();
     });
   }
@@ -257,6 +289,9 @@
   /* ======================= Arranque ======================= */
 
   document.addEventListener('DOMContentLoaded', () => {
+    /* En producción el piloto corre cada mañana en el servidor; aquí se
+       simula al abrir cualquiera de las dos aplicaciones */
+    window.DE.Finanzas.correrPiloto();
     const guardada = Store.sesionApoderado.actual();
     if (guardada && Store.hijasDe(guardada).length) entrar(guardada);
 

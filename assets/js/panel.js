@@ -24,7 +24,7 @@
   const compacto = v => v >= 1e6 ? `$${(v / 1e6).toFixed(1)}M` : v >= 1000 ? `$${Math.round(v / 1000)}k` : `$${Math.round(v)}`;
 
   const ui = {
-    vista: 'resumen',
+    vista: 'hoy',
     equipo: 'todos',
     estado: 'todas',
     busqueda: '',
@@ -43,17 +43,22 @@
     resumen:     ['Resumen', 'Estado general de la temporada'],
     deportistas: ['Deportistas', 'Fichas, equipos y estado de pago'],
     equipos:     ['Equipos', 'Ocupación, cobranza y cuerpo técnico'],
-    pagos:       ['Pagos', 'Mensualidades por deportista'],
+    pagos:       ['Mensualidades', 'Mensualidades por deportista y mes'],
     asistencia:  ['Asistencia', 'Pasar lista por equipo y fecha'],
     calendario:  ['Calendario', 'Competencias, entrenamientos y cierres'],
     avisos:      ['Avisos', 'Lo que las familias ven en su portal'],
     ajustes:     ['Ajustes', 'Configuración del club y datos del prototipo']
   };
 
+  /* Las vistas de Finanzas viven en panel-finanzas.js y se registran aquí */
+  const FIN = window.DE.VistasFinanzas || {};
+  Object.entries(FIN.vistas || {}).forEach(([id, v]) => { TITULOS[id] = [v.titulo, v.sub]; });
+
   /* ======================= Acceso ======================= */
 
   function entrar() {
     Store.sesion.abrir();
+    FIN.alEntrar?.();
     $('#gate').hidden = true;
     $('#app').hidden = false;
     pintarTodo();
@@ -89,8 +94,10 @@
       asistencia: pintarAsistencia,
       calendario: pintarCalendario,
       avisos: pintarAvisos,
-      ajustes: pintarAjustes
+      ajustes: pintarAjustes,
+      ...Object.fromEntries(Object.entries(FIN.vistas || {}).map(([id, v]) => [id, v.pintar]))
     })[vista]?.();
+    FIN.badges?.();
   }
 
   /* ======================= Resumen ======================= */
@@ -833,6 +840,9 @@
   /* ======================= Arranque ======================= */
 
   function pintarTodo() { pintarVista(ui.vista); }
+
+  /* Para que Finanzas pueda llevar a otra vista (p. ej. "Ver las 28 familias") */
+  window.DE.irA = irA;
 
   document.addEventListener('DOMContentLoaded', () => {
     if (Store.sesion.abierta()) entrar();
