@@ -106,11 +106,16 @@
     const F = window.DE.Finanzas;
     const fam = F.familia(estado.telefono);
     const hoy = F.hoy();
-    const aPagar = fam ? fam.impagos.filter(c => c.estado === 'vencido' || F.diasEntre(hoy, c.vence) <= 31) : [];
+    const cercanos = fam ? fam.impagos.filter(c => c.estado === 'vencido' || F.diasEntre(hoy, c.vence) <= 31) : [];
+    /* Lo que ya tiene una transferencia avisada no se vuelve a cobrar */
+    const enRevision = cercanos.filter(c => F.transferenciaDe(c.id));
+    const aPagar = cercanos.filter(c => !F.transferenciaDe(c.id));
     const total = aPagar.reduce((s, c) => s + c.monto, 0);
     const vencido = aPagar.filter(c => c.estado === 'vencido').reduce((s, c) => s + c.monto, 0);
+    const espera = enRevision.reduce((s, c) => s + c.monto, 0);
 
-    $('#pago-estado').innerHTML = !aPagar.length ? '<span class="tag ok">Al día</span>'
+    $('#pago-estado').innerHTML = !cercanos.length ? '<span class="tag ok">Al día</span>'
+      : !aPagar.length ? '<span class="tag info">En revisión</span>'
       : vencido ? '<span class="tag alert">Con saldo vencido</span>' : '<span class="tag warn">Por pagar</span>';
 
     const a = estado.activa;
@@ -119,9 +124,14 @@
 
     $('#pago-box').innerHTML = `
       <div class="money-row">
-        <div class="amount">${CLP(total)}<small>${aPagar.length ? `${aPagar.length === 1 ? '1 cargo' : `${aPagar.length} cargos`}${estado.hijas.length > 1 ? ' de toda la familia' : ''}` : 'Nada pendiente'}</small></div>
+        <div class="amount">${CLP(total)}<small>${aPagar.length ? `${aPagar.length === 1 ? '1 cargo' : `${aPagar.length} cargos`}${estado.hijas.length > 1 ? ' de toda la familia' : ''}` : 'Nada por pagar'}</small></div>
         ${aPagar.length ? '<button class="btn btn-gold" id="pagar">Pagar <span class="ico">→</span></button>' : '<span class="tag ok">Todo pagado</span>'}
       </div>
+      ${enRevision.length ? `<div class="en-revision">
+        <b>${CLP(espera)} en revisión</b>
+        <span>Avisaste tu transferencia y el club la está revisando. No te llegarán recordatorios por ${enRevision.length === 1 ? 'este cargo' : 'estos cargos'}.</span>
+        <ul>${enRevision.map(c => `<li>${esc(c.concepto)}${estado.hijas.length > 1 ? ` · ${esc(c.atleta.nombre.split(' ')[0])}` : ''}</li>`).join('')}</ul>
+      </div>` : ''}
       ${aPagar.length ? `<div class="timeline-pay">${aPagar.map(c => `
         <div class="pay-line cargo">
           <span>${esc(c.concepto)}${estado.hijas.length > 1 ? ` · ${esc(c.atleta.nombre.split(' ')[0])}` : ''}</span>
@@ -304,37 +314,227 @@
 
   /* ======================= Pago simulado ======================= */
 
+  /* ======================= Pago paso a paso ======================= */
+
+  const pago = { cargos: [], total: 0, archivo: null, nombreArchivo: '' };
+
   function abrirPago(cargos) {
-    const F = window.DE.Finanzas;
-    const total = cargos.reduce((s, c) => s + c.monto, 0);
-    $('#sheet').innerHTML = `
-      <span class="grip"></span>
-      <h3>Pagar</h3>
-      <p style="font-size:13px;color:var(--muted)">${cargos.length === 1 ? esc(cargos[0].concepto) : `${cargos.length} cargos`}${estado.hijas.length > 1 ? ' de toda la familia' : ` de ${esc(estado.activa.nombre)}`}</p>
-      <div class="total"><span>Total</span><b>${CLP(total)}</b></div>
-      <div class="field">
-        <span>Forma de pago</span>
-        <select id="medio">
-          <option value="Webpay">Webpay · débito o crédito</option>
-          <option value="Transferencia">Transferencia bancaria</option>
-        </select>
-      </div>
-      <button class="btn btn-gold btn-block btn-lg" id="confirmar-pago">Confirmar pago</button>
-      <button class="btn btn-ghost btn-block" id="cancelar-pago">Cancelar</button>
-      <p style="font-size:11px;color:var(--muted-2);text-align:center">
-        Prototipo: el cobro es simulado. En producción se conecta a Transbank, Flow o Mercado Pago.
-      </p>`;
+    pago.cargos = cargos;
+    pago.total = cargos.reduce((s, c) => s + c.monto, 0);
+    pago.archivo = null;
+    pago.nombreArchivo = '';
     $('#sheet').classList.add('open');
     $('#sheet-veil').classList.add('open');
     document.body.style.overflow = 'hidden';
+    pasoMetodo();
+  }
 
-    $('#cancelar-pago').addEventListener('click', cerrarPago);
-    $('#confirmar-pago').addEventListener('click', () => {
-      const comp = F.aplicarPago(cargos.map(c => c.id), { medio: $('#medio').value, origen: 'portal' });
-      cerrarPago();
-      toast(comp ? `¡Pago registrado! Comprobante N° ${comp.folio}. El club ya lo ve en su panel.` : 'Esos cargos ya estaban pagados.');
-      pintarPago();
+  const cabecera = (titulo, bajada) => `
+    <span class="grip"></span>
+    <h3>${titulo}</h3>
+    <p class="sheet-sub">${bajada}</p>
+    <div class="total"><span>Total a pagar</span><b>${CLP(pago.total)}</b></div>`;
+
+  function pasoMetodo() {
+    const detalle = pago.cargos.length === 1 ? esc(pago.cargos[0].concepto)
+      : `${pago.cargos.length} cargos${estado.hijas.length > 1 ? ' de toda la familia' : ''}`;
+    $('#sheet').innerHTML = `
+      ${cabecera('¿Cómo quieres pagar?', detalle)}
+      <div class="metodos">
+        <button class="metodo" data-metodo="tarjeta">
+          <span class="metodo-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/></svg></span>
+          <span><b>Tarjeta de débito o crédito</b><small>Webpay · el pago queda confirmado al instante</small></span>
+          <span class="metodo-ir" aria-hidden="true">→</span>
+        </button>
+        <button class="metodo" data-metodo="transferencia">
+          <span class="metodo-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h16l-3-3M20 15H4l3 3"/></svg></span>
+          <span><b>Transferencia bancaria</b><small>Sin costo para el club · subes tu comprobante</small></span>
+          <span class="metodo-ir" aria-hidden="true">→</span>
+        </button>
+      </div>
+      <button class="btn btn-ghost btn-block" data-cancelar>Cancelar</button>`;
+    $$('#sheet [data-metodo]').forEach(b => b.addEventListener('click', () =>
+      b.dataset.metodo === 'tarjeta' ? pasoTarjeta() : pasoTransferencia()));
+    $('#sheet [data-cancelar]').addEventListener('click', cerrarPago);
+  }
+
+  /* --- Tarjeta (simulada) --- */
+
+  function pasoTarjeta() {
+    $('#sheet').innerHTML = `
+      ${cabecera('Pagar con tarjeta', 'Webpay · Transbank')}
+      <div class="form-pago">
+        <label class="field full"><span>Número de la tarjeta</span><input id="t-num" inputmode="numeric" autocomplete="cc-number" placeholder="4051 8856 0000 0000" maxlength="19"></label>
+        <label class="field"><span>Vence</span><input id="t-exp" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/AA" maxlength="5"></label>
+        <label class="field"><span>CVV</span><input id="t-cvv" inputmode="numeric" autocomplete="cc-csc" placeholder="123" maxlength="4"></label>
+        <label class="field full"><span>Nombre del titular</span><input id="t-nom" autocomplete="cc-name" placeholder="Como aparece en la tarjeta"></label>
+      </div>
+      <p class="aviso-demo">Demo: no se cobra nada y no se guardan datos de tarjetas. Puedes escribir cualquier número, o usar <button class="link" id="t-rellenar">una tarjeta de prueba</button>.</p>
+      <button class="btn btn-gold btn-block btn-lg" id="t-pagar">Pagar ${CLP(pago.total)}</button>
+      <button class="btn btn-ghost btn-block" data-volver>← Otra forma de pago</button>`;
+
+    $('#t-num').addEventListener('input', e => {
+      e.target.value = e.target.value.replace(/\D/g, '').slice(0, 16).replace(/(.{4})/g, '$1 ').trim();
     });
+    $('#t-exp').addEventListener('input', e => {
+      const v = e.target.value.replace(/\D/g, '').slice(0, 4);
+      e.target.value = v.length > 2 ? `${v.slice(0, 2)}/${v.slice(2)}` : v;
+    });
+    $('#t-cvv').addEventListener('input', e => { e.target.value = e.target.value.replace(/\D/g, ''); });
+    /* Al corregir un campo se le quita la marca de error */
+    $$('#sheet .form-pago input').forEach(i => i.addEventListener('input', () => i.closest('.field').classList.remove('invalid')));
+    $('#t-rellenar').addEventListener('click', () => {
+      $('#t-num').value = '4051 8856 0000 0000';
+      $('#t-exp').value = '12/29';
+      $('#t-cvv').value = '123';
+      $('#t-nom').value = estado.activa.apoderado;
+      $$('#sheet .form-pago .field').forEach(f => f.classList.remove('invalid'));
+    });
+    $('#sheet [data-volver]').addEventListener('click', pasoMetodo);
+    $('#t-pagar').addEventListener('click', () => {
+      const num = $('#t-num').value.replace(/\D/g, '');
+      const marcar = (sel, mal) => $(sel).closest('.field').classList.toggle('invalid', mal);
+      marcar('#t-num', num.length < 15);
+      marcar('#t-exp', !/^\d{2}\/\d{2}$/.test($('#t-exp').value));
+      marcar('#t-cvv', $('#t-cvv').value.length < 3);
+      marcar('#t-nom', $('#t-nom').value.trim().length < 5);
+      if (num.length < 15 || !/^\d{2}\/\d{2}$/.test($('#t-exp').value) || $('#t-cvv').value.length < 3 || $('#t-nom').value.trim().length < 5) {
+        toast('Revisa los datos de la tarjeta.', 'err');
+        return;
+      }
+      pasoProcesando(num.slice(-4));
+    });
+  }
+
+  function pasoProcesando(ultimos) {
+    $('#sheet').innerHTML = `
+      <span class="grip"></span>
+      <div class="procesando">
+        <span class="spinner" aria-hidden="true"></span>
+        <h3>Procesando el pago…</h3>
+        <p class="sheet-sub">Estamos confirmando con el banco. No cierres esta ventana.</p>
+      </div>`;
+    setTimeout(() => {
+      const F = window.DE.Finanzas;
+      const comp = F.aplicarPago(pago.cargos.map(c => c.id), { medio: 'Webpay', origen: 'portal', referencia: `Tarjeta terminada en ${ultimos}` });
+      pasoListo(comp, `Tarjeta terminada en ${ultimos}`);
+    }, 1800);
+  }
+
+  function pasoListo(comp, detalle) {
+    $('#sheet').innerHTML = `
+      <span class="grip"></span>
+      <div class="pago-ok">
+        <span class="tic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg></span>
+        <h3>¡Pago listo!</h3>
+        <p class="sheet-sub">${CLP(pago.total)} · ${esc(detalle)}</p>
+        ${comp ? `<p class="folio-ok">Comprobante N° ${comp.folio}</p>` : ''}
+        <p class="sheet-sub">El club ya lo ve en su panel.</p>
+      </div>
+      ${comp ? '<button class="btn btn-ghost btn-block" id="ver-comp">Ver comprobante</button>' : ''}
+      <button class="btn btn-gold btn-block btn-lg" data-cerrar-ok>Listo</button>`;
+    $('#sheet [data-cerrar-ok]').addEventListener('click', () => { cerrarPago(); pintarPago(); });
+    $('#ver-comp')?.addEventListener('click', () => window.DE.Finanzas.imprimirComprobante(comp));
+  }
+
+  /* --- Transferencia --- */
+
+  function pasoTransferencia() {
+    const b = CLUB.banco;
+    /* Se muestra con formato, pero se copia el dato limpio para pegarlo en el banco */
+    const copiable = (etiqueta, valor, copia = valor) => `
+      <div class="dato-banco">
+        <span>${etiqueta}</span>
+        <b>${esc(valor)}</b>
+        <button class="copiar" data-copiar="${esc(copia)}" aria-label="Copiar ${etiqueta}">Copiar</button>
+      </div>`;
+    $('#sheet').innerHTML = `
+      ${cabecera('Transferencia bancaria', 'Transfiere y sube tu comprobante')}
+      <div class="datos-banco">
+        ${copiable('Banco', b.banco)}
+        ${copiable('Tipo de cuenta', b.tipo)}
+        ${copiable('N° de cuenta', b.numero)}
+        ${copiable('RUT', b.rut)}
+        ${copiable('Titular', b.titular)}
+        ${copiable('Correo', b.email)}
+        ${copiable('Monto', CLP(pago.total), String(pago.total))}
+      </div>
+      <button class="btn btn-ghost btn-block btn-sm" id="copiar-todo">Copiar todos los datos</button>
+      <label class="subir-comp">
+        <input type="file" id="comp-archivo" accept="image/*,application/pdf">
+        <span id="comp-texto"><b>Subir mi comprobante</b><small>Foto o PDF de la transferencia</small></span>
+      </label>
+      <div id="comp-vista"></div>
+      <button class="btn btn-gold btn-block btn-lg" id="enviar-comp">Ya transferí, avisar al club</button>
+      <button class="btn btn-ghost btn-block" data-volver>← Otra forma de pago</button>`;
+
+    $$('#sheet [data-copiar]').forEach(b2 => b2.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(b2.dataset.copiar); b2.textContent = 'Copiado'; setTimeout(() => { b2.textContent = 'Copiar'; }, 1600); }
+      catch { toast('Copia el dato a mano: el navegador no lo permitió.', 'err'); }
+    }));
+    $('#copiar-todo').addEventListener('click', async () => {
+      const txt = `${b.titular}\nRUT ${b.rut}\n${b.banco} · ${b.tipo}\nN° ${b.numero}\n${b.email}\nMonto: ${CLP(pago.total)}`;
+      try { await navigator.clipboard.writeText(txt); toast('Datos copiados.'); }
+      catch { toast('Copia los datos a mano: el navegador no lo permitió.', 'err'); }
+    });
+    $('#sheet [data-volver]').addEventListener('click', pasoMetodo);
+    $('#comp-archivo').addEventListener('change', e => leerComprobante(e.target.files[0]));
+    $('#enviar-comp').addEventListener('click', enviarTransferencia);
+  }
+
+  /* La foto se achica antes de guardarla: una del celular pesa varios MB y no
+     cabe en el navegador. Un PDF se guarda solo por su nombre. */
+  function leerComprobante(file) {
+    if (!file) return;
+    pago.nombreArchivo = file.name;
+    const vista = $('#comp-vista');
+    $('#comp-texto').innerHTML = `<b>${esc(file.name)}</b><small>Toca para cambiarlo</small>`;
+
+    if (file.type === 'application/pdf') {
+      pago.archivo = null;
+      vista.innerHTML = '<p class="comp-pdf">PDF adjunto. El club lo verá al revisar tu pago.</p>';
+      return;
+    }
+    const lector = new FileReader();
+    lector.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const max = 900;
+        const escala = Math.min(1, max / Math.max(img.width, img.height));
+        const c = document.createElement('canvas');
+        c.width = Math.round(img.width * escala);
+        c.height = Math.round(img.height * escala);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        pago.archivo = c.toDataURL('image/jpeg', 0.62);
+        vista.innerHTML = `<img class="comp-vista" src="${pago.archivo}" alt="Comprobante de transferencia que subiste">`;
+      };
+      img.onerror = () => { pago.archivo = null; vista.innerHTML = '<p class="comp-pdf">No pude leer la imagen, pero igual puedes avisar al club.</p>'; };
+      img.src = lector.result;
+    };
+    lector.readAsDataURL(file);
+  }
+
+  function enviarTransferencia() {
+    const F = window.DE.Finanzas;
+    if (!pago.nombreArchivo && !confirm('No subiste el comprobante. ¿Avisar igual? El club tendrá que buscar la transferencia a mano.')) return;
+    F.avisarTransferencia({
+      familia: estado.telefono,
+      cargos: pago.cargos.map(c => c.id),
+      monto: pago.total,
+      archivo: pago.archivo,
+      nombreArchivo: pago.nombreArchivo,
+      referencia: `Comprobante de ${estado.activa.apoderado}`
+    });
+    $('#sheet').innerHTML = `
+      <span class="grip"></span>
+      <div class="pago-ok">
+        <span class="tic espera" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <h3>Aviso enviado</h3>
+        <p class="sheet-sub">${CLP(pago.total)} por transferencia${pago.nombreArchivo ? `, con tu comprobante adjunto` : ''}.</p>
+        <p class="sheet-sub">El club lo revisa y tu cuenta queda al día. Mientras tanto verás <b>«en revisión»</b> y no te llegarán recordatorios por estos cargos.</p>
+      </div>
+      <button class="btn btn-gold btn-block btn-lg" data-cerrar-ok>Listo</button>`;
+    $('#sheet [data-cerrar-ok]').addEventListener('click', () => { cerrarPago(); pintarPago(); });
   }
 
   function cerrarPago() {
@@ -350,8 +550,10 @@
        simula al abrir cualquiera de las dos aplicaciones */
     window.DE.Finanzas.correrPiloto();
     const guardada = Store.sesionApoderado.actual();
-    if (new URLSearchParams(location.search).has('demo')) entrar(familiaDemo());
-    else if (guardada && Store.hijasDe(guardada).length) entrar(guardada);
+    /* En la demo se mantiene la misma familia entre visitas: si no, tras pagar
+       entraría otra con deuda y parecería que el pago no quedó. */
+    if (guardada && Store.hijasDe(guardada).length) entrar(guardada);
+    else if (new URLSearchParams(location.search).has('demo')) entrar(familiaDemo());
 
     $('#entrar').addEventListener('click', () => entrar($('#tel').value));
     $('#tel').addEventListener('keydown', e => { if (e.key === 'Enter') entrar($('#tel').value); });

@@ -206,3 +206,53 @@ i.p-pago { background: var(--warn); }
   .cal-celda { min-height: 44px; padding: 5px 3px; }
   .cal-celda b { font-size: 11px; }
 }
+
+/* --- Pago paso a paso --------------------------------------------------- */
+
+.sheet-sub { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.sheet-sub b { color: var(--ink); }
+
+.metodos { display: grid; gap: 10px; }
+.metodo { display: grid; grid-template-columns: 42px 1fr auto; gap: 14px; align-items: center; width: 100%; padding: 16px 16px; border-radius: var(--r-s); border: 1px solid var(--line-soft); background: rgba(255, 255, 255, .025); text-align: left; transition: border-color .2s, background .2s; }
+.metodo:hover, .metodo:focus-visible { border-color: rgba(245, 183, 0, .5); background: rgba(245, 183, 0, .06); }
+.metodo-ico { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: rgba(245, 183, 0, .12); color: var(--gold); }
+.metodo-ico svg { width: 22px; height: 22px; }
+.metodo b { display: block; font-size: 14.5px; }
+.metodo small { font-size: 11.5px; color: var(--muted-2); }
+.metodo-ir { color: var(--gold); font-size: 17px; }
+
+.form-pago { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-pago .full { grid-column: 1 / -1; }
+.aviso-demo { font-size: 11.5px; color: var(--muted-2); line-height: 1.5; }
+.aviso-demo .link { color: var(--gold); text-decoration: underline; text-underline-offset: 2px; }
+
+.procesando, .pago-ok { display: grid; justify-items: center; gap: 10px; text-align: center; padding: 18px 0 8px; }
+.spinner { width: 46px; height: 46px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, .12); border-top-color: var(--gold); animation: girar .9s linear infinite; }
+@keyframes girar { to { transform: rotate(360deg); } }
+.tic { width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; background: rgba(73, 221, 155, .14); color: var(--ok); }
+.tic.espera { background: rgba(125, 184, 255, .14); color: var(--info); }
+.tic svg { width: 28px; height: 28px; }
+.folio-ok { font-family: Manrope, sans-serif; font-size: 15px; color: var(--gold); }
+
+.datos-banco { display: grid; gap: 1px; border-radius: var(--r-s); overflow: hidden; border: 1px solid var(--line-soft); }
+.dato-banco { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center; padding: 10px 13px; background: rgba(255, 255, 255, .025); }
+.dato-banco span { font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted-2); }
+.dato-banco b { font-size: 14px; grid-column: 1; }
+.dato-banco .copiar { grid-row: 1 / span 2; grid-column: 2; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line-soft); font-size: 11.5px; font-weight: 700; color: var(--gold); }
+.dato-banco .copiar:hover { border-color: var(--gold); }
+
+.subir-comp { position: relative; display: grid; place-items: center; gap: 2px; padding: 18px; border-radius: var(--r-s); border: 1.5px dashed rgba(245, 183, 0, .4); text-align: center; cursor: pointer; transition: background .2s; }
+.subir-comp:hover, .subir-comp:focus-within { background: rgba(245, 183, 0, .06); }
+.subir-comp input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.subir-comp > span { display: grid; gap: 3px; }
+.subir-comp b { font-size: 14px; color: var(--gold); overflow-wrap: anywhere; }
+.subir-comp small { font-size: 11.5px; color: var(--muted-2); }
+.comp-vista { width: 100%; max-height: 220px; object-fit: contain; border-radius: var(--r-s); border: 1px solid var(--line-soft); background: rgba(0, 0, 0, .3); }
+.comp-pdf { font-size: 12.5px; color: var(--muted); text-align: center; }
+
+.en-revision { display: grid; gap: 6px; padding: 13px 15px; border-radius: var(--r-s); background: rgba(125, 184, 255, .07); border: 1px solid rgba(125, 184, 255, .22); }
+.en-revision b { font-size: 14px; color: var(--info); }
+.en-revision span { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.en-revision ul { display: grid; gap: 3px; margin-top: 2px; }
+.en-revision li { font-size: 12px; color: var(--muted-2); padding-left: 12px; position: relative; }
+.en-revision li::before { content: '·'; position: absolute; left: 3px; }

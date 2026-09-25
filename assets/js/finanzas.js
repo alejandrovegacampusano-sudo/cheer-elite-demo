@@ -172,6 +172,7 @@
   }
   const config = () => ({ saldoInicial: 1250000, ...read('config', {}) });
   const comprobantes = () => read('comprobantes', []);
+  const transferencias = () => read('transferencias', []);
   const recordatorios = () => read('recordatorios', []);
   const revisar = () => read('revisar', []);
   const bitacora = () => read('bitacora', []);
@@ -340,6 +341,56 @@
     write('cuotas', pc);
     comp.anulado = hoy();
     write('comprobantes', l);
+    return true;
+  }
+
+  /* ==========================================================================
+     Transferencias avisadas por las familias
+     --------------------------------------------------------------------------
+     Una transferencia no se da por pagada sola: la familia sube su comprobante,
+     el cargo queda "en revisión" y alguien del club la confirma. Recién ahí se
+     aplica el pago y se emite el comprobante del club.
+     ========================================================================== */
+
+  function avisarTransferencia({ familia, cargos: ids, monto, fecha, archivo = null, nombreArchivo = '', referencia = '' }) {
+    const l = transferencias();
+    const t = {
+      id: `T${Date.now().toString(36)}`, familia, cargos: ids, monto,
+      fecha: fecha || hoy(), archivo, nombreArchivo, referencia,
+      estado: 'en revision', avisada: hoy()
+    };
+    l.unshift(t);
+    try { write('transferencias', l); }
+    catch { /* si la foto no cabe, se guarda el aviso sin ella */ t.archivo = null; write('transferencias', l); }
+    return t;
+  }
+
+  /* Si un cargo ya tiene una transferencia esperando confirmación, no se
+     vuelve a cobrar ni a incluir en los recordatorios. */
+  const transferenciaDe = cargoId => transferencias().find(t => t.estado === 'en revision' && t.cargos.includes(cargoId)) || null;
+  const transferenciasPendientes = () => transferencias().filter(t => t.estado === 'en revision');
+
+  function confirmarTransferencia(id) {
+    const l = transferencias();
+    const t = l.find(x => x.id === id);
+    if (!t || t.estado !== 'en revision') return null;
+    const comp = aplicarPago(t.cargos, { medio: 'Transferencia', fecha: t.fecha, origen: 'portal', referencia: t.referencia || 'Comprobante enviado por la familia' });
+    t.estado = 'confirmada';
+    t.folio = comp ? comp.folio : null;
+    t.resuelta = hoy();
+    write('transferencias', l);
+    anotar('comprobantes', 1, `Comprobante emitido al confirmar una transferencia avisada por la familia`);
+    return comp;
+  }
+
+  function rechazarTransferencia(id, motivo = '') {
+    const l = transferencias();
+    const t = l.find(x => x.id === id);
+    if (!t || t.estado !== 'en revision') return false;
+    t.estado = 'rechazada';
+    t.motivo = motivo;
+    t.resuelta = hoy();
+    write('transferencias', l);
     return true;
   }
 
@@ -729,6 +780,7 @@
       let paso = null;
       const items = [];
       f.impagos.forEach(c => {
+        if (transferenciaDe(c.id)) return;      // ya avisó su transferencia
         const d = diasEntre(c.vence, hoyS);
         const aplicable = pasos.filter(p => d >= p.dias).pop();
         if (!aplicable) return;
@@ -768,6 +820,7 @@
     const hoyS = hoy();
     const items = [];
 
+    transferenciasPendientes().forEach(t => items.push({ tipo: 'transferencia', prioridad: 0, id: t.id, transferencia: t, familia: familia(t.familia) }));
     revisar().forEach(r => items.push({ ...r, clase: r.tipo, tipo: 'revisar', prioridad: 1 }));
 
     /* Un solo aviso agrupado: veinte tarjetas iguales no se leen, se ignoran */
@@ -856,6 +909,7 @@
     rendicion, publicarRendicion, rendiciones, ultimaRendicionPublicada,
     leerCartola, conciliar, cartolaEjemplo, revisar, resolverRevision,
     recordatorios, marcarRecordatorioEnviado, enlaceWhatsApp,
+    transferencias, transferenciaDe, transferenciasPendientes, avisarTransferencia, confirmarTransferencia, rechazarTransferencia,
     convenios, fijarConvenio: (id, nota) => { const c = convenios(); if (nota === null) delete c[id]; else c[id] = { desde: hoy(), nota }; write('convenios', c); },
     bandeja, bitacora, ahorroDelMes
   };

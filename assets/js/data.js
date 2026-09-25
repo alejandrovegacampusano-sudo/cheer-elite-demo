@@ -35,6 +35,16 @@ const CLUB = {
     youtube:   'https://www.youtube.com/@AcademiaDragonesEliteChile'
   },
 
+  /* Cuenta del club para las transferencias. Reemplazar por la real. */
+  banco: {
+    titular: 'Academia Dragones Elite',
+    rut: '77.777.777-7',
+    banco: 'Banco Estado',
+    tipo: 'Cuenta Corriente',
+    numero: '000 123 45678',
+    email: 'pagos@dragoneselite.cl'
+  },
+
   /* Centro de Iquique como referencia hasta tener la dirección del gimnasio */
   mapa: { lat: -20.2307, lon: -70.1357, referencial: true }
 };

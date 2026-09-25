@@ -176,6 +176,23 @@
   }
 
   function tarjetaDecision(it) {
+    if (it.tipo === 'transferencia') {
+      const t = it.transferencia;
+      const f = it.familia;
+      return `
+      <article class="decision urgente" data-id="${t.id}">
+        <header><span class="tag info">Transferencia avisada por la familia</span><strong>${CLP(t.monto)}</strong><time>${F.fechaCorta(t.avisada)}</time></header>
+        <p><b>${esc(f ? f.apoderado : 'Familia')}</b> avisó que transfirió y ${t.archivo ? 'subió su comprobante' : t.nombreArchivo ? `adjuntó ${esc(t.nombreArchivo)}` : 'no adjuntó comprobante'}. Confirma que llegó a la cuenta del club y el pago se aplica con su comprobante.</p>
+        <ul class="mini-lista">${t.cargos.map(id => { const c = F.cargos().find(x => x.id === id); return c ? `<li><span>${esc(c.concepto)} · ${esc(c.atleta.nombre)}</span><span>${CLP(c.monto)}</span></li>` : ''; }).join('')}</ul>
+        ${t.archivo ? `<button class="ver-comp" data-foto="${t.id}"><img src="${t.archivo}" alt="Comprobante que envió la familia"><span>Ver más grande</span></button>` : ''}
+        <div class="acciones">
+          <button class="btn btn-gold btn-sm" data-confirmar="${t.id}">Confirmar pago</button>
+          <button class="btn btn-ghost btn-sm" data-rechazar="${t.id}">No la encuentro</button>
+          ${f ? `<a class="btn btn-ghost btn-sm" target="_blank" rel="noopener" href="${F.enlaceWhatsApp(f.telefono, `Hola ${f.apoderado.split(' ')[0]}, recibimos tu aviso de transferencia por ${CLP(t.monto)}. Te confirmamos apenas la veamos en la cuenta. — ${CLUB.corto}`)}">Escribirle</a>` : ''}
+        </div>
+      </article>`;
+    }
+
     if (it.tipo === 'revisar' && it.clase === 'abono') {
       return `
       <article class="decision" data-id="${it.id}">
@@ -243,6 +260,24 @@
 
   function enlazarDecisiones(root) {
     const repintar = () => { pintarHoy(); badges(); };
+    root.querySelectorAll('[data-confirmar]').forEach(b => b.addEventListener('click', () => {
+      const comp = F.confirmarTransferencia(b.dataset.confirmar);
+      toast(comp ? `Pago confirmado. Comprobante N° ${comp.folio}.` : 'Esos cargos ya estaban pagados.');
+      repintar();
+    }));
+    root.querySelectorAll('[data-rechazar]').forEach(b => b.addEventListener('click', () => {
+      const motivo = prompt('¿Qué le decimos a la familia? (queda registrado)', 'No encontramos la transferencia en la cuenta.');
+      if (motivo === null) return;
+      F.rechazarTransferencia(b.dataset.rechazar, motivo);
+      toast('Aviso rechazado: el cargo vuelve a quedar pendiente.');
+      repintar();
+    }));
+    root.querySelectorAll('[data-foto]').forEach(b => b.addEventListener('click', () => {
+      const t = F.transferencias().find(x => x.id === b.dataset.foto);
+      if (t?.archivo) abrirCajon(`
+        <div class="drawer-head"><div><h3>Comprobante de la familia</h3><span>${esc(t.referencia || '')} · ${CLP(t.monto)}</span></div><button class="drawer-close" data-cerrar aria-label="Cerrar">✕</button></div>
+        <div class="drawer-body"><img src="${t.archivo}" alt="Comprobante de transferencia enviado por la familia" style="width:100%;border-radius:12px"></div>`);
+    }));
     root.querySelectorAll('[data-asignar]').forEach(b => b.addEventListener('click', () => {
       const id = b.dataset.asignar;
       const fam = b.dataset.fam ? F.familia(b.dataset.fam) : familiaDesdeTexto(root.querySelector(`[data-buscar="${id}"]`)?.value || '');

@@ -85,6 +85,7 @@ cuenta, un solo mensaje y un solo pago.
 | Cargar la mensualidad a cada deportista | El piloto la carga el día 1, con su beca |
 | Perseguir por WhatsApp a quien no pagó | Recordatorios escalonados (−3, +1 y +10 días), uno por familia, nunca repetidos |
 | Revisar el banco para ver quién transfirió | Se sube la cartola CSV y reconoce el pago por nombre del apoderado o del hijo y por monto |
+| Preguntar "¿ya pagaste?" por WhatsApp | La familia avisa su transferencia con el comprobante y el club la confirma con un clic |
 | Hacer comprobantes | Cada pago genera uno con folio correlativo, imprimible |
 | Llevar las cuotas del viaje en un cuaderno | Cobros en cuotas con avance y "quién falta" |
 | Armar el Excel de la rendición | Rendición mensual con cascada, publicada sola en el portal |
@@ -104,9 +105,13 @@ cuenta, un solo mensaje y un solo pago.
 - **Piloto automático**: reglas editables (día de vencimiento, días y textos de cada
   recordatorio, cuándo escalar, conciliación automática, día de la rendición), cola de
   WhatsApp y bitácora.
-- **Portal de apoderados**: estado de cuenta de toda la familia, pagar todo de una vez con
-  comprobante al instante. La rendición de cuentas del club NO se muestra aquí: es
-  solo de la directiva, en el panel.
+- **Portal de apoderados**: estado de cuenta de toda la familia y pago paso a paso.
+  Con **tarjeta** (formulario Webpay simulado, confirmación al instante y comprobante) o
+  con **transferencia**: muestra los datos de la cuenta del club con botón de copiar, la
+  familia sube la foto o el PDF de su comprobante y el cargo queda «en revisión» —el piloto
+  deja de enviarle recordatorios— hasta que alguien del club lo confirma desde «Hoy», con la
+  imagen a la vista. Si lo rechaza, el cargo vuelve a quedar pendiente. La rendición de
+  cuentas del club NO se muestra aquí: es solo de la directiva, en el panel.
 
 ## Estructura
 
@@ -174,8 +179,12 @@ consentimiento expreso del apoderado y acceso restringido.
 1. **Backend real.** Hoy todo vive en `localStorage` del navegador: los datos no se
    comparten entre dispositivos. Al conectar una API, el único archivo que cambia es
    `assets/js/store.js` (su interfaz ya está aislada del resto).
-2. **Pasarela de pago.** El cobro es simulado; falta integrar Transbank, Flow o
-   Mercado Pago en el paso 3 de la inscripción.
+   El comprobante que sube la familia se achica en el navegador antes de guardarse.
+2. **Pasarela de pago.** El pago con tarjeta es simulado: falta integrar Webpay
+   (Transbank) o Flow. Requiere club constituido con RUT e inicio de actividades en el
+   SII y cuenta bancaria a nombre del club. La transferencia ya funciona sin pasarela:
+   la familia sube su comprobante y el club lo confirma. Los datos de la cuenta están
+   en `CLUB.banco` (`assets/js/data.js`) y hoy son de ejemplo.
 3. **Piloto en el servidor y WhatsApp Business.** Hoy el piloto corre al abrir el panel o
    el portal, y los recordatorios quedan en una cola que se envía con un toque. En
    producción corre cada mañana en el servidor y los mensajes salen solos por la API de

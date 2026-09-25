@@ -263,3 +263,9 @@
 .comprobantes-portal .pay-line { width: 100%; text-align: left; }
 .pay-line.cargo span:first-child { width: auto; flex: 1; color: var(--ink); line-height: 1.4; }
 .pay-line.cargo b { flex: 0 0 auto; font-variant-numeric: tabular-nums; }
+
+/* Transferencia avisada por una familia: lo primero de la bandeja */
+.decision.urgente { border-color: rgba(125, 184, 255, .35); background: rgba(125, 184, 255, .05); }
+.ver-comp { display: grid; gap: 6px; justify-items: start; padding: 0; }
+.ver-comp img { max-width: 260px; max-height: 150px; object-fit: cover; border-radius: 10px; border: 1px solid var(--line-soft); }
+.ver-comp span { font-size: 11.5px; color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
