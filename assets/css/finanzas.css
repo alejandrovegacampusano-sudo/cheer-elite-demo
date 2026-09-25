@@ -259,21 +259,7 @@
 .historial { margin: 4px 0; }
 .historial summary { cursor: pointer; font-size: 12.5px; color: var(--muted); padding: 6px 0; }
 .comprobantes-portal { display: grid; gap: 6px; }
-.comprobantes-portal h4, .rend-sub { font-family: Manrope, sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted-2); margin-top: 6px; }
+.comprobantes-portal h4 { font-family: Manrope, sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted-2); margin-top: 6px; }
 .comprobantes-portal .pay-line { width: 100%; text-align: left; }
-.rend-portal { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; border-radius: 12px; overflow: hidden; border: 1px solid var(--line-soft); }
-.rend-portal div { padding: 12px; background: rgba(255, 255, 255, .02); display: grid; gap: 4px; }
-.rend-portal span { font-size: 11px; color: var(--muted-2); }
-.rend-portal b { font-family: Manrope, sans-serif; font-size: 16px; font-variant-numeric: tabular-nums; }
-.barras-h { display: grid; gap: 8px; }
-.barras-h li { display: grid; grid-template-columns: 110px 1fr auto; gap: 10px; align-items: center; font-size: 12.5px; }
-.barras-h span { color: var(--muted); }
-.barras-h i { display: block; height: 8px; border-radius: 0 3px 3px 0; background: linear-gradient(90deg, var(--serie-egreso) var(--p), rgba(255, 255, 255, .06) var(--p)); }
-.barras-h b { font-variant-numeric: tabular-nums; font-size: 12px; }
-@media (max-width: 520px) {
-  .rend-portal { grid-template-columns: 1fr; }
-  .barras-h li { grid-template-columns: 1fr auto; }
-  .barras-h i { grid-column: 1 / -1; grid-row: 2; }
-}
 .pay-line.cargo span:first-child { width: auto; flex: 1; color: var(--ink); line-height: 1.4; }
 .pay-line.cargo b { flex: 0 0 auto; font-variant-numeric: tabular-nums; }

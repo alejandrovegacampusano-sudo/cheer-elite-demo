@@ -446,8 +446,9 @@
     };
   }
 
-  /* Se guarda una copia fija: lo publicado no cambia aunque después se
-     corrija algo en la caja. La corrección se ve en la siguiente rendición. */
+  /* Se guarda una copia fija del mes cerrado: no cambia aunque después se
+     corrija algo en la caja. La corrección se ve en la rendición siguiente.
+     Es información solo de la directiva; el portal de apoderados no la muestra. */
   function publicarRendicion(mes, por = 'Directiva') {
     const r = rendicion(mes);
     const mapa = rendiciones();
@@ -751,7 +752,7 @@
     if (Number(hoyS.slice(8)) >= cfg.rendicionDia && !rendiciones()[anterior] && Store.meses(6).includes(anterior)) {
       publicarRendicion(anterior, 'Piloto automático');
       hecho.rendicion = anterior;
-      anotar('rendicion', 1, `Rendición de ${mesLargo(anterior)} publicada en el portal de apoderados`);
+      anotar('rendicion', 1, `Rendición de ${mesLargo(anterior)} cerrada y lista para la directiva`);
     }
 
     write('ultimaCorrida', { fecha: hoyS, hora: new Date().toTimeString().slice(0, 5) });

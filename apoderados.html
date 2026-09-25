@@ -91,10 +91,6 @@
         <div class="pcard-in" id="pago-box"></div>
       </section>
 
-      <section class="pcard">
-        <header><h3>Cuentas claras del club</h3><span class="grow"></span><span class="tag mute" id="rend-mes"></span></header>
-        <div class="pcard-in" id="rendicion-box"></div>
-      </section>
 
       <section class="pcard">
         <header>
@@ -108,6 +104,33 @@
       <section class="pcard">
         <header><h3>Avisos del club</h3></header>
         <div class="pcard-in" id="avisos-box"></div>
+      </section>
+
+      <section class="pcard">
+        <header>
+          <h3>Calendario</h3>
+          <span class="grow"></span>
+          <div class="cal-modo" role="group" aria-label="Ver el calendario por semana o por mes">
+            <button class="chip-cal on" data-modo="semana">Semana</button>
+            <button class="chip-cal" data-modo="mes">Mes</button>
+          </div>
+        </header>
+        <div class="pcard-in">
+          <div class="cal-nav">
+            <button class="cal-mover" data-mover="-1" aria-label="Anterior">←</button>
+            <b id="cal-rotulo"></b>
+            <button class="cal-mover" data-mover="1" aria-label="Siguiente">→</button>
+            <span class="grow"></span>
+            <button class="btn btn-ghost btn-sm" id="cal-hoy">Hoy</button>
+          </div>
+          <div id="cal-box"></div>
+          <div class="cal-leyenda">
+            <span><i class="p-entreno"></i>Entrenamiento</span>
+            <span><i class="p-competencia"></i>Competencia</span>
+            <span><i class="p-club"></i>Actividad del club</span>
+            <span><i class="p-pago"></i>Vence la mensualidad</span>
+          </div>
+        </div>
       </section>
 
       <section class="pcard">

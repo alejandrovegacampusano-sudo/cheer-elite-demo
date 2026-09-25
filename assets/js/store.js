@@ -352,10 +352,12 @@
     },
 
     /* Últimas clases de una deportista según el horario de su equipo */
-    ultimasClases(atleta, cuantas = 6) {
-      const eq = equipoPorId(atleta.equipo);
-      if (!eq) return [];
-      /* Días de entrenamiento leídos del horario configurado del equipo */
+    /* Días de la semana en que entrena un equipo, leídos de su horario
+       configurado ("Lun, Mié y Vie · 17:30" → [1, 3, 5]). Devuelve también la
+       hora, para el calendario del portal. */
+    horarioDe(equipo) {
+      const eq = typeof equipo === 'string' ? equipoPorId(equipo) : equipo;
+      if (!eq) return { dias: [], hora: '' };
       const mapa = { lun: 1, mar: 2, mié: 3, mie: 3, jue: 4, vie: 5, sáb: 6, sab: 6, dom: 0 };
       const texto = eq.horario.toLowerCase();
       let dias = Object.keys(mapa).filter(d => texto.includes(d)).map(d => mapa[d]);
@@ -363,6 +365,13 @@
       if (texto.includes('a jue')) dias = [1, 2, 3, 4];
       dias = [...new Set(dias)];
       if (!dias.length) dias = [2, 4];
+      return { dias, hora: (eq.horario.match(/\d{1,2}:\d{2}/) || [''])[0] };
+    },
+
+    ultimasClases(atleta, cuantas = 6) {
+      const eq = equipoPorId(atleta.equipo);
+      if (!eq) return [];
+      const { dias } = Store.horarioDe(eq);
 
       const clases = [];
       const cursor = new Date();

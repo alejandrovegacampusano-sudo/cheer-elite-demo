@@ -60,8 +60,8 @@
     pintarHijas();
     pintarDeportista();
     pintarPago();
-    pintarRendicion();
     pintarAsistencia();
+    pintarCalendario();
     pintarAvisos();
     pintarAgenda();
     pintarFicha();
@@ -155,26 +155,6 @@
       F.imprimirComprobante(F.comprobantes().find(c => c.folio === Number(b.dataset.comp)))));
   }
 
-  /* Rendición publicada: los totales del club, sin datos de otras familias */
-  function pintarRendicion() {
-    const F = window.DE.Finanzas;
-    const r = F.ultimaRendicionPublicada();
-    if (!r) { $('#rendicion-box').innerHTML = '<p class="empty">El club aún no publica su primera rendición.</p>'; $('#rend-mes').textContent = ''; return; }
-    const c = r.copia;
-    $('#rend-mes').textContent = F.mesLargo(r.mes);
-    const max = Math.max(...c.egresos.map(x => x.monto), 1);
-    $('#rendicion-box').innerHTML = `
-      <div class="rend-portal">
-        <div><span>Entró</span><b>${CLP(c.totalIn)}</b></div>
-        <div><span>Salió</span><b>${CLP(c.totalEg)}</b></div>
-        <div><span>Quedó en caja</span><b>${CLP(c.final)}</b></div>
-      </div>
-      <h4 class="rend-sub">En qué se usó la plata</h4>
-      <ul class="barras-h">${c.egresos.slice(0, 6).map(x => `
-        <li><span>${esc(x.nombre)}</span><i style="--p:${(x.monto / max * 100).toFixed(1)}%"></i><b>${CLP(x.monto)}</b></li>`).join('')}</ul>
-      <p style="font-size:11.5px;color:var(--muted-2)">Publicada el ${F.fechaCorta(r.fecha)}. ${Math.round(c.cobranza * 100)}% de las mensualidades del mes se pagaron. No se muestran datos de otras familias.</p>`;
-  }
-
   function pintarAsistencia() {
     const a = estado.activa;
     const clases = Store.ultimasClases(a, 8);
@@ -194,6 +174,82 @@
           : pct >= 70 ? 'Buena asistencia. Las rutinas se arman con el equipo completo, cada clase suma.'
           : 'La asistencia viene baja. Si hay algún tema de horario, escríbele al club y lo vemos.'}
       </p>` : '<p style="font-size:12.5px;color:var(--muted)">Todavía no hay clases registradas.</p>';
+  }
+
+  /* ======================= Calendario ======================= */
+
+  const DOW = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+  const MESES_LARGO = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  const pad2 = n => String(n).padStart(2, '0');
+  const fISO = d => `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+  /* Lunes de la semana de una fecha */
+  const lunesDe = d => { const x = new Date(d); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); x.setHours(12, 0, 0, 0); return x; };
+
+  const cal = { modo: 'semana', ancla: new Date() };
+
+  /* Qué le pasa a ESTA deportista un día: su entrenamiento, los eventos del
+     club y el vencimiento de su mensualidad. */
+  function marcasDelDia(fechaISO) {
+    const a = estado.activa;
+    const marcas = [];
+    const { dias, hora } = Store.horarioDe(a.equipo);
+    const d = new Date(fechaISO + 'T12:00');
+    const eq = equipoPorId(a.equipo) || {};
+    if (dias.includes(d.getDay()) && fechaISO >= a.ingreso && a.estado === 'activa') {
+      marcas.push({ tipo: 'entreno', titulo: `Entrenamiento ${eq.nombre || ''}`.trim(), hora, lugar: 'Gimnasio' });
+    }
+    Store.eventos().filter(e => e.fecha === fechaISO).forEach(e =>
+      marcas.push({ tipo: e.tipo === 'pago' ? 'pago' : e.tipo === 'competencia' ? 'competencia' : 'club', titulo: e.titulo, hora: e.hora, lugar: e.lugar }));
+
+    const diaVence = window.DE.Finanzas.piloto().diaVence;
+    if (d.getDate() === diaVence) {
+      const pago = Store.pagoDe(a.id, fechaISO.slice(0, 7));
+      if (pago && pago.estado !== 'pagado') marcas.push({ tipo: 'pago', titulo: 'Vence la mensualidad', hora: '', lugar: '' });
+    }
+    return marcas;
+  }
+
+  function pintarCalendario() {
+    const hoy = fISO(new Date());
+    $$('.chip-cal').forEach(b => b.classList.toggle('on', b.dataset.modo === cal.modo));
+
+    if (cal.modo === 'semana') {
+      const lunes = lunesDe(cal.ancla);
+      const dias = Array.from({ length: 7 }, (_, i) => { const d = new Date(lunes); d.setDate(lunes.getDate() + i); return d; });
+      const fin = dias[6];
+      $('#cal-rotulo').textContent = lunes.getMonth() === fin.getMonth()
+        ? `${lunes.getDate()} al ${fin.getDate()} de ${MESES_LARGO[lunes.getMonth()]}`
+        : `${lunes.getDate()} ${MESES[lunes.getMonth()]} al ${fin.getDate()} ${MESES[fin.getMonth()]}`;
+
+      $('#cal-box').innerHTML = `<div class="cal-semana">${dias.map(d => {
+        const f = fISO(d);
+        const marcas = marcasDelDia(f);
+        return `<div class="cal-dia${f === hoy ? ' hoy' : ''}${marcas.length ? '' : ' libre'}">
+          <span class="cal-dow">${DOW[(d.getDay() + 6) % 7]} ${d.getDate()}</span>
+          ${marcas.length ? marcas.map(m => `<div class="cal-marca p-${m.tipo}"><b>${esc(m.titulo)}</b>${m.hora ? `<span>${m.hora}${m.lugar ? ` · ${esc(m.lugar)}` : ''}</span>` : ''}</div>`).join('')
+            : '<span class="cal-nada">Libre</span>'}
+        </div>`;
+      }).join('')}</div>`;
+    } else {
+      const primero = new Date(cal.ancla.getFullYear(), cal.ancla.getMonth(), 1);
+      $('#cal-rotulo').textContent = `${MESES_LARGO[primero.getMonth()]} ${primero.getFullYear()}`;
+      const inicio = lunesDe(primero);
+      const celdas = Array.from({ length: 42 }, (_, i) => { const d = new Date(inicio); d.setDate(inicio.getDate() + i); return d; });
+      const ultima = celdas.findIndex((d, i) => i >= 27 && d.getMonth() !== primero.getMonth() && (i + 1) % 7 === 0);
+
+      $('#cal-box').innerHTML = `<div class="cal-mes">
+        ${DOW.map(n => `<span class="cal-dow-mes">${n}</span>`).join('')}
+        ${celdas.slice(0, ultima > 0 ? ultima + 1 : 42).map(d => {
+          const f = fISO(d);
+          const marcas = marcasDelDia(f);
+          const fuera = d.getMonth() !== primero.getMonth();
+          return `<div class="cal-celda${fuera ? ' fuera' : ''}${f === hoy ? ' hoy' : ''}" ${marcas.length ? `title="${esc(marcas.map(m => m.titulo).join(' · '))}"` : ''}>
+            <b>${d.getDate()}</b>
+            <span class="puntos">${marcas.slice(0, 3).map(m => `<i class="p-${m.tipo}"></i>`).join('')}</span>
+          </div>`;
+        }).join('')}
+      </div>`;
+    }
   }
 
   function pintarAvisos() {
@@ -306,6 +362,15 @@
     });
     $('#salir').addEventListener('click', salir);
     $('#guardar-ficha').addEventListener('click', guardarFicha);
+    $$('.chip-cal').forEach(b => b.addEventListener('click', () => { cal.modo = b.dataset.modo; pintarCalendario(); }));
+    $$('[data-mover]').forEach(b => b.addEventListener('click', () => {
+      const n = Number(b.dataset.mover);
+      cal.ancla = cal.modo === 'semana'
+        ? new Date(cal.ancla.getFullYear(), cal.ancla.getMonth(), cal.ancla.getDate() + n * 7)
+        : new Date(cal.ancla.getFullYear(), cal.ancla.getMonth() + n, 1);
+      pintarCalendario();
+    }));
+    $('#cal-hoy').addEventListener('click', () => { cal.ancla = new Date(); pintarCalendario(); });
     $('#sheet-veil').addEventListener('click', cerrarPago);
     window.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarPago(); });
 

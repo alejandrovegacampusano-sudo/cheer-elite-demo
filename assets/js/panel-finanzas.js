@@ -748,10 +748,10 @@
     cont.innerHTML = `
       <div class="panel-box">
         <div class="panel-head" style="flex-wrap:wrap">
-          <div><h3>Rendición de cuentas · ${F.mesLargo(ui.rendMes)}</h3><span class="sub">${r.publicada ? `Publicada el ${F.fechaCorta(r.publicada.fecha)} por ${esc(r.publicada.por)}. Las familias la ven en su portal.` : 'Borrador: todavía no la ven las familias.'}</span></div>
+          <div><h3>Rendición de cuentas · ${F.mesLargo(ui.rendMes)}</h3><span class="sub">${r.publicada ? `Cerrada el ${F.fechaCorta(r.publicada.fecha)} por ${esc(r.publicada.por)}.` : 'Borrador: el mes todavía no se cierra.'}</span></div>
           <span class="grow"></span>
           <select class="input select-sm" id="rend-mes" aria-label="Mes">${meses.slice().reverse().map(m => `<option value="${m}" ${m === ui.rendMes ? 'selected' : ''}>${F.mesLargo(m)}</option>`).join('')}</select>
-          ${r.publicada ? '<span class="tag ok">Publicada</span>' : '<button class="btn btn-gold btn-sm" id="rend-publicar">Publicar en el portal</button>'}
+          ${r.publicada ? '<span class="tag ok">Cerrada</span>' : '<button class="btn btn-gold btn-sm" id="rend-publicar">Cerrar el mes</button>'}
           <button class="btn btn-ghost btn-sm" id="rend-imprimir">Imprimir o guardar PDF</button>
         </div>
         <div class="panel-in" id="rend-hoja">
@@ -777,13 +777,13 @@
             <div><span>Deuda vencida total hoy</span><b>${CLP(r.deudaTotal)}</b></div>
             <div><span>Gastos del mes sin boleta</span><b>${r.sinRespaldo}</b></div>
           </div>
-          <p class="nota">Las familias ven estos totales en su portal, sin nombres ni montos de otras familias. Lo publicado queda fijo: si después se corrige algo, el ajuste aparece en la rendición siguiente.</p>
+          <p class="nota">Esta rendición es solo de la directiva: las familias no la ven. Al cerrar el mes queda fija, así que si después se corrige algo, el ajuste aparece en la rendición siguiente. Para compartirla en una reunión, usa «Imprimir o guardar PDF».</p>
         </div>
       </div>`;
 
     tooltip(cont.querySelector('svg.chart'));
     $('#rend-mes').addEventListener('change', e => { ui.rendMes = e.target.value; pintarRendicion(); });
-    $('#rend-publicar')?.addEventListener('click', () => { F.publicarRendicion(ui.rendMes); toast('Rendición publicada en el portal de apoderados.'); pintarRendicion(); });
+    $('#rend-publicar')?.addEventListener('click', () => { F.publicarRendicion(ui.rendMes); toast('Mes cerrado: la rendición queda guardada.'); pintarRendicion(); });
     $('#rend-imprimir').addEventListener('click', () => {
       document.body.classList.add('imprimiendo-rendicion');
       const fin = () => { document.body.classList.remove('imprimiendo-rendicion'); window.removeEventListener('afterprint', fin); };
@@ -826,7 +826,7 @@
             <div class="regla"><b>4</b><div><h4>Pasarte el caso a ti</h4><p>Después de <input class="input input-xs" type="number" min="7" max="120" id="pl-escalar" value="${cfg.escalarDias}" aria-label="Días para escalar"> días de atraso deja de insistir y te lo muestra en Hoy. Las familias con convenio no reciben avisos.</p></div></div>
             <div class="regla"><b>5</b><div><h4>Conciliar el banco</h4><label class="check"><input type="checkbox" id="pl-conciliar" ${cfg.conciliarSolo ? 'checked' : ''}><span>Aplicar solo el pago cuando el nombre y el monto calzan. Si hay dudas, te pregunta.</span></label></div></div>
             <div class="regla"><b>6</b><div><h4>Comprobantes</h4><p>Cada pago registrado, conciliado o hecho en el portal genera su comprobante con número correlativo.</p></div></div>
-            <div class="regla"><b>7</b><div><h4>Rendición mensual</h4><p>El día <input class="input input-xs" type="number" min="1" max="28" id="pl-rend" value="${cfg.rendicionDia}" aria-label="Día de publicación"> publica en el portal la rendición del mes anterior.</p></div></div>
+            <div class="regla"><b>7</b><div><h4>Rendición mensual</h4><p>El día <input class="input input-xs" type="number" min="1" max="28" id="pl-rend" value="${cfg.rendicionDia}" aria-label="Día de cierre"> deja cerrada la rendición del mes anterior, lista para la directiva.</p></div></div>
             <button class="btn btn-gold" id="pl-guardar">Guardar reglas</button>
           </div>
         </div>
@@ -853,7 +853,7 @@
     $('#pl-activo').addEventListener('change', e => { F.guardarPiloto({ activo: e.target.checked }); toast(e.target.checked ? 'Piloto encendido.' : 'Piloto apagado: nada se hará solo.'); pintarPiloto(); });
     $('#pl-correr').addEventListener('click', () => {
       const h = F.correrPiloto();
-      const partes = [h.cargos && `${h.cargos} cargos`, h.vencidos && `${h.vencidos} vencidas`, h.recordatorios && `${h.recordatorios} recordatorios`, h.rendicion && 'rendición publicada'].filter(Boolean);
+      const partes = [h.cargos && `${h.cargos} cargos`, h.vencidos && `${h.vencidos} vencidas`, h.recordatorios && `${h.recordatorios} recordatorios`, h.rendicion && 'rendición cerrada'].filter(Boolean);
       toast(partes.length ? `Listo: ${partes.join(', ')}.` : 'Todo estaba al día: no hubo nada que hacer.');
       pintarPiloto(); badges();
     });
@@ -887,7 +887,7 @@
     familias:  { titulo: 'Familias', sub: 'Estado de cuenta por apoderado', pintar: pintarFamilias },
     cuotas:    { titulo: 'Cuotas', sub: 'Viajes, uniformes y cobros en cuotas', pintar: pintarCuotas },
     caja:      { titulo: 'Caja', sub: 'Ingresos, gastos y conciliación bancaria', pintar: pintarCaja },
-    rendicion: { titulo: 'Rendición', sub: 'Cuentas claras para la directiva y las familias', pintar: pintarRendicion },
+    rendicion: { titulo: 'Rendición', sub: 'Las cuentas del club, solo para la directiva', pintar: pintarRendicion },
     piloto:    { titulo: 'Piloto automático', sub: 'Lo que el sistema hace solo', pintar: pintarPiloto }
   };
 

@@ -155,3 +155,54 @@
   .form-grid { grid-template-columns: 1fr; }
   .portal-top .btn span.txt { display: none; }
 }
+
+/* --- Calendario de la deportista ---------------------------------------- */
+
+.cal-modo { display: flex; gap: 4px; padding: 3px; border-radius: 999px; background: rgba(0, 0, 0, .3); }
+.chip-cal { padding: 6px 14px; border-radius: 999px; font-size: 12px; font-weight: 700; color: var(--muted-2); transition: background .2s, color .2s; }
+.chip-cal.on { background: var(--grad-gold); color: #100d06; }
+
+.cal-nav { display: flex; align-items: center; gap: 10px; }
+.cal-nav b { font-family: Manrope, sans-serif; font-size: 14px; }
+.cal-nav b::first-letter { text-transform: uppercase; }
+.cal-nav .grow { flex: 1; }
+.cal-mover { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line-soft); color: var(--muted); font-size: 15px; transition: border-color .2s, color .2s; }
+.cal-mover:hover, .cal-mover:focus-visible { border-color: var(--gold); color: var(--gold); }
+
+.cal-semana { display: grid; gap: 8px; }
+.cal-dia { display: grid; gap: 6px; padding: 12px 14px; border-radius: var(--r-s); background: rgba(255, 255, 255, .025); border-left: 3px solid transparent; }
+.cal-dia.hoy { border-left-color: var(--gold); background: rgba(245, 183, 0, .07); }
+.cal-dia.libre { opacity: .55; }
+.cal-dow { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted-2); font-weight: 700; }
+.cal-nada { font-size: 12.5px; color: var(--muted-2); }
+.cal-marca { display: grid; gap: 2px; padding: 8px 11px; border-radius: 9px; background: rgba(255, 255, 255, .04); border-left: 3px solid var(--muted-2); }
+.cal-marca b { font-size: 13.5px; font-weight: 600; }
+.cal-marca span { font-size: 11.5px; color: var(--muted-2); }
+.cal-marca.p-entreno { border-left-color: var(--info); }
+.cal-marca.p-competencia { border-left-color: var(--gold); }
+.cal-marca.p-club { border-left-color: var(--muted); }
+.cal-marca.p-pago { border-left-color: var(--warn); }
+
+.cal-mes { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+.cal-dow-mes { text-align: center; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted-2); padding-bottom: 4px; }
+.cal-celda { min-height: 52px; padding: 7px 6px; border-radius: 9px; background: rgba(255, 255, 255, .022); display: grid; gap: 5px; align-content: start; justify-items: center; }
+.cal-celda b { font-size: 12.5px; color: var(--muted); font-weight: 600; }
+.cal-celda.fuera { opacity: .3; }
+.cal-celda.hoy { background: rgba(245, 183, 0, .12); outline: 1px solid rgba(245, 183, 0, .5); }
+.cal-celda.hoy b { color: var(--gold); }
+.cal-celda .puntos { display: flex; gap: 3px; flex-wrap: wrap; justify-content: center; }
+.cal-celda .puntos i, .cal-leyenda i { width: 7px; height: 7px; border-radius: 50%; display: block; }
+/* El color plano es solo para los puntitos del mes y la leyenda; en la
+   semana el color va en el borde izquierdo, no en el fondo. */
+i.p-entreno { background: var(--info); }
+i.p-competencia { background: var(--gold); }
+i.p-club { background: var(--muted); }
+i.p-pago { background: var(--warn); }
+
+.cal-leyenda { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 11.5px; color: var(--muted-2); }
+.cal-leyenda span { display: inline-flex; align-items: center; gap: 6px; }
+
+@media (max-width: 420px) {
+  .cal-celda { min-height: 44px; padding: 5px 3px; }
+  .cal-celda b { font-size: 11px; }
+}

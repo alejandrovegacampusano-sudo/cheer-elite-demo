@@ -59,7 +59,9 @@ Concepto **"dragón en vuelo"**: negro profundo con fuego (rojo, brasa y oro).
 - Tarjeta de la deportista: equipo, horario, coach, antigüedad.
 - Mensualidad del mes con pago en línea simulado e historial de 6 meses.
 - Asistencia clase por clase con lectura en lenguaje humano.
-- Avisos que publica el club y próximas fechas del calendario.
+- Avisos que publica el club, calendario semanal o mensual de su deportista
+  (entrenamientos según el horario de su equipo, competencias, actividades y el
+  vencimiento de la mensualidad) y próximas fechas.
 - Puede corregir sus propios datos (teléfono, correo, talla, emergencia, condición médica) y el cambio llega a la ficha del club.
 - Al terminar la inscripción entra directo a su portal, ya con la sesión abierta.
 
@@ -97,12 +99,14 @@ cuenta, un solo mensaje y un solo pago.
   un equipo; grilla deportista × cuota.
 - **Caja**: saldo, ingresos y egresos de 6 meses, movimientos con respaldo y conciliación
   de la cartola bancaria (leída en el navegador, no se sube a ningún servidor).
-- **Rendición**: saldo inicial → ingresos → egresos → saldo final. Lo publicado queda fijo.
+- **Rendición**: saldo inicial → ingresos → egresos → saldo final. Solo la ve la
+  directiva; lo publicado queda fijo.
 - **Piloto automático**: reglas editables (día de vencimiento, días y textos de cada
   recordatorio, cuándo escalar, conciliación automática, día de la rendición), cola de
   WhatsApp y bitácora.
 - **Portal de apoderados**: estado de cuenta de toda la familia, pagar todo de una vez con
-  comprobante al instante, y "Cuentas claras del club" con la rendición (solo totales).
+  comprobante al instante. La rendición de cuentas del club NO se muestra aquí: es
+  solo de la directiva, en el panel.
 
 ## Estructura
 
