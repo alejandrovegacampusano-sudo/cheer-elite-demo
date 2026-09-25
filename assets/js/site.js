@@ -132,7 +132,7 @@
     { img: 'art-podium',   t: 'Podio nacional',     s: 'Senior Elite' },
     { img: 'art-team',     t: 'En el aire',         s: 'Salto con pompones' },
     { img: 'art-tumbling', t: 'Pista de tumbling',  s: 'Series de flic flac' },
-    { img: 'art-class',    t: 'Las más chicas',     s: 'Dragoncitos · primera clase' },
+    { img: 'art-class',    t: 'Un solo equipo',     s: 'Manos en corazón antes de salir' },
     { img: 'art-hero',     t: 'Antes de salir',     s: 'Camarín, minutos previos' }
   ];
 
