@@ -147,6 +147,7 @@
   background: #100e15;
 }
 .hero-frame img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.02); }
+.hero-frame img.con-foto { object-position: 50% 8%; }
 .hero-frame::after {
   content: '';
   position: absolute; inset: 0;
@@ -365,6 +366,7 @@
 .shot:nth-child(5) { grid-column: span 2; grid-row: span 2; }
 .shot:nth-child(8) { grid-column: span 2; }
 .shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease), filter .5s; }
+.shot img.con-foto { object-position: 50% 22%; }
 .shot:hover img { transform: scale(1.08); }
 .shot figcaption {
   position: absolute;

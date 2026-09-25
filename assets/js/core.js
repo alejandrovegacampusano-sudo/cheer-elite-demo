@@ -158,13 +158,13 @@ function initPageTransitions() {
 /* --- Fotos reales ----------------------------------------------------------- */
 
 /* El sitio se dibuja con ilustraciones de marca. Si el club deja una foto en
-   assets/fotos/<nombre>.jpg (o .webp), esta función la detecta y la pone en su
+   assets/fotos/<nombre>.webp (o .jpg), esta función la detecta y la pone en su
    lugar: nadie tiene que tocar código para cambiar una imagen.
    La búsqueda es perezosa —solo cuando el hueco se acerca a la pantalla— para
    no pedir archivos de secciones que el visitante nunca va a ver. */
 function initFotos(root = document) {
   const buscar = el => {
-    const rutas = ['jpg', 'webp'].map(ext => `assets/fotos/${el.dataset.foto}.${ext}`);
+    const rutas = ['webp', 'jpg'].map(ext => `assets/fotos/${el.dataset.foto}.${ext}`);
     const probar = i => {
       if (i >= rutas.length) return;
       const prueba = new Image();

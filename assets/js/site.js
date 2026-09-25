@@ -126,11 +126,11 @@
   /* --- Galería + lightbox --------------------------------------------------- */
 
   const SHOTS = [
-    { img: 'art-stunt',    t: 'Stunt en grupo',     s: 'Youth Storm · entrenamiento de martes' },
+    { img: 'art-stunt',    t: 'Arriba',             s: 'La flyer en lo alto del stunt' },
     { img: 'art-jump',     t: 'Jumps',              s: 'Toe touch sincronizado' },
     { img: 'art-toss',     t: 'Basket toss',        s: 'Junior Inferno · rutina 2026' },
     { img: 'art-podium',   t: 'Podio nacional',     s: 'Senior Elite' },
-    { img: 'art-team',     t: 'La familia',         s: 'Cierre de temporada' },
+    { img: 'art-team',     t: 'En el aire',         s: 'Salto con pompones' },
     { img: 'art-tumbling', t: 'Pista de tumbling',  s: 'Series de flic flac' },
     { img: 'art-class',    t: 'Las más chicas',     s: 'Dragoncitos · primera clase' },
     { img: 'art-hero',     t: 'Antes de salir',     s: 'Camarín, minutos previos' }
