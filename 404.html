@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07070a">
+  <title>Página no encontrada · Academia Dragones Elite</title>
+  <meta name="description" content="Esta dirección no existe en el sitio de la Academia Dragones Elite.">
+  <link rel="canonical" href="https://alejandrovegacampusano-sudo.github.io/cheer-elite-demo/404.html">
+  <link rel="icon" href="assets/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Academia Dragones Elite">
+  <meta property="og:locale" content="es_CL">
+  <meta property="og:url" content="https://alejandrovegacampusano-sudo.github.io/cheer-elite-demo/404.html">
+  <meta property="og:title" content="Página no encontrada · Academia Dragones Elite">
+  <meta property="og:description" content="Esta dirección no existe en el sitio de la Academia Dragones Elite.">
+  <meta property="og:image" content="https://alejandrovegacampusano-sudo.github.io/cheer-elite-demo/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Esto es más que cheer — Academia Dragones Elite, Iquique">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Página no encontrada · Academia Dragones Elite">
+  <meta name="twitter:description" content="Esta dirección no existe en el sitio de la Academia Dragones Elite.">
+  <meta name="twitter:image" content="https://alejandrovegacampusano-sudo.github.io/cheer-elite-demo/assets/og.png">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/core.css">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <style>
+    .lost { min-height: 100svh; display: grid; place-items: center; padding: 100px var(--gutter) 60px; }
+    .lost-in { width: min(100%, 620px); text-align: center; display: grid; gap: 20px; justify-items: center; }
+    .lost .codigo { font-family: var(--font-poster); font-size: clamp(90px, 22vw, 190px); line-height: .85; background: var(--grad-gold); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .lost h1 { font-family: var(--font-serif); font-weight: 500; font-size: clamp(24px, 4.5vw, 38px); }
+    .lost p { color: var(--muted); max-width: 46ch; }
+    .salidas { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; width: 100%; margin-top: 10px; }
+    .salidas a { padding: 15px 14px; border: 1px solid var(--line-soft); border-radius: var(--r-m); font-size: 13.5px; font-weight: 700; transition: border-color .25s, background .25s, transform .25s var(--ease); }
+    .salidas a:hover { border-color: rgba(232, 200, 106, .45); background: rgba(232, 200, 106, .07); transform: translateY(-2px); }
+    .salidas a span { display: block; margin-top: 3px; font-size: 11.5px; font-weight: 500; color: var(--muted-2); }
+  </style>
+</head>
+<body>
+  <div class="ambient"><i></i><i></i><i></i></div>
+  <div class="grain"></div>
+
+  <main class="lost">
+    <div class="lost-in">
+      <span class="codigo">404</span>
+      <h1>Esta página se cayó del stunt.</h1>
+      <p>La dirección que buscas no existe o cambió de lugar. Desde aquí llegas a todo lo demás.</p>
+
+      <nav class="salidas" aria-label="Secciones del sitio">
+        <a href="index.html">Inicio<span>El club y los equipos</span></a>
+        <a href="inscripcion.html">Inscripción<span>Sumar una deportista</span></a>
+        <a href="apoderados.html">Apoderados<span>Pagos y asistencia</span></a>
+        <a href="panel.html">Panel del club<span>Solo equipo del club</span></a>
+      </nav>
+
+      <a class="btn btn-gold btn-lg" href="index.html" style="margin-top:8px">Volver al inicio</a>
+      <a class="btn btn-ghost btn-sm" id="wa-404" href="#" target="_blank" rel="noopener">Escribir al club por WhatsApp</a>
+    </div>
+  </main>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/core.js"></script>
+  <script>
+    const wa = document.getElementById('wa-404');
+    wa.href = `https://wa.me/${window.DE.CLUB.whatsapp}?text=${encodeURIComponent('Hola, llegué a una página que no existe en el sitio.')}`;
+  </script>
+  <script src="assets/js/consentimiento.js"></script>
+</body>
+</html>

@@ -400,6 +400,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 [data-reveal].in { opacity: 1; transform: none; }
 [data-reveal="mask"].in { clip-path: inset(0 0 0 0); }
 
+/* En pantallas angostas los desplazamientos horizontales de entrada asoman
+   fuera del viewport y provocan scroll lateral: ahí todo entra en vertical. */
+@media (max-width: 760px) {
+  [data-reveal="left"], [data-reveal="right"] { transform: translateY(26px); }
+}
+
 .split-line { display: block; overflow: hidden; padding-top: .12em; margin-top: -.12em; }
 .split-line > span { display: block; transform: translateY(105%); transition: transform 1s var(--ease-out); transition-delay: var(--delay, 0ms); }
 .split-line.in > span { transform: none; }
@@ -417,6 +423,50 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .page-veil.on { opacity: 1; }
 body.booting .page-veil { opacity: 1; }
+
+/* --- Banner de consentimiento ----------------------------------------------- */
+
+.consent {
+  position: fixed;
+  left: 50%; bottom: 18px;
+  z-index: 190;
+  width: min(760px, calc(100vw - 32px));
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 20px;
+  background: rgba(18, 17, 23, .97);
+  border: 1px solid var(--line);
+  border-radius: var(--r-m);
+  box-shadow: var(--sh-3);
+  backdrop-filter: blur(14px);
+  transform: translate(-50%, 130%);
+  transition: transform .45s var(--ease-out);
+}
+.consent.on { transform: translate(-50%, 0); }
+.consent-txt strong { display: block; font-family: var(--font-ui); font-size: 14px; margin-bottom: 3px; }
+.consent-txt p { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.consent-txt a { color: var(--gold); text-decoration: underline; text-underline-offset: 2px; }
+.consent-btns { display: flex; gap: 10px; margin-left: auto; flex: 0 0 auto; }
+
+/* Los dos botones son idénticos a propósito: rechazar no puede costar más
+   esfuerzo ni verse menos disponible que aceptar. */
+.btn-consent {
+  min-width: 118px;
+  padding: 11px 20px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, .04);
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 700;
+}
+.btn-consent:hover { background: rgba(232, 200, 106, .12); border-color: rgba(232, 200, 106, .5); }
+
+@media (max-width: 640px) {
+  .consent { flex-direction: column; align-items: stretch; gap: 14px; bottom: 12px; }
+  .consent-btns { margin-left: 0; }
+  .consent-btns .btn-consent { flex: 1; }
+}
 
 /* --- Toast ---------------------------------------------------------------- */
 

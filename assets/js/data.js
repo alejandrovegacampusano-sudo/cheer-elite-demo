@@ -20,7 +20,13 @@ const CLUB = {
   direccion: 'Gimnasio Dragones Elite · Iquique, Tarapacá',
   matricula: 18000,
   descuentoHermanos: 0.15,
-  temporada: '2026'
+  temporada: '2026',
+
+  /* Envío de la inscripción al club.
+     endpoint: URL de un servicio de formularios (Formspree, Web3Forms, Basin…).
+     Vacío = no se intenta enviar por correo y solo queda el aviso por WhatsApp,
+     que funciona sin configurar nada. */
+  formEndpoint: ''
 };
 
 const CATEGORIAS = [

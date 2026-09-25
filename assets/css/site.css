@@ -440,7 +440,8 @@
 .quote strong { display: block; font-size: 14px; }
 .quote span { font-size: 12px; color: var(--muted); }
 .quote-nav { display: flex; gap: 8px; justify-content: center; margin-top: 22px; }
-.quote-dot { width: 30px; height: 3px; border-radius: 99px; background: rgba(255, 255, 255, .13); transition: background .3s, width .3s; }
+/* El punto se ve de 3px pero se toca en 44: el área táctil va en el padding */
+.quote-dot { width: 30px; height: 3px; border-radius: 99px; background: rgba(255, 255, 255, .13); transition: background .3s, width .3s; box-sizing: content-box; padding: 20px 6px; background-clip: content-box; }
 .quote-dot.active { background: var(--gold); width: 46px; }
 
 /* --- Bloque plataforma (SaaS) ---------------------------------------------- */
@@ -509,6 +510,36 @@
 .faq-a > div { overflow: hidden; }
 .faq-a p { padding: 0 60px 24px 4px; font-size: 14px; color: var(--muted); }
 
+/* --- Páginas de texto (legal, privacidad) ---------------------------------- */
+
+.doc-wrap { max-width: 760px; margin-inline: auto; padding: 118px var(--gutter) 70px; }
+.doc-wrap h1 { font-family: var(--font-serif); font-weight: 500; font-size: clamp(30px, 5vw, 46px); letter-spacing: -.015em; }
+.doc-wrap .fecha { display: block; margin-top: 12px; font-size: 12.5px; color: var(--muted-2); }
+.doc-wrap h2 { font-family: var(--font-ui); font-size: 18px; margin: 42px 0 12px; padding-top: 22px; border-top: 1px solid var(--line-soft); }
+.doc-wrap h3 { font-family: var(--font-ui); font-size: 15px; margin: 24px 0 8px; color: var(--gold); }
+.doc-wrap p, .doc-wrap li { font-size: 15px; line-height: 1.7; color: var(--muted); }
+.doc-wrap p + p { margin-top: 14px; }
+.doc-wrap ul { display: grid; gap: 9px; margin: 14px 0; }
+.doc-wrap ul li { position: relative; padding-left: 20px; }
+.doc-wrap ul li::before { content: ''; position: absolute; left: 4px; top: 11px; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+.doc-wrap strong { color: var(--ink); font-weight: 600; }
+.doc-wrap a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+.doc-wrap table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+.doc-wrap th, .doc-wrap td { padding: 11px 13px; text-align: left; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+.doc-wrap th { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted-2); }
+.doc-wrap td { color: var(--muted); }
+
+.aviso-borrador {
+  display: grid; gap: 7px;
+  padding: 16px 18px; margin: 26px 0 0;
+  border: 1px dashed rgba(232, 200, 106, .4);
+  border-radius: var(--r-s);
+  background: rgba(232, 200, 106, .06);
+  font-size: 13.5px;
+}
+.aviso-borrador b { color: var(--gold); }
+.pendiente { color: var(--warn); font-weight: 600; background: rgba(255, 194, 75, .12); padding: 1px 6px; border-radius: 4px; }
+
 /* --- CTA final y pie ------------------------------------------------------- */
 
 .cta-final {
@@ -525,9 +556,9 @@
 .cta-final .row { justify-content: center; margin-top: 32px; }
 
 .site-footer { border-top: 1px solid var(--line-soft); padding: 56px 0 40px; margin-top: 40px; }
-.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 30px; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr repeat(4, 1fr); gap: 26px; }
 .footer-grid h5 { font-size: 11px; text-transform: uppercase; letter-spacing: .14em; color: var(--muted-2); margin: 0 0 14px; font-family: Manrope, sans-serif; }
-.footer-grid a, .footer-grid li { font-size: 13.5px; color: var(--muted); display: block; padding: 5px 0; transition: color .25s; }
+.footer-grid a, .footer-grid li { font-size: 13.5px; color: var(--muted); display: block; padding: 9px 0; min-height: 40px; display: flex; align-items: center; transition: color .25s; }
 .footer-grid a:hover { color: var(--gold); }
 .footer-bottom { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--line-soft); font-size: 11.5px; color: var(--muted-2); }
 
@@ -645,6 +676,7 @@
 @media (max-width: 1080px) {
   .hero-grid { grid-template-columns: 1fr; }
   .hero-visual { max-width: 440px; margin-inline: auto; }
+  .hero-ring { inset: 0; }
   .hero { min-height: auto; padding-top: 112px; }
   .float-card.a { left: 0; } .float-card.b { right: 0; }
   .platform { grid-template-columns: 1fr; }

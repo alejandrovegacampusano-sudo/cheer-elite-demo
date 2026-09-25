@@ -190,6 +190,50 @@
       : 'Matrícula por única vez más la primera mensualidad.';
   }
 
+  /* --- Aviso al club --------------------------------------------------------- */
+
+  /* Resumen legible que viaja igual por correo y por WhatsApp */
+  function resumenInscripcion(nueva, t) {
+    const f = estado.ficha;
+    return [
+      `Nueva inscripción · ${CLUB.corto}`,
+      `Deportista: ${f.nombre} (${f.nacimiento})`,
+      `Categoría: ${estado.categoria.nombre} · Equipo: ${estado.equipo.nombre}`,
+      `Horario: ${estado.equipo.horario} · Coach: ${estado.equipo.coach}`,
+      `Apoderado: ${f.apoderado} · +56 ${f.telefono}${f.email ? ` · ${f.email}` : ''}`,
+      f.medico ? `Condición médica: ${f.medico}` : null,
+      f.emergencia ? `Emergencia: ${f.emergencia}` : null,
+      `Mensualidad: ${CLP(t.mensual)}${t.descuento ? ' (descuento hermanos)' : ''}`,
+      `Matrícula: ${t.matricula ? CLP(t.matricula) : 'tras la clase de prueba'}`,
+      `Forma de pago elegida: ${estado.pago}`,
+      `Código: ${nueva.id}`
+    ].filter(Boolean).join('\n');
+  }
+
+  /* Intenta el correo si hay endpoint configurado. No bloquea la confirmación:
+     si falla, la inscripción ya quedó guardada y queda el envío por WhatsApp. */
+  async function avisarAlClub(nueva, t) {
+    if (!CLUB.formEndpoint) return { estado: 'sin-endpoint' };
+    try {
+      const r = await fetch(CLUB.formEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          asunto: `Inscripción ${nueva.id} · ${estado.ficha.nombre}`,
+          resumen: resumenInscripcion(nueva, t),
+          deportista: estado.ficha.nombre,
+          equipo: estado.equipo.nombre,
+          apoderado: estado.ficha.apoderado,
+          telefono: `+56${estado.ficha.telefono}`,
+          email: estado.ficha.email || ''
+        })
+      });
+      return { estado: r.ok ? 'enviado' : 'error', codigo: r.status };
+    } catch (e) {
+      return { estado: 'error', detalle: String(e) };
+    }
+  }
+
   /* --- Confirmación --------------------------------------------------------- */
 
   function lanzarConfeti() {
@@ -241,9 +285,25 @@
       <span style="color:var(--gold)">Ya puedes entrar a tu portal con el +56 ${estado.ficha.telefono}</span>`;
     $('#done-code').textContent = `Código de inscripción ${nueva.id} · ${new Date().toLocaleDateString('es-CL')}`;
 
+    /* Botón que manda la inscripción al WhatsApp del club: funciona hoy, sin
+       servidor, y es el canal que las familias de verdad usan. */
+    const wa = $('#enviar-wa');
+    if (wa) {
+      wa.href = `https://wa.me/${CLUB.whatsapp}?text=${encodeURIComponent(resumenInscripcion(nueva, t))}`;
+      wa.hidden = false;
+    }
+
     ir(4);
     lanzarConfeti();
     toast('Inscripción registrada en el panel del club.');
+
+    avisarAlClub(nueva, t).then(r => {
+      const aviso = $('#estado-envio');
+      if (!aviso) return;
+      if (r.estado === 'enviado') aviso.textContent = 'Aviso enviado al correo del club.';
+      else if (r.estado === 'error') aviso.textContent = 'No pudimos avisar por correo. Usa el botón de WhatsApp para que el club se entere ahora.';
+      else aviso.textContent = 'Avísale al club por WhatsApp para que reserve el cupo hoy.';
+    });
   }
 
   function reiniciar() {

@@ -86,6 +86,26 @@ tools/gen-art.js  → regenera las ilustraciones: node tools/gen-art.js
 4. **Logo en alta resolución** → reemplazar `assets/logo-dragones.png` (el actual es
    una foto de perfil de Instagram recortada).
 
+## Antes de publicarlo de verdad
+
+El sitio ya trae lo básico de una web publicada: página 404 propia, vista previa
+al compartir, favicon, textos legales y banner de consentimiento. Falta completar
+con datos del club:
+
+| Qué | Dónde | Estado |
+|---|---|---|
+| Razón social, RUT y domicilio | `legal.html` y `privacidad.html`, marcados `POR COMPLETAR` | Pendiente del club |
+| WhatsApp real | `CLUB.whatsapp` en `assets/js/data.js` | Hoy es un número de ejemplo |
+| Correo donde llegan las inscripciones | `CLUB.formEndpoint` — URL de Formspree, Web3Forms o similar | Vacío: solo avisa por WhatsApp |
+| Estadísticas de visitas | `ANALITICA.codigo` en `assets/js/consentimiento.js` | Vacío: sin código no aparece el banner |
+| Revisión legal | Los textos los redactó una IA sobre la Ley 21.719 | Debe revisarlos un abogado |
+
+**Marco legal:** rige la **Ley 21.719** de protección de datos personales, que entra
+en vigencia el **1 de diciembre de 2026** (no RGPD ni LSSI, que son europeas). Lo más
+delicado de este sitio no son las cookies —no usa— sino que el formulario recoge
+**datos de salud de menores**, que la ley trata como dato sensible: requieren
+consentimiento expreso del apoderado y acceso restringido.
+
 ## Pendiente para producción
 
 1. **Backend real.** Hoy todo vive en `localStorage` del navegador: los datos no se
