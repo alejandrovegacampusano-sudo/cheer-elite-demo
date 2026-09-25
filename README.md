@@ -38,7 +38,11 @@ Concepto **"dragón en vuelo"**: negro profundo con fuego (rojo, brasa y oro).
 - **Competencias** con cuenta regresiva en vivo, tomadas del calendario del panel.
 - **Tryouts**: formulario corto que sugiere la categoría por edad y abre
   WhatsApp con el mensaje listo (y lo envía por correo si hay endpoint).
-- Programas, equipos con cupos reales, galería con visor, coaches, testimonios,
+- **Equipos**: al elegir una categoría se ve su **calendario de la semana** —qué días
+  y a qué hora entrena, con el día de hoy marcado— más las tarjetas con cupos reales.
+  Los días salen del horario configurado de cada equipo (`Store.horarioDe`), no se
+  cargan aparte. Sin precios: el valor se conversa en la clase de evaluación.
+- Programas por categoría, galería con visor, coaches, testimonios,
   **auspiciadores** ("Tu marca aquí" + qué recibe una marca), preguntas y
   **contacto** con redes oficiales y mapa que solo carga al pedirlo.
 - Con `prefers-reduced-motion` no se anima nada; si las librerías no cargan, el

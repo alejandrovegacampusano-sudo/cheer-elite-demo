@@ -110,6 +110,9 @@ const CATEGORIAS = [
 ];
 
 /* Programas complementarios (no son equipos de competencia) */
+/* Clases sueltas, sin equipo fijo. Hoy NO se muestran en el sitio: el club
+   prefiere mostrar solo las categorías por edad. Se dejan aquí por si más
+   adelante quieren volver a ofrecerlas. */
 const PROGRAMAS = [
   { id: 'tumbling', nombre: 'Tumbling', art: 'art-tumbling', precio: 22000, horario: 'Sáb · 12:30',
     desc: 'Clase abierta de acrobacia: rondada, flic flac y series. Para deportistas del club y externas.' },

@@ -3,9 +3,10 @@
    ========================================================================== */
 
 (function () {
-  const { CLUB, CATEGORIAS, PROGRAMAS, COACHES, TESTIMONIOS, FAQ, HITOS, VALORES, CLP, todosLosEquipos, Store } = window.DE;
+  const { CLUB, CATEGORIAS, COACHES, TESTIMONIOS, FAQ, HITOS, VALORES, CLP, todosLosEquipos, Store } = window.DE;
   const { initReveal, initCounters, initFotos } = window.DEUI;
 
+  const esc = t => { const d = document.createElement('div'); d.textContent = t ?? ''; return d.innerHTML; };
   const iniciales = nombre => nombre.split(' ').map(p => p[0]).slice(0, 2).join('').toUpperCase();
   const slug = txt => txt.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
@@ -45,15 +46,6 @@
         </div>
       </a>`).join('');
 
-    $('#programa-extra').innerHTML = PROGRAMAS.map(p => `
-      <article class="card team-card" data-reveal>
-        <header>
-          <div><h3>${p.nombre}</h3><span class="age" style="color:var(--gold);font-size:12px;letter-spacing:.08em;text-transform:uppercase">${p.horario}</span></div>
-          <span class="tag mute">${CLP(p.precio)}/mes</span>
-        </header>
-        <p style="font-size:13.5px;color:var(--muted)">${p.desc}</p>
-        <a class="btn btn-ghost btn-sm" href="inscripcion.html?programa=${p.id}" style="justify-self:start">Consultar cupo</a>
-      </article>`).join('');
   }
 
   /* --- Equipos con pestañas por categoría --------------------------------- */
@@ -69,8 +61,42 @@
       $$('#team-tabs .tab').forEach(btn => btn.addEventListener('click', () => {
         activa = btn.dataset.tab;
         pintarTabs();
+        pintarSemana();
         pintarLista();
       }));
+    };
+
+    /* Calendario de la semana de la categoría elegida: en qué días entrena y
+       a qué hora. Los días salen del horario de cada equipo, no se cargan aparte. */
+    const DIAS_SEMANA = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+    const pintarSemana = () => {
+      const lista = porEquipo.filter(eq => activa === 'todos' || eq.categoriaId === activa);
+      const hoyIdx = (new Date().getDay() + 6) % 7;
+      const columnas = DIAS_SEMANA.map((nombre, i) => {
+        const diaJS = (i + 1) % 7;
+        const sesiones = lista
+          .map(eq => { const h = Store.horarioDe(eq.id); return h.dias.includes(diaJS) ? { nombre: eq.nombre, hora: h.hora, categoria: eq.categoria } : null; })
+          .filter(Boolean)
+          .sort((a, b) => a.hora.localeCompare(b.hora));
+        return { nombre, hoy: i === hoyIdx, sesiones };
+      });
+      const cuantos = columnas.filter(c => c.sesiones.length).length;
+      const titulo = activa === 'todos' ? 'Todos los equipos' : `Categoría ${tabs.find(t => t.id === activa).nombre}`;
+
+      $('#semana-equipos').innerHTML = `
+        <div class="semana-cab">
+          <h3>${titulo} · su semana</h3>
+          <span>${cuantos === 1 ? 'Entrena 1 día a la semana' : `Entrena ${cuantos} días a la semana`}</span>
+        </div>
+        <div class="semana-grilla">
+          ${columnas.map(c => `
+            <div class="semana-dia${c.sesiones.length ? ' entrena' : ''}${c.hoy ? ' hoy' : ''}">
+              <span class="semana-dow">${c.nombre}${c.hoy ? ' · hoy' : ''}</span>
+              ${c.sesiones.length
+                ? c.sesiones.map(s => `<div class="semana-bloque"><b>${s.hora}</b><span>${esc(s.nombre)}</span></div>`).join('')
+                : '<span class="semana-libre">Libre</span>'}
+            </div>`).join('')}
+        </div>`;
     };
 
     const pintarLista = () => {
@@ -90,7 +116,6 @@
           <div class="meta">
             <div><i>◷</i><span>${eq.horario}</span></div>
             <div><i>◎</i><span>Coach ${eq.coach}</span></div>
-            <div><i>◇</i><span>${CLP(eq.precio)} mensual</span></div>
           </div>
           <div>
             <div class="bar"><i data-bar="${pct}"></i></div>
@@ -111,6 +136,7 @@
     };
 
     pintarTabs();
+    pintarSemana();
     pintarLista();
   }
 
