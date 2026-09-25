@@ -240,7 +240,7 @@
     if (window.DEUI.noMotion) return;
     const caja = document.createElement('div');
     caja.className = 'confetti';
-    const colores = ['#e8c86a', '#fff2cd', '#c89b3c', '#ffffff'];
+    const colores = ['#f5b700', '#ff5a1f', '#e10600', '#ffe08a'];
     for (let i = 0; i < 70; i++) {
       const p = document.createElement('i');
       p.style.left = `${Math.random() * 100}%`;

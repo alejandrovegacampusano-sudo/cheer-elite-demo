@@ -19,13 +19,28 @@ la misma fuente de datos: si el club marca un pago, la apoderada lo ve al instan
 la apoderada corrige un teléfono, el club lo ve en la ficha.
 
 ### Sitio público
-- Hero con tipografía Anton, degradado tornasol animado, tarjetas flotantes y parallax.
-- Marquesina infinita, contadores animados y aparición por scroll con escalonado.
-- Programas por categoría con arte propio y detalle que se despliega al pasar el cursor.
-- Equipos con pestañas por categoría y **cupos calculados desde los datos reales** del club.
-- Galería en mosaico con visor a pantalla completa (teclado y gestos).
-- Carrusel de testimonios, línea de tiempo, acordeón de preguntas y CTA final.
-- Enlace directo a WhatsApp en botón flotante, CTA y pie.
+Concepto **"dragón en vuelo"**: negro profundo con fuego (rojo, brasa y oro).
+- Hero en cuatro profundidades: escamas y brasas en canvas al fondo, la palabra
+  DRAGONES gigante en contorno, el título letra por letra y atletas ilustradas
+  que entran "lanzadas" en arco y quedan flotando. Parallax con el scroll y
+  con el mouse.
+- Zarpazos que se dibujan entre secciones, títulos que suben palabra por palabra,
+  contadores, marquesina y cursor propio (solo con mouse).
+- **Quiénes somos** con los cinco valores del club: cada ícono se enciende y su
+  línea se dibuja al entrar en pantalla.
+- **Logros**: cifras y una línea de tiempo 2007 → hoy que se recorre en
+  horizontal mientras bajas (vertical en celular).
+- **Competencias** con cuenta regresiva en vivo, tomadas del calendario del panel.
+- **Tryouts**: formulario corto que sugiere la categoría por edad y abre
+  WhatsApp con el mensaje listo (y lo envía por correo si hay endpoint).
+- Programas, equipos con cupos reales, galería con visor, coaches, testimonios,
+  **auspiciadores** ("Tu marca aquí" + qué recibe una marca), preguntas y
+  **contacto** con redes oficiales y mapa que solo carga al pedirlo.
+- Con `prefers-reduced-motion` no se anima nada; si las librerías no cargan, el
+  sitio queda completo y estático. En celular: menos brasas, parallax suave, sin
+  cursor propio.
+- SEO local: título y descripción con "club de cheerleading en Iquique",
+  datos estructurados `SportsClub` (schema.org) y vista previa para compartir.
 
 ### Inscripción
 - Sugerencia automática de categoría a partir de la edad.
@@ -56,12 +71,18 @@ la apoderada corrige un teléfono, el club lo ve en la ficha.
 
 ```
 index.html · inscripcion.html · apoderados.html · panel.html
+legal.html · privacidad.html · 404.html
 assets/
   css/  fonts.css  core.css (sistema de diseño)  site.css  portal.css  panel.css
+        fuego.css (secciones y efectos de la portada)
   js/   data.js (datos del club)  store.js (persistencia)  core.js (UI común)
         site.js  inscripcion.js  apoderados.js  panel.js
-  img/  art-*.svg (ilustraciones de marca)
-  fonts/ Anton, DM Sans, Manrope auto-alojadas (OFL)
+        fuego.js (movimiento de la portada)  consentimiento.js
+  img/  art-*.svg, volando-*.svg, escamas.svg (ilustraciones de marca)
+  fotos/ fotos reales del club (ver LEEME.txt)
+  fonts/ Anton, DM Sans, Manrope, Playfair Display auto-alojadas (OFL)
+  vendor/ GSAP 3 + ScrollTrigger + SplitText y Lenis, alojados en el sitio
+          (licencias en vendor/LICENCIAS.txt)
 tools/gen-art.js  → regenera las ilustraciones: node tools/gen-art.js
 ```
 
@@ -124,7 +145,7 @@ consentimiento expreso del apoderado y acceso restringido.
 
 ## Desarrollo
 
-No hay dependencias ni compilación. Para verlo en local con las fuentes cargadas
+No hay que instalar nada ni compilar: las librerías de movimiento vienen incluidas en `assets/vendor/`. Para verlo en local con las fuentes cargadas
 hace falta servirlo por HTTP (con `file://` el navegador bloquea las tipografías):
 
 ```bash

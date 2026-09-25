@@ -67,7 +67,7 @@ body.app .ambient { opacity: .25; filter: saturate(.6); }
 .side-link i { display: grid; place-items: center; width: 18px; height: 18px; flex: 0 0 auto; opacity: .85; }
 .side-link svg { width: 17px; height: 17px; stroke-width: 1.6; }
 .side-link:hover { background: rgba(255, 255, 255, .04); color: var(--ink); transform: translateX(2px); }
-.side-link.active { background: rgba(232, 200, 106, .12); color: var(--gold); }
+.side-link.active { background: rgba(245, 183, 0, .12); color: var(--gold); }
 .side-link .badge { margin-left: auto; padding: 2px 8px; border-radius: 999px; background: rgba(255, 106, 77, .16); color: var(--alert); font-size: 10.5px; font-weight: 800; }
 .side-foot { margin-top: auto; display: grid; gap: 10px; }
 .side-user { display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: var(--r-s); background: rgba(255, 255, 255, .03); }
@@ -117,7 +117,7 @@ body.app .ambient { opacity: .25; filter: saturate(.6); }
   overflow: hidden;
   transition: border-color .2s var(--ease), background .2s var(--ease);
 }
-.kpi:hover { border-color: rgba(232, 200, 106, .28); background: var(--panel-2); }
+.kpi:hover { border-color: rgba(245, 183, 0, .28); background: var(--panel-2); }
 .kpi > span { font-size: var(--fs-xs); letter-spacing: .04em; color: var(--muted-2); }
 .kpi strong { display: block; margin: 6px 0 3px; font-family: Manrope, sans-serif; font-weight: 800; font-size: var(--fs-xl); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
 .kpi small { font-size: var(--fs-xs); color: var(--muted); }
@@ -167,7 +167,7 @@ body.app .ambient { opacity: .25; filter: saturate(.6); }
 .serie-texto b { color: var(--muted-2); font-weight: 700; margin-right: 3px; }
 .serie-texto .resumen { margin-left: auto; color: var(--gold); font-weight: 700; }
 
-table.data tbody tr.sel { background: rgba(232, 200, 106, .07); }
+table.data tbody tr.sel { background: rgba(245, 183, 0, .07); }
 
 /* --- Medidor contra objetivo (bullet) --------------------------------------- */
 
@@ -205,10 +205,10 @@ table.data th:hover { color: var(--gold); }
 table.data th .ord { opacity: .5; font-size: 9px; margin-left: 4px; }
 table.data td { height: var(--row-h); padding: 0 14px; font-size: var(--fs-sm); border-bottom: 1px solid rgba(255, 255, 255, .045); vertical-align: middle; white-space: nowrap; }
 table.data tbody tr { transition: background .2s; cursor: pointer; }
-table.data tbody tr:hover { background: rgba(232, 200, 106, .05); }
+table.data tbody tr:hover { background: rgba(245, 183, 0, .05); }
 table.data tbody tr:last-child td { border-bottom: 0; }
 .cell-person { display: flex; align-items: center; gap: 9px; }
-.avatar-sm { width: 26px; height: 26px; flex: 0 0 auto; border-radius: 50%; display: grid; place-items: center; background: rgba(232, 200, 106, .12); color: var(--gold); font-size: 11px; font-weight: 800; }
+.avatar-sm { width: 26px; height: 26px; flex: 0 0 auto; border-radius: 50%; display: grid; place-items: center; background: rgba(245, 183, 0, .12); color: var(--gold); font-size: 11px; font-weight: 800; }
 .cell-person b { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; white-space: nowrap; }
 .cell-person b .tag { padding: 2px 7px; font-size: 9px; letter-spacing: .06em; }
 .cell-person span { display: block; font-size: var(--fs-xs); color: var(--muted-2); }
@@ -235,7 +235,7 @@ table.data tbody tr:last-child td { border-bottom: 0; }
   transition: all .25s var(--ease);
 }
 .chip:hover { color: var(--ink); border-color: var(--line); }
-.chip.active { background: rgba(232, 200, 106, .13); border-color: rgba(232, 200, 106, .45); color: var(--gold); }
+.chip.active { background: rgba(245, 183, 0, .13); border-color: rgba(245, 183, 0, .45); color: var(--gold); }
 .select-sm { padding: 9px 32px 9px 14px; border-radius: 999px; font-size: 12.5px; background-position: calc(100% - 17px) 17px, calc(100% - 12px) 17px; width: auto; }
 
 /* --- Selección múltiple y acciones en lote ---------------------------------- */
@@ -248,8 +248,8 @@ table.data tbody tr:last-child td { border-bottom: 0; }
   align-items: center;
   gap: 10px;
   padding: 8px 14px;
-  background: rgba(232, 200, 106, .1);
-  border-bottom: 1px solid rgba(232, 200, 106, .25);
+  background: rgba(245, 183, 0, .1);
+  border-bottom: 1px solid rgba(245, 183, 0, .25);
   font-size: var(--fs-sm);
 }
 .bulk-bar b { color: var(--gold); }
@@ -308,19 +308,19 @@ table.data tbody tr:last-child td { border-bottom: 0; }
 .cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
 .cal .dow { padding: 6px; text-align: center; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted-2); }
 .cal-day { min-height: 92px; padding: 8px; border-radius: var(--r-s); border: 1px solid var(--line-soft); background: rgba(255, 255, 255, .018); display: grid; gap: 4px; align-content: start; transition: border-color .25s, background .25s; }
-.cal-day:hover { border-color: rgba(232, 200, 106, .3); }
+.cal-day:hover { border-color: rgba(245, 183, 0, .3); }
 .cal-day.out { opacity: .3; }
-.cal-day.today { border-color: var(--gold); background: rgba(232, 200, 106, .07); }
+.cal-day.today { border-color: var(--gold); background: rgba(245, 183, 0, .07); }
 .cal-day > b { font-size: 11.5px; color: var(--muted); }
 .cal-ev { padding: 4px 7px; border-radius: 6px; font-size: 10.5px; font-weight: 600; line-height: 1.25; cursor: pointer; }
-.cal-ev.competencia { background: rgba(232, 200, 106, .18); color: var(--gold); }
+.cal-ev.competencia { background: rgba(245, 183, 0, .18); color: var(--gold); }
 .cal-ev.entreno { background: rgba(125, 184, 255, .14); color: var(--info); }
 .cal-ev.pago { background: rgba(255, 194, 75, .14); color: var(--warn); }
 .cal-ev.club { background: rgba(255, 255, 255, .07); color: var(--muted); }
 
 .ev-list { display: grid; gap: 10px; }
 .ev-item { display: grid; grid-template-columns: 54px 1fr auto; gap: 12px; align-items: center; padding: 12px 14px; border-radius: var(--r-s); background: rgba(255, 255, 255, .022); }
-.ev-date { text-align: center; padding: 6px; border-radius: 9px; background: rgba(232, 200, 106, .1); }
+.ev-date { text-align: center; padding: 6px; border-radius: 9px; background: rgba(245, 183, 0, .1); }
 .ev-date b { display: block; font-family: Manrope, sans-serif; font-size: 16px; color: var(--gold); line-height: 1; }
 .ev-date span { font-size: 9.5px; text-transform: uppercase; color: var(--muted-2); }
 .ev-item h4 { font-family: Manrope, sans-serif; font-size: 13.5px; }

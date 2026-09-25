@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 1040" width="820" height="1040" role="img" aria-label="art-hero">
   <defs>
   <linearGradient id="bgarthero" x1="0" y1="0" x2="1" y2="1">
-  <stop offset="0" stop-color="#2a1e11" /><stop offset="1" stop-color="#b8862a" />
+  <stop offset="0" stop-color="#240b06" /><stop offset="1" stop-color="#b2360c" />
   </linearGradient>
   <radialGradient id="spotarthero" cx="50%" cy="14%" r="72%">
-  <stop offset="0" stop-color="#ffdf9d" stop-opacity=".78" /><stop offset="1" stop-color="#ffdf9d" stop-opacity="0" />
+  <stop offset="0" stop-color="#ffb347" stop-opacity=".78" /><stop offset="1" stop-color="#ffb347" stop-opacity="0" />
   </radialGradient>
   <linearGradient id="fadearthero" x1="0" y1="0" x2="0" y2="1">
   <stop offset="0" stop-color="#000" stop-opacity="0" /><stop offset="1" stop-color="#000" stop-opacity=".55" />
@@ -17,66 +17,66 @@
   <g clip-path="url(#cliparthero)">
   <rect width="820" height="1040" fill="url(#bgarthero)" />
   <rect width="820" height="1040" fill="url(#spotarthero)" />
-  <path d="M60 890 Q410 60 760 890" fill="none" stroke="#ffe9bd" stroke-width="2" opacity="0.25" stroke-linecap="round" stroke-dasharray="10 16" />
-  <circle cx="410" cy="353.6" r="250" fill="none" stroke="#ffe9bd" stroke-width="1.5" opacity=".2" />
-  <circle cx="410" cy="353.6" r="330" fill="none" stroke="#ffe9bd" stroke-width="1" opacity=".12" />
+  <path d="M60 890 Q410 60 760 890" fill="none" stroke="#ffd08a" stroke-width="2" opacity="0.25" stroke-linecap="round" stroke-dasharray="10 16" />
+  <circle cx="410" cy="353.6" r="250" fill="none" stroke="#ffd08a" stroke-width="1.5" opacity=".2" />
+  <circle cx="410" cy="353.6" r="330" fill="none" stroke="#ffd08a" stroke-width="1" opacity=".12" />
   <g transform="translate(235 970) rotate(0) scale(1.02)" opacity="0.5">
-  <g fill="none" stroke="#fff0c9" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ffd9a0" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-24 -62 L-22 -120 L-16 -164" /><path d="M24 -62 L22 -120 L16 -164" />
   </g>
-  <g fill="none" stroke="#fff0c9" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ffd9a0" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-13 2 L-26 52 L-30 106" /><path d="M13 2 L26 52 L30 106" />
   </g>
-  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#fff0c9" />
-  <circle cx="-24" cy="-64" r="12" fill="#fff0c9" />
-  <circle cx="24" cy="-64" r="12" fill="#fff0c9" />
-  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#fff0c9" />
-  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#fff0c9" />
-  <circle cx="0" cy="-106" r="20" fill="#fff0c9" />
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#ffd9a0" />
+  <circle cx="-24" cy="-64" r="12" fill="#ffd9a0" />
+  <circle cx="24" cy="-64" r="12" fill="#ffd9a0" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#ffd9a0" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#ffd9a0" />
+  <circle cx="0" cy="-106" r="20" fill="#ffd9a0" />
   </g>
   <g transform="translate(585 970) rotate(0) scale(1.02)" opacity="0.5">
-  <g fill="none" stroke="#fff0c9" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ffd9a0" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-24 -62 L-22 -120 L-16 -164" /><path d="M24 -62 L22 -120 L16 -164" />
   </g>
-  <g fill="none" stroke="#fff0c9" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ffd9a0" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-13 2 L-26 52 L-30 106" /><path d="M13 2 L26 52 L30 106" />
   </g>
-  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#fff0c9" />
-  <circle cx="-24" cy="-64" r="12" fill="#fff0c9" />
-  <circle cx="24" cy="-64" r="12" fill="#fff0c9" />
-  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#fff0c9" />
-  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#fff0c9" />
-  <circle cx="0" cy="-106" r="20" fill="#fff0c9" />
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#ffd9a0" />
+  <circle cx="-24" cy="-64" r="12" fill="#ffd9a0" />
+  <circle cx="24" cy="-64" r="12" fill="#ffd9a0" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#ffd9a0" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#ffd9a0" />
+  <circle cx="0" cy="-106" r="20" fill="#ffd9a0" />
   </g>
   <g transform="translate(410 982) rotate(0) scale(1.15)" opacity="0.82">
-  <g fill="none" stroke="#fff0c9" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ffd9a0" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-24 -62 L-22 -120 L-16 -164" /><path d="M24 -62 L22 -120 L16 -164" />
   </g>
-  <g fill="none" stroke="#fff0c9" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ffd9a0" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-13 2 L-26 52 L-30 106" /><path d="M13 2 L26 52 L30 106" />
   </g>
-  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#fff0c9" />
-  <circle cx="-24" cy="-64" r="12" fill="#fff0c9" />
-  <circle cx="24" cy="-64" r="12" fill="#fff0c9" />
-  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#fff0c9" />
-  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#fff0c9" />
-  <circle cx="0" cy="-106" r="20" fill="#fff0c9" />
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#ffd9a0" />
+  <circle cx="-24" cy="-64" r="12" fill="#ffd9a0" />
+  <circle cx="24" cy="-64" r="12" fill="#ffd9a0" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#ffd9a0" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#ffd9a0" />
+  <circle cx="0" cy="-106" r="20" fill="#ffd9a0" />
   </g>
   <g transform="translate(410 660) rotate(0) scale(1.12)" opacity="1">
-  <g fill="none" stroke="#fff0c9" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ffd9a0" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-24 -62 L-32 -106 L-60 -154" /><path d="M24 -62 L32 -106 L60 -154" />
   </g>
-  <g fill="none" stroke="#fff0c9" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ffd9a0" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-13 2 L6 54 L4 108" /><path d="M13 2 L-46 30 L-4 54" />
   </g>
-  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#fff0c9" />
-  <circle cx="-24" cy="-64" r="12" fill="#fff0c9" />
-  <circle cx="24" cy="-64" r="12" fill="#fff0c9" />
-  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#fff0c9" />
-  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#fff0c9" />
-  <circle cx="0" cy="-106" r="20" fill="#fff0c9" />
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#ffd9a0" />
+  <circle cx="-24" cy="-64" r="12" fill="#ffd9a0" />
+  <circle cx="24" cy="-64" r="12" fill="#ffd9a0" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#ffd9a0" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#ffd9a0" />
+  <circle cx="0" cy="-106" r="20" fill="#ffd9a0" />
   </g>
-  <rect x="336.8" y="471.5" width="12.3" height="4.7" rx="1.5" fill="#ffe9bd" opacity="0.40" transform="rotate(189 336.8 471.5)" /><rect x="311.5" y="10.8" width="13.8" height="5.3" rx="1.5" fill="#ffe9bd" opacity="0.36" transform="rotate(56 311.5 10.8)" /><rect x="96.1" y="398.0" width="12.7" height="4.8" rx="1.5" fill="#ffe9bd" opacity="0.22" transform="rotate(184 96.1 398.0)" /><rect x="513.3" y="416.7" width="6.9" height="2.6" rx="1.5" fill="#ffe9bd" opacity="0.31" transform="rotate(160 513.3 416.7)" /><rect x="168.5" y="363.2" width="12.2" height="4.6" rx="1.5" fill="#ffe9bd" opacity="0.36" transform="rotate(320 168.5 363.2)" /><rect x="734.6" y="337.5" width="11.9" height="4.5" rx="1.5" fill="#ffe9bd" opacity="0.24" transform="rotate(344 734.6 337.5)" /><rect x="483.0" y="478.5" width="12.0" height="4.5" rx="1.5" fill="#ffe9bd" opacity="0.47" transform="rotate(261 483.0 478.5)" /><rect x="661.5" y="493.4" width="12.2" height="4.6" rx="1.5" fill="#ffe9bd" opacity="0.37" transform="rotate(244 661.5 493.4)" /><rect x="118.4" y="69.4" width="10.0" height="3.8" rx="1.5" fill="#ffe9bd" opacity="0.26" transform="rotate(294 118.4 69.4)" /><rect x="314.1" y="170.8" width="10.3" height="3.9" rx="1.5" fill="#ffe9bd" opacity="0.53" transform="rotate(161 314.1 170.8)" /><rect x="218.6" y="445.6" width="5.8" height="2.2" rx="1.5" fill="#ffe9bd" opacity="0.41" transform="rotate(217 218.6 445.6)" /><rect x="775.8" y="168.5" width="7.8" height="3.0" rx="1.5" fill="#ffe9bd" opacity="0.33" transform="rotate(64 775.8 168.5)" /><rect x="75.0" y="68.1" width="11.5" height="4.4" rx="1.5" fill="#ffe9bd" opacity="0.50" transform="rotate(249 75.0 68.1)" /><rect x="548.3" y="263.9" width="11.5" height="4.4" rx="1.5" fill="#ffe9bd" opacity="0.51" transform="rotate(269 548.3 263.9)" /><rect x="315.3" y="148.5" width="6.2" height="2.4" rx="1.5" fill="#ffe9bd" opacity="0.48" transform="rotate(42 315.3 148.5)" /><rect x="654.0" y="214.7" width="7.5" height="2.9" rx="1.5" fill="#ffe9bd" opacity="0.43" transform="rotate(198 654.0 214.7)" />
+  <rect x="336.8" y="471.5" width="12.3" height="4.7" rx="1.5" fill="#ffd08a" opacity="0.40" transform="rotate(189 336.8 471.5)" /><rect x="311.5" y="10.8" width="13.8" height="5.3" rx="1.5" fill="#ffd08a" opacity="0.36" transform="rotate(56 311.5 10.8)" /><rect x="96.1" y="398.0" width="12.7" height="4.8" rx="1.5" fill="#ffd08a" opacity="0.22" transform="rotate(184 96.1 398.0)" /><rect x="513.3" y="416.7" width="6.9" height="2.6" rx="1.5" fill="#ffd08a" opacity="0.31" transform="rotate(160 513.3 416.7)" /><rect x="168.5" y="363.2" width="12.2" height="4.6" rx="1.5" fill="#ffd08a" opacity="0.36" transform="rotate(320 168.5 363.2)" /><rect x="734.6" y="337.5" width="11.9" height="4.5" rx="1.5" fill="#ffd08a" opacity="0.24" transform="rotate(344 734.6 337.5)" /><rect x="483.0" y="478.5" width="12.0" height="4.5" rx="1.5" fill="#ffd08a" opacity="0.47" transform="rotate(261 483.0 478.5)" /><rect x="661.5" y="493.4" width="12.2" height="4.6" rx="1.5" fill="#ffd08a" opacity="0.37" transform="rotate(244 661.5 493.4)" /><rect x="118.4" y="69.4" width="10.0" height="3.8" rx="1.5" fill="#ffd08a" opacity="0.26" transform="rotate(294 118.4 69.4)" /><rect x="314.1" y="170.8" width="10.3" height="3.9" rx="1.5" fill="#ffd08a" opacity="0.53" transform="rotate(161 314.1 170.8)" /><rect x="218.6" y="445.6" width="5.8" height="2.2" rx="1.5" fill="#ffd08a" opacity="0.41" transform="rotate(217 218.6 445.6)" /><rect x="775.8" y="168.5" width="7.8" height="3.0" rx="1.5" fill="#ffd08a" opacity="0.33" transform="rotate(64 775.8 168.5)" /><rect x="75.0" y="68.1" width="11.5" height="4.4" rx="1.5" fill="#ffd08a" opacity="0.50" transform="rotate(249 75.0 68.1)" /><rect x="548.3" y="263.9" width="11.5" height="4.4" rx="1.5" fill="#ffd08a" opacity="0.51" transform="rotate(269 548.3 263.9)" /><rect x="315.3" y="148.5" width="6.2" height="2.4" rx="1.5" fill="#ffd08a" opacity="0.48" transform="rotate(42 315.3 148.5)" /><rect x="654.0" y="214.7" width="7.5" height="2.9" rx="1.5" fill="#ffd08a" opacity="0.43" transform="rotate(198 654.0 214.7)" />
   <rect width="820" height="1040" fill="url(#fadearthero)" />
   </g>
 </svg>

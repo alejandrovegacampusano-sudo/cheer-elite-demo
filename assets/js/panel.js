@@ -210,8 +210,8 @@
     $('#chart-ingresos').innerHTML = `
       <defs>
         <linearGradient id="areaGold" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#e8c86a" stop-opacity=".28" />
-          <stop offset="1" stop-color="#e8c86a" stop-opacity="0" />
+          <stop offset="0" stop-color="#f5b700" stop-opacity=".28" />
+          <stop offset="1" stop-color="#f5b700" stop-opacity="0" />
         </linearGradient>
       </defs>
       ${lineas}
@@ -252,7 +252,7 @@
     $('#donut').innerHTML = `
       <defs>
         <linearGradient id="donutGold" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#c89b3c" /><stop offset="1" stop-color="#fff2cd" />
+          <stop offset="0" stop-color="#ff5a1f" /><stop offset="1" stop-color="#ffe08a" />
         </linearGradient>
       </defs>
       <g transform="translate(75 75) rotate(-90)">

@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" width="900" height="700" role="img" aria-label="TUMBLING">
   <defs>
   <linearGradient id="bgarttumbling" x1="0" y1="0" x2="1" y2="1">
-  <stop offset="0" stop-color="#1c1109" /><stop offset="1" stop-color="#8a5a18" />
+  <stop offset="0" stop-color="#1c0906" /><stop offset="1" stop-color="#8a2308" />
   </linearGradient>
   <radialGradient id="spotarttumbling" cx="50%" cy="14%" r="72%">
-  <stop offset="0" stop-color="#ffcb6b" stop-opacity=".78" /><stop offset="1" stop-color="#ffcb6b" stop-opacity="0" />
+  <stop offset="0" stop-color="#ff7a2e" stop-opacity=".78" /><stop offset="1" stop-color="#ff7a2e" stop-opacity="0" />
   </radialGradient>
   <linearGradient id="fadearttumbling" x1="0" y1="0" x2="0" y2="1">
   <stop offset="0" stop-color="#000" stop-opacity="0" /><stop offset="1" stop-color="#000" stop-opacity=".55" />
@@ -19,62 +19,62 @@
   <rect width="900" height="700" fill="url(#spotarttumbling)" />
   <rect width="900" height="700" fill="url(#dotsarttumbling)" />
   <text x="450" y="434" text-anchor="middle" font-family="Impact, 'Arial Black', 'Helvetica Neue', sans-serif" font-size="174.375" fill="#fff2cd" opacity=".08" letter-spacing="6">TUMBLING</text>
-  <path d="M100 560 Q450 84 800 560" fill="none" stroke="#ffcb6b" stroke-width="3" opacity="0.4" stroke-linecap="round" stroke-dasharray="8 16" />
+  <path d="M100 560 Q450 84 800 560" fill="none" stroke="#ffb347" stroke-width="3" opacity="0.4" stroke-linecap="round" stroke-dasharray="8 16" />
   <g transform="translate(144 580) rotate(-18) scale(0.8)" opacity="0.3">
-  <g fill="none" stroke="#f7dc95" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ffb34d" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-24 -62 L-26 -124 L-22 -170" /><path d="M24 -62 L26 -124 L22 -170" />
   </g>
-  <g fill="none" stroke="#f7dc95" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ffb34d" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-13 2 L-18 52 L-22 106" /><path d="M13 2 L18 52 L22 106" />
   </g>
-  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#f7dc95" />
-  <circle cx="-24" cy="-64" r="12" fill="#f7dc95" />
-  <circle cx="24" cy="-64" r="12" fill="#f7dc95" />
-  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#f7dc95" />
-  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#f7dc95" />
-  <circle cx="0" cy="-106" r="20" fill="#f7dc95" />
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#ffb34d" />
+  <circle cx="-24" cy="-64" r="12" fill="#ffb34d" />
+  <circle cx="24" cy="-64" r="12" fill="#ffb34d" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#ffb34d" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#ffb34d" />
+  <circle cx="0" cy="-106" r="20" fill="#ffb34d" />
   </g>
   <g transform="translate(342 350) rotate(95) scale(0.88)" opacity="0.5">
-  <g fill="none" stroke="#f7dc95" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ffb34d" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-24 -62 L-44 -70 L-96 -52" /><path d="M24 -62 L44 -84 L96 -70" />
   </g>
-  <g fill="none" stroke="#f7dc95" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ffb34d" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-13 2 L-30 44 L-56 96" /><path d="M13 2 L36 40 L86 70" />
   </g>
-  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#f7dc95" />
-  <circle cx="-24" cy="-64" r="12" fill="#f7dc95" />
-  <circle cx="24" cy="-64" r="12" fill="#f7dc95" />
-  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#f7dc95" />
-  <path d="M-8 -120 C-46 -120 -54 -88 -30 -52 C-44 -92 -34 -106 -4 -104 Z" fill="#f7dc95" />
-  <circle cx="0" cy="-102" r="20" fill="#f7dc95" />
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#ffb34d" />
+  <circle cx="-24" cy="-64" r="12" fill="#ffb34d" />
+  <circle cx="24" cy="-64" r="12" fill="#ffb34d" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#ffb34d" />
+  <path d="M-8 -120 C-46 -120 -54 -88 -30 -52 C-44 -92 -34 -106 -4 -104 Z" fill="#ffb34d" />
+  <circle cx="0" cy="-102" r="20" fill="#ffb34d" />
   </g>
   <g transform="translate(540 266) rotate(195) scale(0.95)" opacity="0.72">
-  <g fill="none" stroke="#f7dc95" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ffb34d" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-24 -62 L-44 -70 L-96 -52" /><path d="M24 -62 L44 -84 L96 -70" />
   </g>
-  <g fill="none" stroke="#f7dc95" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ffb34d" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-13 2 L-30 44 L-56 96" /><path d="M13 2 L36 40 L86 70" />
   </g>
-  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#f7dc95" />
-  <circle cx="-24" cy="-64" r="12" fill="#f7dc95" />
-  <circle cx="24" cy="-64" r="12" fill="#f7dc95" />
-  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#f7dc95" />
-  <path d="M-8 -120 C-46 -120 -54 -88 -30 -52 C-44 -92 -34 -106 -4 -104 Z" fill="#f7dc95" />
-  <circle cx="0" cy="-102" r="20" fill="#f7dc95" />
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#ffb34d" />
+  <circle cx="-24" cy="-64" r="12" fill="#ffb34d" />
+  <circle cx="24" cy="-64" r="12" fill="#ffb34d" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#ffb34d" />
+  <path d="M-8 -120 C-46 -120 -54 -88 -30 -52 C-44 -92 -34 -106 -4 -104 Z" fill="#ffb34d" />
+  <circle cx="0" cy="-102" r="20" fill="#ffb34d" />
   </g>
   <g transform="translate(756 590) rotate(0) scale(1)" opacity="1">
-  <g fill="none" stroke="#f7dc95" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ffb34d" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-24 -62 L-30 -104 L-58 -152" /><path d="M24 -62 L30 -104 L58 -152" />
   </g>
-  <g fill="none" stroke="#f7dc95" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ffb34d" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-13 2 L-14 52 L-18 106" /><path d="M13 2 L14 52 L18 106" />
   </g>
-  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#f7dc95" />
-  <circle cx="-24" cy="-64" r="12" fill="#f7dc95" />
-  <circle cx="24" cy="-64" r="12" fill="#f7dc95" />
-  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#f7dc95" />
-  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#f7dc95" />
-  <circle cx="0" cy="-106" r="20" fill="#f7dc95" />
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#ffb34d" />
+  <circle cx="-24" cy="-64" r="12" fill="#ffb34d" />
+  <circle cx="24" cy="-64" r="12" fill="#ffb34d" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#ffb34d" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#ffb34d" />
+  <circle cx="0" cy="-106" r="20" fill="#ffb34d" />
   </g>
   <rect width="900" height="700" fill="url(#fadearttumbling)" />
   </g>

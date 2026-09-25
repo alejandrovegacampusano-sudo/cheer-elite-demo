@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" width="900" height="700" role="img" aria-label="FAMILIA">
   <defs>
   <linearGradient id="bgartteam" x1="0" y1="0" x2="1" y2="1">
-  <stop offset="0" stop-color="#15131c" /><stop offset="1" stop-color="#2f2413" />
+  <stop offset="0" stop-color="#140809" /><stop offset="1" stop-color="#3d0e06" />
   </linearGradient>
   <radialGradient id="spotartteam" cx="50%" cy="14%" r="72%">
-  <stop offset="0" stop-color="#e8c86a" stop-opacity=".78" /><stop offset="1" stop-color="#e8c86a" stop-opacity="0" />
+  <stop offset="0" stop-color="#ff5a1f" stop-opacity=".78" /><stop offset="1" stop-color="#ff5a1f" stop-opacity="0" />
   </radialGradient>
   <linearGradient id="fadeartteam" x1="0" y1="0" x2="0" y2="1">
   <stop offset="0" stop-color="#000" stop-opacity="0" /><stop offset="1" stop-color="#000" stop-opacity=".55" />
@@ -20,90 +20,90 @@
   <rect width="900" height="700" fill="url(#dotsartteam)" />
   <text x="450" y="434" text-anchor="middle" font-family="Impact, 'Arial Black', 'Helvetica Neue', sans-serif" font-size="199.28571428571428" fill="#f7f3e9" opacity=".08" letter-spacing="6">FAMILIA</text>
   <g transform="translate(144 630) rotate(0) scale(0.78)" opacity="0.5">
-  <g fill="none" stroke="#e8c86a" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ff7a2e" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-24 -62 L-30 -104 L-58 -152" /><path d="M24 -62 L30 -104 L58 -152" />
   </g>
-  <g fill="none" stroke="#e8c86a" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ff7a2e" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-13 2 L-14 52 L-18 106" /><path d="M13 2 L14 52 L18 106" />
   </g>
-  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#e8c86a" />
-  <circle cx="-24" cy="-64" r="12" fill="#e8c86a" />
-  <circle cx="24" cy="-64" r="12" fill="#e8c86a" />
-  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#e8c86a" />
-  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#e8c86a" />
-  <circle cx="0" cy="-106" r="20" fill="#e8c86a" />
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#ff7a2e" />
+  <circle cx="-24" cy="-64" r="12" fill="#ff7a2e" />
+  <circle cx="24" cy="-64" r="12" fill="#ff7a2e" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#ff7a2e" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#ff7a2e" />
+  <circle cx="0" cy="-106" r="20" fill="#ff7a2e" />
   </g>
   <g transform="translate(306 638) rotate(0) scale(0.92)" opacity="0.75">
-  <g fill="none" stroke="#e8c86a" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ff7a2e" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-24 -62 L-22 -120 L-16 -164" /><path d="M24 -62 L22 -120 L16 -164" />
   </g>
-  <g fill="none" stroke="#e8c86a" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ff7a2e" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-13 2 L-26 52 L-30 106" /><path d="M13 2 L26 52 L30 106" />
   </g>
-  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#e8c86a" />
-  <circle cx="-24" cy="-64" r="12" fill="#e8c86a" />
-  <circle cx="24" cy="-64" r="12" fill="#e8c86a" />
-  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#e8c86a" />
-  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#e8c86a" />
-  <circle cx="0" cy="-106" r="20" fill="#e8c86a" />
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#ff7a2e" />
+  <circle cx="-24" cy="-64" r="12" fill="#ff7a2e" />
+  <circle cx="24" cy="-64" r="12" fill="#ff7a2e" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#ff7a2e" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#ff7a2e" />
+  <circle cx="0" cy="-106" r="20" fill="#ff7a2e" />
   </g>
   <g transform="translate(450 644) rotate(0) scale(1.02)" opacity="1">
-  <g fill="none" stroke="#e8c86a" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ff7a2e" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-24 -62 L-30 -104 L-58 -152" /><path d="M24 -62 L30 -104 L58 -152" />
   </g>
-  <g fill="none" stroke="#e8c86a" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ff7a2e" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-13 2 L-14 52 L-18 106" /><path d="M13 2 L14 52 L18 106" />
   </g>
-  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#e8c86a" />
-  <circle cx="-24" cy="-64" r="12" fill="#e8c86a" />
-  <circle cx="24" cy="-64" r="12" fill="#e8c86a" />
-  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#e8c86a" />
-  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#e8c86a" />
-  <circle cx="0" cy="-106" r="20" fill="#e8c86a" />
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#ff7a2e" />
+  <circle cx="-24" cy="-64" r="12" fill="#ff7a2e" />
+  <circle cx="24" cy="-64" r="12" fill="#ff7a2e" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#ff7a2e" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#ff7a2e" />
+  <circle cx="0" cy="-106" r="20" fill="#ff7a2e" />
   </g>
   <g transform="translate(594 638) rotate(0) scale(0.92)" opacity="0.75">
-  <g fill="none" stroke="#e8c86a" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ff7a2e" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-24 -62 L-22 -120 L-16 -164" /><path d="M24 -62 L22 -120 L16 -164" />
   </g>
-  <g fill="none" stroke="#e8c86a" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ff7a2e" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-13 2 L-26 52 L-30 106" /><path d="M13 2 L26 52 L30 106" />
   </g>
-  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#e8c86a" />
-  <circle cx="-24" cy="-64" r="12" fill="#e8c86a" />
-  <circle cx="24" cy="-64" r="12" fill="#e8c86a" />
-  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#e8c86a" />
-  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#e8c86a" />
-  <circle cx="0" cy="-106" r="20" fill="#e8c86a" />
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#ff7a2e" />
+  <circle cx="-24" cy="-64" r="12" fill="#ff7a2e" />
+  <circle cx="24" cy="-64" r="12" fill="#ff7a2e" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#ff7a2e" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#ff7a2e" />
+  <circle cx="0" cy="-106" r="20" fill="#ff7a2e" />
   </g>
   <g transform="translate(756 630) rotate(0) scale(0.78)" opacity="0.5">
-  <g fill="none" stroke="#e8c86a" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ff7a2e" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-24 -62 L-30 -104 L-58 -152" /><path d="M24 -62 L30 -104 L58 -152" />
   </g>
-  <g fill="none" stroke="#e8c86a" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ff7a2e" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-13 2 L-14 52 L-18 106" /><path d="M13 2 L14 52 L18 106" />
   </g>
-  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#e8c86a" />
-  <circle cx="-24" cy="-64" r="12" fill="#e8c86a" />
-  <circle cx="24" cy="-64" r="12" fill="#e8c86a" />
-  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#e8c86a" />
-  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#e8c86a" />
-  <circle cx="0" cy="-106" r="20" fill="#e8c86a" />
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#ff7a2e" />
+  <circle cx="-24" cy="-64" r="12" fill="#ff7a2e" />
+  <circle cx="24" cy="-64" r="12" fill="#ff7a2e" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#ff7a2e" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#ff7a2e" />
+  <circle cx="0" cy="-106" r="20" fill="#ff7a2e" />
   </g>
   <g transform="translate(450 370) rotate(0) scale(0.8)" opacity="0.95">
-  <g fill="none" stroke="#e8c86a" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ff7a2e" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-24 -62 L-32 -106 L-60 -154" /><path d="M24 -62 L32 -106 L60 -154" />
   </g>
-  <g fill="none" stroke="#e8c86a" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#ff7a2e" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
   <path d="M-13 2 L6 54 L4 108" /><path d="M13 2 L-46 30 L-4 54" />
   </g>
-  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#e8c86a" />
-  <circle cx="-24" cy="-64" r="12" fill="#e8c86a" />
-  <circle cx="24" cy="-64" r="12" fill="#e8c86a" />
-  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#e8c86a" />
-  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#e8c86a" />
-  <circle cx="0" cy="-106" r="20" fill="#e8c86a" />
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="#ff7a2e" />
+  <circle cx="-24" cy="-64" r="12" fill="#ff7a2e" />
+  <circle cx="24" cy="-64" r="12" fill="#ff7a2e" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="#ff7a2e" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="#ff7a2e" />
+  <circle cx="0" cy="-106" r="20" fill="#ff7a2e" />
   </g>
-  <path d="M60 582 L840 582" fill="none" stroke="#e8c86a" stroke-width="2" opacity="0.25" stroke-linecap="round" />
+  <path d="M60 582 L840 582" fill="none" stroke="#f5b700" stroke-width="2" opacity="0.25" stroke-linecap="round" />
   <rect width="900" height="700" fill="url(#fadeartteam)" />
   </g>
 </svg>

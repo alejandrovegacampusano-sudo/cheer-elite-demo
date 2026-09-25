@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-170 -210 340 340" width="340" height="340">
+  <defs>
+  <linearGradient id="f" x1="0" y1="1" x2="0" y2="0">
+  <stop offset="0" stop-color="#e10600" />
+  <stop offset=".5" stop-color="#ff5a1f" />
+  <stop offset="1" stop-color="#f5b700" />
+  </linearGradient>
+  </defs>
+  <g filter="drop-shadow(0 0 14px rgba(255,90,31,.45))">
+  <g transform="translate(0 0) rotate(0) scale(1)" opacity="1">
+  <g fill="none" stroke="url(#f)" stroke-width="19" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M-24 -62 L-32 -106 L-60 -154" /><path d="M24 -62 L32 -106 L60 -154" />
+  </g>
+  <g fill="none" stroke="url(#f)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M-13 2 L6 54 L4 108" /><path d="M13 2 L-46 30 L-4 54" />
+  </g>
+  <path d="M-27 -70 Q0 -78 27 -70 L19 8 Q0 14 -19 8 Z" fill="url(#f)" />
+  <circle cx="-24" cy="-64" r="12" fill="url(#f)" />
+  <circle cx="24" cy="-64" r="12" fill="url(#f)" />
+  <rect x="-8" y="-84" width="16" height="22" rx="7" fill="url(#f)" />
+  <path d="M-8 -124 C-46 -124 -54 -92 -30 -56 C-44 -96 -34 -110 -4 -108 Z" fill="url(#f)" />
+  <circle cx="0" cy="-106" r="20" fill="url(#f)" />
+  </g>
+  </g>
+</svg>

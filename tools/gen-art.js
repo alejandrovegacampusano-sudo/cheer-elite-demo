@@ -56,11 +56,12 @@ function confetti(color, n, seed, W, H) {
 }
 
 const THEMES = {
-  gold:  { a: '#f7dc95', b: '#c08c22', fig: '#0a0806', ink: '#0a0806', spot: '#fff6dd', halo: '#ffffff' },
-  night: { a: '#15131c', b: '#2f2413', fig: '#e8c86a', ink: '#f7f3e9', spot: '#e8c86a', halo: '#e8c86a' },
-  glow:  { a: '#2a1e11', b: '#b8862a', fig: '#fff0c9', ink: '#fff2cd', spot: '#ffdf9d', halo: '#ffe9bd' },
-  cream: { a: '#fff5db', b: '#e0b95a', fig: '#0a0806', ink: '#0a0806', spot: '#ffffff', halo: '#ffffff' },
-  ember: { a: '#1c1109', b: '#8a5a18', fig: '#f7dc95', ink: '#fff2cd', spot: '#ffcb6b', halo: '#ffcb6b' }
+  /* Tonos de fuego: rojo, brasa y oro del logo real */
+  gold:  { a: '#ffd36b', b: '#e0561a', fig: '#12060a', ink: '#12060a', spot: '#fff1c9', halo: '#ffffff' },
+  night: { a: '#140809', b: '#3d0e06', fig: '#ff7a2e', ink: '#f7f3e9', spot: '#ff5a1f', halo: '#f5b700' },
+  glow:  { a: '#240b06', b: '#b2360c', fig: '#ffd9a0', ink: '#fff2cd', spot: '#ffb347', halo: '#ffd08a' },
+  cream: { a: '#ffe9b8', b: '#f59a00', fig: '#12060a', ink: '#12060a', spot: '#ffffff', halo: '#ffffff' },
+  ember: { a: '#1c0906', b: '#8a2308', fig: '#ffb34d', ink: '#fff2cd', spot: '#ff7a2e', halo: '#ffb347' }
 };
 
 function poster({ name, W = 900, H = 700, theme = 'gold', word = '', scene, dots = true }) {
@@ -168,3 +169,36 @@ poster({ name: 'art-class', W: 700, H: 880, theme: 'cream', word: '', scene: (t,
   ${confetti(t.ink, 18, 33, W, H * .8)}` });
 
 console.log('OK');
+
+/* ------------------------------------------------------------------------
+   Atletas sueltos, sin fondo, para el efecto "volando".
+   Se reemplazan por recortes reales dejando assets/fotos/volando-N.webp
+   (WebP con transparencia) con el mismo número.
+   ------------------------------------------------------------------------ */
+function atleta(nombre, pose, rot = 0) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-170 -210 340 340" width="340" height="340">
+  <defs>
+    <linearGradient id="f" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#e10600" />
+      <stop offset=".5" stop-color="#ff5a1f" />
+      <stop offset="1" stop-color="#f5b700" />
+    </linearGradient>
+  </defs>
+  <g filter="drop-shadow(0 0 14px rgba(255,90,31,.45))">
+    ${figure(pose, { x: 0, y: 0, s: 1, rot, color: 'url(#f)' })}
+  </g>
+</svg>`;
+  fs.writeFileSync(path.join(OUT, nombre + '.svg'), svg.replace(/\n\s+/g, '\n  '));
+}
+atleta('volando-1', 'liberty');
+atleta('volando-2', 'toetouch');
+atleta('volando-3', 'tuck', -14);
+atleta('volando-4', 'highV');
+
+/* Textura de escamas: se usa como fondo en muy baja opacidad */
+fs.writeFileSync(path.join(OUT, 'escamas.svg'),
+`<svg xmlns="http://www.w3.org/2000/svg" width="44" height="26" viewBox="0 0 44 26">
+  <path d="M0 26 Q11 4 22 26 Q33 4 44 26 M-22 13 Q-11 -9 0 13 Q11 -9 22 13 Q33 -9 44 13 Q55 -9 66 13"
+        fill="none" stroke="#f5b700" stroke-width="1" />
+</svg>`);
+console.log('atletas y escamas');

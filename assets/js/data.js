@@ -26,8 +26,27 @@ const CLUB = {
      endpoint: URL de un servicio de formularios (Formspree, Web3Forms, Basin…).
      Vacío = no se intenta enviar por correo y solo queda el aviso por WhatsApp,
      que funciona sin configurar nada. */
-  formEndpoint: ''
+  formEndpoint: '',
+
+  /* Redes oficiales, verificadas en la búsqueda del 25-09-2026 */
+  redes: {
+    instagram: 'https://www.instagram.com/dragoneselite/',
+    facebook:  'https://www.facebook.com/p/Academia-Dragones-Elite-Chile-100063991477597/',
+    youtube:   'https://www.youtube.com/@AcademiaDragonesEliteChile'
+  },
+
+  /* Centro de Iquique como referencia hasta tener la dirección del gimnasio */
+  mapa: { lat: -20.2307, lon: -70.1357, referencial: true }
 };
+
+/* Valores del club: se muestran en "Quiénes somos" */
+const VALORES = [
+  { icono: 'llama',   titulo: 'Confianza',          texto: 'Un stunt se sostiene porque cuatro personas confían entre sí. Eso se entrena igual que un salto.' },
+  { icono: 'escudo',  titulo: 'Seguridad primero',  texto: 'Nadie sube a una pirámide antes de estar lista. La progresión la define el cuerpo técnico, no el apuro.' },
+  { icono: 'estrella',titulo: 'Disciplina',         texto: 'Llegar a la hora, repetir lo que no sale y cuidar el cuerpo. Los podios se ganan los martes.' },
+  { icono: 'ala',     titulo: 'Equipo antes que yo',texto: 'Aquí nadie sube sola: el lugar de cada una en la rutina importa lo mismo, arriba o abajo.' },
+  { icono: 'corazon', titulo: 'Orgullo del norte',  texto: 'Competimos por Iquique y por Tarapacá. Llevar el nombre del club es llevar el de la ciudad.' }
+];
 
 const CATEGORIAS = [
   {
@@ -41,7 +60,7 @@ const CATEGORIAS = [
   },
   {
     id: 'mini', nombre: 'Mini', nivel: 'Nivel 1', edad: [6, 8], edadTxt: '6 a 8 años',
-    precio: 24900, art: 'art-jump', color: '#e8c86a',
+    precio: 24900, art: 'art-jump', color: '#f5b700',
     resumen: 'Base técnica: stunt inicial, saltos y primeras acrobacias con colchoneta.',
     incluye: ['3 clases semanales', 'Tumbling básico', '2 competencias regionales'],
     equipos: [
@@ -151,6 +170,6 @@ const CUPOS = todosLosEquipos().reduce(
 );
 
 window.DE = {
-  CLUB, CATEGORIAS, PROGRAMAS, COACHES, TESTIMONIOS, FAQ, HITOS, CUPOS,
+  CLUB, CATEGORIAS, VALORES, PROGRAMAS, COACHES, TESTIMONIOS, FAQ, HITOS, CUPOS,
   CLP, NUM, todosLosEquipos, equipoPorId, categoriaPorId, categoriaPorEdad, edadDesde
 };

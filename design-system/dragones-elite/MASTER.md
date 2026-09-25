@@ -28,9 +28,13 @@ fila menos en pantalla.
 ## 2. Color
 
 ```
---bg      #07070a   fondo general
+--bg      #0a0a0f   fondo general
 --panel   #121117   superficie de tarjeta
---gold    #e8c86a   acento, acciones, datos destacados
+--fire    #e10600   rojo dragón: SOLO decorativo o texto grande (3.98:1)
+--ember   #ff5a1f   brasa: etiquetas, subtítulos, trazos (6.33:1)
+--gold    #f5b700   oro: acciones, cifras, datos destacados (10.96:1)
+--grad-gold  ember → gold   botones (texto oscuro encima)
+--grad-fire  fire → ember → gold   solo titulares grandes y arte
 --ink     #f7f3e9   texto principal
 --muted   #b4ab99   texto secundario
 --muted-2 #8f8778   etiquetas y metadatos
@@ -44,7 +48,9 @@ fila menos en pantalla.
 | `ink` | 17.0 : 1 | 18.2 : 1 |
 | `muted` | 8.3 : 1 | 8.8 : 1 |
 | `muted-2` | 5.3 : 1 | 5.7 : 1 |
-| `gold` | 11.5 : 1 | — |
+| `gold` | 10.9 : 1 | 11.0 : 1 |
+| `ember` | — | 6.3 : 1 |
+| `fire` | — | 4.0 : 1 → solo texto grande |
 | `alert` | 6.6 : 1 | — |
 
 El `--muted-2` anterior (`#6d6659`) daba **3.3:1** y no pasaba. Cualquier color
@@ -139,7 +145,21 @@ prototipo tenía mal:
   archivo original del logo: el que hay en el repo es una miniatura de 165px
   recortada de Instagram (65% negro, 8% dorado, 16% grises, 9% rojo).
 
-## 10. Antipatrones (ya cometidos en este repo)
+## 10. Movimiento (portada)
+
+GSAP + ScrollTrigger + SplitText + Lenis, alojados en `assets/vendor/`, orquestados
+en `assets/js/fuego.js`.
+
+- El HTML ya es el estado final. El JS solo anima **desde** algo; si no corre,
+  no falta nada.
+- `prefers-reduced-motion: reduce` → no se carga ninguna animación.
+- Solo `transform`, `opacity` y `clip-path` puntual. Nada que fuerce layout.
+- Celular: sin cursor propio ni parallax de mouse, parallax a un tercio, 28
+  brasas en vez de 80, logros en vertical.
+- Las brasas se detienen cuando el hero sale de pantalla o la pestaña se oculta.
+- "Elite" no se parte en letras: el degradado de fuego se rompería.
+
+## 11. Antipatrones (ya cometidos en este repo)
 
 1. Maquetar el panel con aire de landing. → Filas de 67px, 12 por página.
 2. Elegir un color de texto "que se ve bien" sin medir. → 3.3:1.
@@ -151,3 +171,6 @@ prototipo tenía mal:
 7. No resetear el margen de `<figure>`: descuadra cualquier grilla.
 8. Escribir el sitio de un club real sin mirar sus fotos: quedó de un solo
    género durante todo el desarrollo.
+9. Poner la foto de referencia de una menor que no es del club en la vista
+   previa para compartir: viaja por WhatsApp como si fuera una deportista
+   Dragones. La imagen OG usa solo arte propio hasta tener fotos autorizadas.

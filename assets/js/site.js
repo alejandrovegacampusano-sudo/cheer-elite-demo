@@ -3,7 +3,7 @@
    ========================================================================== */
 
 (function () {
-  const { CLUB, CATEGORIAS, PROGRAMAS, COACHES, TESTIMONIOS, FAQ, HITOS, CLP, todosLosEquipos, Store } = window.DE;
+  const { CLUB, CATEGORIAS, PROGRAMAS, COACHES, TESTIMONIOS, FAQ, HITOS, VALORES, CLP, todosLosEquipos, Store } = window.DE;
   const { initReveal, initCounters, initFotos } = window.DEUI;
 
   const iniciales = nombre => nombre.split(' ').map(p => p[0]).slice(0, 2).join('').toUpperCase();
@@ -21,6 +21,7 @@
     $$('.hero-stats [data-count]')[0]?.setAttribute('data-count', anios);
     $$('.hero-stats [data-count]')[1]?.setAttribute('data-count', deportistas);
     $$('.hero-stats [data-count]')[2]?.setAttribute('data-count', equipos.length);
+    $$('.hero-stats [data-count]')[3]?.setAttribute('data-count', CATEGORIAS.length);
     const cuposCard = $('.float-card.a strong');
     if (cuposCard) cuposCard.textContent = `${Math.max(cupos, 0)} cupos`;
     $$('.figures [data-count]')[0]?.setAttribute('data-count', anios);
@@ -113,14 +114,184 @@
     pintarLista();
   }
 
-  /* --- Historia ------------------------------------------------------------ */
+  /* --- Logros: riel horizontal ------------------------------------------- */
 
   function pintarHitos() {
-    $('#timeline').innerHTML = HITOS.map(h => `
-      <div class="tl-item" data-reveal="left">
-        <b>${h.año}</b>
-        <div><h4>${h.titulo}</h4><p>${h.detalle}</p></div>
-      </div>`).join('');
+    const riel = $('#logros-riel');
+    if (!riel) return;
+    /* Los hitos de competencia llevan medalla */
+    const conMedalla = /nacional|internacional|podio|clasifica/i;
+    riel.innerHTML = HITOS.map((h, i) => `
+      <article class="hito" data-hito="${i}">
+        ${conMedalla.test(h.titulo + ' ' + h.detalle) ? '<span class="hito-medalla" aria-label="Logro deportivo">★</span>' : ''}
+        <div class="hito-ano">${h.año}</div>
+        <h3>${h.titulo}</h3>
+        <p>${h.detalle}</p>
+      </article>`).join('');
+  }
+
+  /* --- Valores ------------------------------------------------------------ */
+
+  const ICONOS = {
+    llama:    '<path d="M12 22c4 0 7-2.8 7-7 0-3.4-2.2-6.1-4.1-8.1-.4 2-1.5 3.4-2.9 4.1.3-3.1-.8-6.3-3.4-9-.2 3.3-2 5.4-3.6 7.3C3.9 11.4 5 14 5 15c0 4.2 3 7 7 7z"/>',
+    escudo:   '<path d="M12 2l8 3.5v6.2c0 4.8-3.4 8.9-8 10.3-4.6-1.4-8-5.5-8-10.3V5.5z"/><path d="M9 12l2 2 4-4"/>',
+    estrella: '<path d="M12 2.8l2.8 5.8 6.4.9-4.6 4.5 1.1 6.3L12 17.3l-5.7 3 1.1-6.3-4.6-4.5 6.4-.9z"/>',
+    ala:      '<path d="M3 17c3-1 5.5-3.4 7-7 1.3 2.6 3.6 4 6.5 4.2L21 5c-3.7 2.3-7.5 3-11 2-1.2 4.7-3.5 8-7 10z"/><path d="M8 20c2.4-.4 4.6-1.7 6.2-3.8"/>',
+    corazon:  '<path d="M12 20.5s-7.5-4.5-9.3-9.2C1.5 8 3.4 4.5 7 4.5c2 0 3.6 1.2 5 3 1.4-1.8 3-3 5-3 3.6 0 5.5 3.5 4.3 6.8-1.8 4.7-9.3 9.2-9.3 9.2z"/>'
+  };
+
+  function pintarValores() {
+    const lista = $('#valores');
+    if (!lista) return;
+    lista.innerHTML = VALORES.map(v => `
+      <li class="valor">
+        <span class="valor-ico" aria-hidden="true"><svg viewBox="0 0 24 24">${ICONOS[v.icono] || ''}</svg></span>
+        <div><h3>${v.titulo}</h3><p>${v.texto}</p></div>
+        <i class="valor-linea" aria-hidden="true"></i>
+      </li>`).join('');
+
+    /* Sin GSAP (o con menos movimiento) el ícono igual se enciende al entrar */
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('encendido'); io.unobserve(e.target); }
+    }), { threshold: .6 });
+    $$('#valores .valor').forEach(v => io.observe(v));
+  }
+
+  /* --- Competencias con cuenta regresiva ----------------------------------- */
+
+  const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  const cuando = e => new Date(`${e.fecha}T${e.hora || '09:00'}:00`);
+
+  function proximos() {
+    const ahora = new Date();
+    return Store.eventos()
+      .filter(e => cuando(e) > ahora && e.tipo !== 'pago')
+      .sort((a, b) => cuando(a) - cuando(b));
+  }
+
+  function pintarCompetencias() {
+    const grilla = $('#comp-grid');
+    if (!grilla) return;
+    const lista = proximos();
+    /* Primero las competencias, que son las que mueven a las familias */
+    const orden = [...lista.filter(e => e.tipo === 'competencia'), ...lista.filter(e => e.tipo !== 'competencia')].slice(0, 3);
+
+    grilla.innerHTML = orden.length ? orden.map((e, i) => {
+      const d = cuando(e);
+      const etiqueta = { competencia: 'Competencia', club: 'Actividad del club', entreno: 'Entrenamiento' }[e.tipo] || 'Evento';
+      return `
+      <article class="comp${i === 0 ? ' principal' : ''}" data-cuando="${d.toISOString()}">
+        <span class="comp-tipo">${etiqueta}</span>
+        <h3>${e.titulo}</h3>
+        <p class="comp-lugar">${d.getDate()} de ${MESES[d.getMonth()]} · ${e.hora} · ${e.lugar}</p>
+        <div class="cuenta" aria-label="Tiempo restante">
+          <div><b data-u="d">0</b><span>días</span></div>
+          <div><b data-u="h">0</b><span>horas</span></div>
+          <div><b data-u="m">0</b><span>min</span></div>
+          <div><b data-u="s">0</b><span>seg</span></div>
+        </div>
+      </article>`;
+    }).join('') : '<p class="lead">El club publicará aquí sus próximas fechas.</p>';
+
+    const tick = () => {
+      $$('#comp-grid .comp').forEach(c => {
+        let ms = Math.max(0, new Date(c.dataset.cuando) - new Date());
+        const u = { d: 864e5, h: 36e5, m: 6e4, s: 1e3 };
+        Object.entries(u).forEach(([k, v]) => {
+          const n = Math.floor(ms / v); ms -= n * v;
+          const el = $(`[data-u="${k}"]`, c);
+          if (el) el.textContent = String(n).padStart(k === 'd' ? 1 : 2, '0');
+        });
+      });
+    };
+    tick();
+    setInterval(tick, 1000);
+
+    /* La tarjeta flotante del hero anuncia la próxima competencia real */
+    const comp = lista.find(e => e.tipo === 'competencia');
+    if (comp) {
+      const dias = Math.floor((cuando(comp) - new Date()) / 864e5);
+      if ($('#hero-prox')) $('#hero-prox').textContent = comp.titulo;
+      if ($('#hero-prox-cuando')) $('#hero-prox-cuando').textContent = dias < 1 ? `${comp.lugar} · hoy` : `${comp.lugar} · en ${dias} día${dias === 1 ? '' : 's'}`;
+    }
+
+    const evaluacion = lista.find(e => /evaluaci/i.test(e.titulo));
+    if (evaluacion && $('#prox-eval')) {
+      const d = cuando(evaluacion);
+      $('#prox-eval').textContent = `Próxima evaluación: ${d.getDate()} de ${MESES[d.getMonth()]}, ${evaluacion.hora} hrs.`;
+    }
+  }
+
+  /* --- Tryouts: formulario corto ------------------------------------------ */
+
+  function prepararTryouts() {
+    const form = $('#tryout-form');
+    if (!form) return;
+    $('#t-cat').innerHTML = '<option value="">Que el club me oriente</option>' +
+      CATEGORIAS.map(c => `<option value="${c.nombre}">${c.nombre} · ${c.edadTxt}</option>`).join('');
+
+    /* Al escribir la edad, sugiere la categoría */
+    $('#t-edad').addEventListener('input', e => {
+      const edad = Number(e.target.value);
+      const cat = CATEGORIAS.find(c => edad >= c.edad[0] && edad <= c.edad[1]);
+      if (cat) $('#t-cat').value = cat.nombre;
+    });
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const nombre = $('#t-nombre').value.trim();
+      const edad = $('#t-edad').value.trim();
+      const tel = $('#t-tel').value.replace(/\D/g, '');
+      const cat = $('#t-cat').value || 'por definir';
+      const marcar = (sel, mal) => $(sel).closest('.field').classList.toggle('invalid', mal);
+      marcar('#t-nombre', nombre.length < 3); marcar('#t-edad', !edad); marcar('#t-tel', tel.length < 8);
+      if (nombre.length < 3 || !edad || tel.length < 8) return window.DEUI.toast('Completa nombre, edad y WhatsApp.', 'err');
+      if (!$('#t-ok').checked) return window.DEUI.toast('Necesitamos tu autorización para usar los datos.', 'err');
+
+      const texto = `Hola, quiero agendar una clase de prueba.\nDeportista: ${nombre} (${edad} años)\nCategoría de interés: ${cat}\nWhatsApp: +56 ${tel}`;
+      if (CLUB.formEndpoint) {
+        fetch(CLUB.formEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ asunto: `Tryout · ${nombre}`, resumen: texto }) }).catch(() => {});
+      }
+      window.open(`https://wa.me/${CLUB.whatsapp}?text=${encodeURIComponent(texto)}`, '_blank', 'noopener');
+      window.DEUI.toast('Listo: te abrimos WhatsApp con tus datos para enviar al club.');
+      form.reset();
+    });
+  }
+
+  /* --- Contacto, redes y mapa --------------------------------------------- */
+
+  const ICONO_RED = {
+    instagram: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7.3a4.7 4.7 0 100 9.4 4.7 4.7 0 000-9.4zm0 7.7a3 3 0 110-6 3 3 0 010 6zm6-7.9a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0zM21.9 7c-.1-1.5-.4-2.8-1.5-3.9S17.9 1.7 16.4 1.6C14.9 1.5 9.1 1.5 7.6 1.6 6.1 1.7 4.8 2 3.7 3.1S2.3 5.5 2.2 7c-.1 1.5-.1 7.3 0 8.8.1 1.5.4 2.8 1.5 3.9s2.4 1.4 3.9 1.5c1.5.1 7.3.1 8.8 0 1.5-.1 2.8-.4 3.9-1.5s1.4-2.4 1.5-3.9c.1-1.5.1-7.3 0-8.8zm-2 10.6a3 3 0 01-1.7 1.7c-1.2.5-4 .4-5.2.4s-4 .1-5.2-.4a3 3 0 01-1.7-1.7c-.5-1.2-.4-4-.4-5.2s-.1-4 .4-5.2a3 3 0 011.7-1.7C7 5 9.8 5.1 11.1 5.1s4-.1 5.2.4a3 3 0 011.7 1.7c.5 1.2.4 4 .4 5.2s.1 4-.4 5.2z"/></svg>',
+    facebook:  '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 10-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0022 12z"/></svg>',
+    youtube:   '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 00-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 001 7.2 31 31 0 00.5 12a31 31 0 00.5 4.8 3 3 0 002.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 002.1-2.1 31 31 0 00.5-4.8 31 31 0 00-.5-4.8zM9.7 15V9l5.9 3z"/></svg>'
+  };
+  const NOMBRE_RED = { instagram: 'Instagram', facebook: 'Facebook', youtube: 'YouTube' };
+
+  function prepararContacto() {
+    const wa = `https://wa.me/${CLUB.whatsapp}?text=${encodeURIComponent('Hola, quiero información sobre Dragones Elite.')}`;
+    if ($('#c-dir')) $('#c-dir').textContent = CLUB.direccion;
+    if ($('#c-wa')) $('#c-wa').href = wa;
+    if ($('#c-mail')) { $('#c-mail').href = `mailto:${CLUB.email}`; $('#c-mail').textContent = CLUB.email; }
+    if ($('#redes')) $('#redes').innerHTML = Object.entries(CLUB.redes).map(([red, url]) =>
+      `<a href="${url}" target="_blank" rel="noopener">${ICONO_RED[red]}${NOMBRE_RED[red]}</a>`).join('');
+
+    const auspicio = $('#cta-auspicio');
+    if (auspicio) auspicio.href = `https://wa.me/${CLUB.whatsapp}?text=${encodeURIComponent('Hola, represento a una empresa y me interesa auspiciar a Dragones Elite.')}`;
+
+    /* El mapa no se pide a OpenStreetMap hasta que la persona lo solicita */
+    const boton = $('#ver-mapa');
+    if (boton) boton.addEventListener('click', () => {
+      const { lat, lon } = CLUB.mapa;
+      const d = .018;
+      const f = document.createElement('iframe');
+      f.title = 'Mapa de ubicación del gimnasio';
+      f.loading = 'lazy';
+      f.referrerPolicy = 'no-referrer';
+      f.src = `https://www.openstreetmap.org/export/embed.html?bbox=${lon - d},${lat - d},${lon + d},${lat + d}&layer=mapnik&marker=${lat},${lon}`;
+      $('#mapa').innerHTML = '';
+      $('#mapa').appendChild(f);
+    });
   }
 
   /* --- Galería + lightbox --------------------------------------------------- */
@@ -285,6 +456,10 @@
     pintarProgramas();
     pintarEquipos();
     pintarHitos();
+    pintarValores();
+    pintarCompetencias();
+    prepararTryouts();
+    prepararContacto();
     pintarGaleria();
     pintarCoaches();
     pintarTestimonios();
