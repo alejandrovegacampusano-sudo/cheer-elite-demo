@@ -40,11 +40,12 @@
   }
 
   /* Familia de ejemplo: la que tenga más de una hija, para mostrar el selector */
+  /* Familia de ejemplo: con dos hijos y algo por pagar, para que la demo
+     muestre el selector de hijos y el pago con comprobante */
   function familiaDemo() {
-    const conteo = {};
-    Store.deportistas().forEach(a => { conteo[a.telefono] = (conteo[a.telefono] || 0) + 1; });
-    const conVarias = Object.keys(conteo).find(tel => conteo[tel] > 1);
-    return conVarias || Store.deportistas()[0].telefono;
+    const fams = window.DE.Finanzas.familias();
+    const ideal = fams.find(f => f.hijos.length > 1 && f.impagos.length) || fams.find(f => f.hijos.length > 1) || fams[0];
+    return ideal.telefono;
   }
 
   /* ======================= Pintado ======================= */
@@ -293,7 +294,8 @@
        simula al abrir cualquiera de las dos aplicaciones */
     window.DE.Finanzas.correrPiloto();
     const guardada = Store.sesionApoderado.actual();
-    if (guardada && Store.hijasDe(guardada).length) entrar(guardada);
+    if (new URLSearchParams(location.search).has('demo')) entrar(familiaDemo());
+    else if (guardada && Store.hijasDe(guardada).length) entrar(guardada);
 
     $('#entrar').addEventListener('click', () => entrar($('#tel').value));
     $('#tel').addEventListener('keydown', e => { if (e.key === 'Enter') entrar($('#tel').value); });

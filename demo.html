@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0a0f">
+  <meta name="robots" content="noindex">
+  <title>Demo para la directiva · Dragones Elite</title>
+  <meta name="description" content="Demostración del sitio, el portal de apoderados y el panel del club con finanzas y piloto automático.">
+  <link rel="icon" href="assets/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_CL">
+  <meta property="og:title" content="Demo para la directiva · Dragones Elite">
+  <meta property="og:description" content="Sitio web, portal de apoderados y panel del club con finanzas y piloto automático.">
+  <meta property="og:image" content="https://alejandrovegacampusano-sudo.github.io/cheer-elite-demo/assets/og.png">
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/core.css">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/demo.css">
+</head>
+<body>
+  <div class="ambient"><i></i><i></i><i></i></div>
+  <header class="site-header" data-header>
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <span class="brand-mark"><img src="assets/logo-dragones.webp" alt="" width="40" height="40"></span>
+        <span class="brand-text"><strong>DRAGONES ELITE</strong><small>Demo para la directiva</small></span>
+      </a>
+      <div class="header-cta"><button class="btn btn-ghost btn-sm" data-reiniciar>Reiniciar demo</button></div>
+    </div>
+  </header>
+
+  <main class="demo wrap">
+    <section class="demo-intro">
+      <div>
+        <p class="eyebrow">Demo · web y sistema de gestión</p>
+        <h1 class="demo-titulo">Todo el club, <span class="fuego-txt">en un solo lugar</span></h1>
+        <p class="demo-bajada">Tres accesos que comparten los mismos datos. Todo se puede tocar: lo que hagan queda solo en este navegador y se borra con <b>Reiniciar demo</b>.</p>
+        <p class="demo-estado" id="demo-estado" aria-live="polite"></p>
+      </div>
+      <figure class="demo-qr">
+        <img src="assets/img/qr-demo.svg" alt="Código QR para abrir esta demo en el celular" width="164" height="164">
+        <figcaption>Ábranla también en el celular</figcaption>
+      </figure>
+    </section>
+
+    <section class="accesos-demo" aria-label="Los tres accesos">
+      <a class="acceso" href="index.html">
+        <span class="acceso-num">1</span>
+        <h2>Sitio web</h2>
+        <p class="acceso-quien">Lo que ve el mundo</p>
+        <p>Portada, equipos, logros, competencias con cuenta regresiva, tryouts y contacto.</p>
+        <span class="acceso-ir">Abrir el sitio →</span>
+      </a>
+      <a class="acceso" href="apoderados.html?demo">
+        <span class="acceso-num">2</span>
+        <h2>Portal de apoderados</h2>
+        <p class="acceso-quien">Entra como una familia de ejemplo</p>
+        <p>Dos hijos en el club, estado de cuenta, pago en un paso y cuentas claras del club.</p>
+        <span class="acceso-ir">Entrar como familia →</span>
+      </a>
+      <a class="acceso destacado" href="panel.html?demo">
+        <span class="acceso-num">3</span>
+        <h2>Panel del club</h2>
+        <p class="acceso-quien">Entra como la directiva</p>
+        <p>Abre en «Hoy»: solo lo que necesita una decisión. Finanzas con piloto automático.</p>
+        <span class="acceso-ir">Entrar al panel →</span>
+      </a>
+    </section>
+
+    <section class="recorrido">
+      <h2 class="serif">Recorrido sugerido <span>· 10 minutos</span></h2>
+      <ol>
+        <li><a href="panel.html?demo&amp;vista=hoy"><span><b>Hoy.</b> Qué necesita una decisión y cuántas horas de trabajo ahorró el sistema este mes.</span></a></li>
+        <li><a href="panel.html?demo&amp;vista=caja"><span><b>Caja.</b> Toquen «Probar con una cartola de ejemplo» y vean cómo reconoce quién pagó.</span></a></li>
+        <li><a href="panel.html?demo&amp;vista=familias"><span><b>Familias.</b> Abran una familia, registren un pago y vean el comprobante.</span></a></li>
+        <li><a href="panel.html?demo&amp;vista=cuotas"><span><b>Cuotas.</b> Creen un cobro en cuotas para un viaje y vean a quién se le carga.</span></a></li>
+        <li><a href="apoderados.html?demo"><span><b>Portal.</b> Paguen como familia: el pago aparece al instante en el panel.</span></a></li>
+        <li><a href="panel.html?demo&amp;vista=rendicion"><span><b>Rendición.</b> La cascada del mes que las familias ven en su portal.</span></a></li>
+        <li><a href="panel.html?demo&amp;vista=piloto"><span><b>Piloto automático.</b> Las reglas, la cola de WhatsApp y la bitácora.</span></a></li>
+        <li><a href="index.html#tryouts"><span><b>Sitio.</b> Pidan una clase de prueba: el formulario abre WhatsApp con el mensaje listo.</span></a></li>
+      </ol>
+    </section>
+
+    <section class="real-simulado">
+      <div>
+        <h3>Funciona de verdad en la demo</h3>
+        <ul>
+          <li>Cobros, vencimientos y recordatorios del piloto</li>
+          <li>Conciliación de la cartola por nombre y monto</li>
+          <li>Comprobantes, cuotas, caja y rendición</li>
+          <li>Todo lo que se hace en el panel se ve en el portal, y al revés</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Simulado hasta la implementación</h3>
+        <ul>
+          <li>El pago con tarjeta (se conecta a Flow o Transbank)</li>
+          <li>El envío automático de WhatsApp (hoy, un toque por mensaje)</li>
+          <li>Los datos viven en el navegador, no en un servidor</li>
+          <li>Deportistas, familias y montos son de ejemplo; las fotos son de referencia y no son del club</li>
+        </ul>
+      </div>
+    </section>
+
+    <p class="demo-pie">¿Quieren partir de cero antes de mostrarla? <button class="btn btn-ghost btn-sm" data-reiniciar>Reiniciar demo</button></p>
+  </main>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/finanzas.js"></script>
+  <script src="assets/js/core.js"></script>
+  <script src="assets/js/demo.js"></script>
+</body>
+</html>

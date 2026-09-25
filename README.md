@@ -6,6 +6,11 @@ sin frameworks ni build: se publica tal cual en GitHub Pages.
 
 **Publicado en:** https://alejandrovegacampusano-sudo.github.io/cheer-elite-demo/
 
+**Demo para la directiva:** https://alejandrovegacampusano-sudo.github.io/cheer-elite-demo/demo.html
+— los tres accesos, entrada directa sin formularios (`panel.html?demo`, `panel.html?demo&vista=caja`,
+`apoderados.html?demo`), un recorrido de 10 minutos, código QR para el celular y un botón para
+reiniciar los datos de ejemplo.
+
 ## Tres accesos, tres audiencias
 
 | Acceso | Para quién | Qué ve |
@@ -103,7 +108,7 @@ cuenta, un solo mensaje y un solo pago.
 
 ```
 index.html · inscripcion.html · apoderados.html · panel.html
-legal.html · privacidad.html · 404.html
+legal.html · privacidad.html · 404.html · demo.html
 assets/
   css/  fonts.css  core.css (sistema de diseño)  site.css  portal.css  panel.css
         fuego.css (secciones y efectos de la portada)  finanzas.css

@@ -845,7 +845,13 @@
   window.DE.irA = irA;
 
   document.addEventListener('DOMContentLoaded', () => {
-    if (Store.sesion.abierta()) entrar();
+    /* Enlaces de la demo: panel.html?demo entra directo y ?vista=caja abre esa vista */
+    const params = new URLSearchParams(location.search);
+    if (Store.sesion.abierta() || params.has('demo')) {
+      entrar();
+      const vista = params.get('vista');
+      if (vista && TITULOS[vista]) irA(vista);
+    }
 
     $('#gate-in').addEventListener('click', entrar);
     $('#gate-pass').addEventListener('keydown', e => { if (e.key === 'Enter') entrar(); });
