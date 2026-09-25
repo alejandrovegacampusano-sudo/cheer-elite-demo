@@ -9,7 +9,7 @@
 
 (function () {
   const NS = 'de.v2.';
-  const { CATEGORIAS, CLUB, todosLosEquipos, equipoPorId, categoriaPorId } = window.DE;
+  const { CATEGORIAS, CLUB, categoriaPorId } = window.DE;
 
   const read = (key, fallback) => {
     try {
@@ -20,6 +20,19 @@
   const write = (key, value) => {
     try { localStorage.setItem(NS + key, JSON.stringify(value)); } catch { /* modo privado */ }
   };
+
+  /* --- Cambios del club sobre los equipos -----------------------------------
+     El horario, la coach y los cupos se editan desde el panel. Los cambios se
+     guardan aparte de los datos base y se aplican a TODO el sistema (sitio,
+     portal y panel) envolviendo las funciones que leen equipos. */
+  const cambiosEquipos = () => read('equipos', {});
+  const conCambios = eq => { const c = cambiosEquipos()[eq.id]; return c ? { ...eq, ...c } : eq; };
+  const baseTodos = window.DE.todosLosEquipos;
+  const basePorId = window.DE.equipoPorId;
+  const todosLosEquipos = () => baseTodos().map(conCambios);
+  const equipoPorId = id => { const eq = basePorId(id); return eq ? conCambios(eq) : eq; };
+  window.DE.todosLosEquipos = todosLosEquipos;
+  window.DE.equipoPorId = equipoPorId;
 
   /* --- Generador pseudoaleatorio determinista (mismo club en cada visita) --- */
   function rng(seed) {
@@ -352,6 +365,15 @@
     },
 
     /* Últimas clases de una deportista según el horario de su equipo */
+    /* Horario, coach o cupos que el club cambió desde el panel */
+    actualizarEquipo(id, cambios) {
+      const mapa = cambiosEquipos();
+      mapa[id] = { ...mapa[id], ...cambios };
+      write('equipos', mapa);
+      return equipoPorId(id);
+    },
+    cambiosEquipos,
+
     /* Días de la semana en que entrena un equipo, leídos de su horario
        configurado ("Lun, Mié y Vie · 17:30" → [1, 3, 5]). Devuelve también la
        hora, para el calendario del portal. */
@@ -400,7 +422,7 @@
     },
 
     reiniciar() {
-      ['atletas', 'pagos', 'eventos', 'asistencia', 'avisos'].forEach(k => localStorage.removeItem(NS + k));
+      ['atletas', 'pagos', 'eventos', 'asistencia', 'avisos', 'equipos'].forEach(k => localStorage.removeItem(NS + k));
     },
 
     exportarCSV() {

@@ -175,7 +175,16 @@ en `assets/js/fuego.js`.
 - Los mensajes explican el **porqué** de cada decisión del sistema ("Nombre del apoderado
   y monto calzan", "El monto calza con 2 familias").
 
-## 12. Antipatrones (ya cometidos en este repo)
+## 12. Qué se muestra dónde
+
+- **Sitio público**: nunca valores. Ni precios, ni matrícula, ni porcentajes de
+  descuento. El club los informa en la clase de evaluación. Los montos viven en
+  `data.js`, se usan para los cargos y solo se ven en el panel y en el portal.
+- **Portal de apoderados**: solo lo de su familia. Sus pagos, su asistencia, su
+  calendario. Nunca la contabilidad del club ni datos de otras familias.
+- **Panel**: todo.
+
+## 13. Antipatrones (ya cometidos en este repo)
 
 1. Maquetar el panel con aire de landing. → Filas de 67px, 12 por página.
 2. Elegir un color de texto "que se ve bien" sin medir. → 3.3:1.
@@ -193,3 +202,7 @@ en `assets/js/fuego.js`.
 10. Que un proceso automático escriba datos que aún no se han sembrado: el piloto leyó
     las mensualidades directo de `localStorage` antes de que existieran y borró el
     historial de la temporada. Siempre leer a través de `Store`.
+11. Editar datos que otras vistas leen de una constante: el horario de un equipo se
+    cambia en el panel, así que `Store` envuelve `equipoPorId`/`todosLosEquipos` y el
+    cambio llega solo al sitio, al portal y a los avisos. Leer `cat.equipos[]` directo
+    se salta esa capa.

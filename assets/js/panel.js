@@ -585,7 +585,10 @@
         <div class="stat-line"><span>Coach</span><b style="color:var(--ink)">${eq.coach}</b></div>
         <div class="stat-line"><span>Mensualidad</span><b style="color:var(--ink)">${CLP(eq.precio)}</b></div>
         <div class="stat-line"><span>Cobranza del mes</span><b style="color:${cob >= 80 ? 'var(--ok)' : cob >= 60 ? 'var(--warn)' : 'var(--alert)'}">${cob}%</b></div>
-        <button class="btn btn-ghost btn-sm" data-equipo="${eq.id}">Ver deportistas</button>
+        <div class="row" style="gap:8px">
+          <button class="btn btn-gold btn-sm" data-horario="${eq.id}">Horario y aviso</button>
+          <button class="btn btn-ghost btn-sm" data-equipo="${eq.id}">Ver deportistas</button>
+        </div>
       </article>`;
     }).join('');
 
@@ -594,6 +597,134 @@
       ui.pagina = 1;
       irA('deportistas');
     }));
+    $$('#grid-equipos [data-horario]').forEach(b => b.addEventListener('click', () => abrirHorario(b.dataset.horario)));
+  }
+
+  /* ======================= Horario del equipo y aviso ======================= */
+
+  const DOW_LARGO = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+  const DOW_CORTO = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+
+  /* [1,3,5] + '17:30' → 'Lun, Mié y Vie · 17:30' (el mismo formato que ya
+     entiende Store.horarioDe, para que el sitio y el portal lo lean igual) */
+  function textoHorario(dias, hora) {
+    const orden = [1, 2, 3, 4, 5, 6, 0];
+    const nombres = orden.filter(d => dias.includes(d)).map(d => DOW_CORTO[(d + 6) % 7]);
+    if (!nombres.length) return hora || '';
+    const lista = nombres.length === 1 ? nombres[0]
+      : `${nombres.slice(0, -1).join(', ')} y ${nombres[nombres.length - 1]}`;
+    return hora ? `${lista} · ${hora}` : lista;
+  }
+
+  function familiasDelEquipo(id) {
+    const mapa = new Map();
+    Store.deportistas().filter(a => a.equipo === id && a.estado === 'activa').forEach(a => {
+      const k = a.telefono.replace(/\D/g, '').slice(-9);
+      if (!mapa.has(k)) mapa.set(k, { telefono: a.telefono, apoderado: a.apoderado, hijos: [] });
+      mapa.get(k).hijos.push(a.nombre.split(' ')[0]);
+    });
+    return [...mapa.values()].sort((a, b) => a.apoderado.localeCompare(b.apoderado, 'es'));
+  }
+
+  function mensajeHorario(eq) {
+    return [
+      `Hola, les escribe ${CLUB.corto}.`,
+      '',
+      `Equipo ${eq.nombre} (${eq.categoria})`,
+      `Entrenamientos: ${eq.horario}`,
+      `Coach: ${eq.coach}`,
+      'Lugar: Gimnasio',
+      '',
+      'Cualquier duda, respondan por aquí. ¡Gracias!'
+    ].join('\n');
+  }
+
+  function abrirHorario(id) {
+    const eq = Store.porEquipo().find(e => e.id === id);
+    if (!eq) return;
+    const { dias, hora } = Store.horarioDe(id);
+    const familias = familiasDelEquipo(id);
+
+    $('#drawer').innerHTML = `
+      <div class="drawer-head">
+        <div><h3>${esc(eq.nombre)}</h3><span>${esc(eq.categoria)} · ${familias.length} familias</span></div>
+        <button class="drawer-close" id="cerrar-horario" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="drawer-body">
+        <section>
+          <h4>Días de entrenamiento</h4>
+          <div class="dias-pick">
+            ${DOW_LARGO.map((n, i) => {
+              const d = (i + 1) % 7;
+              return `<label class="dia-chip"><input type="checkbox" value="${d}" ${dias.includes(d) ? 'checked' : ''}><span>${DOW_CORTO[i]}</span></label>`;
+            }).join('')}
+          </div>
+          <div class="form-grid">
+            <label class="field"><span>Hora</span><input type="time" id="h-hora" value="${hora || '18:00'}"></label>
+            <label class="field"><span>Coach</span><input id="h-coach" value="${esc(eq.coach)}"></label>
+            <label class="field"><span>Cupos</span><input type="number" id="h-cupos" min="1" max="60" value="${eq.cupos}"></label>
+          </div>
+          <p class="nota" id="h-vista">Quedará como: <b>${esc(eq.horario)}</b></p>
+          <button class="btn btn-gold" id="h-guardar">Guardar cambios</button>
+        </section>
+
+        <section>
+          <h4>Avisar a las familias</h4>
+          <p class="nota">Este mensaje se puede pegar en el grupo de WhatsApp del equipo, o enviarse a cada familia por separado.</p>
+          <textarea class="input" id="h-mensaje" rows="9">${esc(mensajeHorario(eq))}</textarea>
+          <div class="row" style="gap:8px">
+            <button class="btn btn-gold btn-sm" id="h-copiar">Copiar para el grupo</button>
+            <button class="btn btn-ghost btn-sm" id="h-ver-familias">Enviar una por una (${familias.length})</button>
+          </div>
+          <div id="h-familias" hidden>
+            <ul class="cola" style="max-height:340px">
+              ${familias.map(f => `<li>
+                <span><b>${esc(f.apoderado)}</b><small>${esc(f.hijos.join(', '))}</small></span>
+                <a class="btn btn-ghost btn-sm" target="_blank" rel="noopener" data-wa="${f.telefono}">Enviar</a>
+              </li>`).join('') || '<li><p class="empty">Este equipo no tiene deportistas activas.</p></li>'}
+            </ul>
+          </div>
+        </section>
+      </div>`;
+
+    $('#drawer').classList.add('open');
+    $('#drawer').setAttribute('aria-hidden', 'false');
+    $('#drawer-veil').classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    const leerDias = () => [...$$('#drawer .dia-chip input:checked')].map(i => Number(i.value));
+    const vistaPrevia = () => {
+      const txt = textoHorario(leerDias(), $('#h-hora').value);
+      $('#h-vista').innerHTML = txt ? `Quedará como: <b>${esc(txt)}</b>` : 'Elige al menos un día.';
+    };
+    $$('#drawer .dia-chip input, #h-hora').forEach(el => el.addEventListener('change', vistaPrevia));
+    $('#h-hora').addEventListener('input', vistaPrevia);
+
+    $('#cerrar-horario').addEventListener('click', cerrarFicha);
+    $('#h-guardar').addEventListener('click', () => {
+      const d = leerDias();
+      if (!d.length) { toast('Elige al menos un día de entrenamiento.', 'err'); return; }
+      const horario = textoHorario(d, $('#h-hora').value);
+      Store.actualizarEquipo(id, {
+        horario,
+        coach: $('#h-coach').value.trim() || eq.coach,
+        cupos: Math.max(1, Number($('#h-cupos').value) || eq.cupos)
+      });
+      toast('Horario actualizado. Ya se ve en el sitio y en el portal de las familias.');
+      abrirHorario(id);
+      pintarEquipos();
+    });
+    $('#h-copiar').addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText($('#h-mensaje').value); toast('Mensaje copiado: pégalo en el grupo del equipo.'); }
+      catch { toast('Selecciona el texto y cópialo a mano.', 'err'); }
+    });
+    $('#h-ver-familias').addEventListener('click', () => {
+      const caja = $('#h-familias');
+      caja.hidden = !caja.hidden;
+      $$('#h-familias [data-wa]').forEach(a => {
+        a.href = `https://wa.me/56${a.dataset.wa.replace(/\D/g, '').slice(-9)}?text=${encodeURIComponent($('#h-mensaje').value)}`;
+      });
+    });
   }
 
   /* ======================= Pagos ======================= */

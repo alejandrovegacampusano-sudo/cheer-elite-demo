@@ -3,7 +3,7 @@
    ========================================================================== */
 
 (function () {
-  const { CLUB, CATEGORIAS, COACHES, TESTIMONIOS, FAQ, HITOS, VALORES, CLP, todosLosEquipos, Store } = window.DE;
+  const { CLUB, CATEGORIAS, COACHES, TESTIMONIOS, FAQ, HITOS, VALORES, todosLosEquipos, Store } = window.DE;
   const { initReveal, initCounters, initFotos } = window.DEUI;
 
   const esc = t => { const d = document.createElement('div'); d.textContent = t ?? ''; return d.innerHTML; };
@@ -41,7 +41,7 @@
         <p>${cat.resumen}</p>
         <ul>${cat.incluye.map(i => `<li>${i}</li>`).join('')}</ul>
         <div class="foot">
-          <b>${CLP(cat.precio)} <em>/ mes</em></b>
+          <b>${cat.equipos.length === 1 ? '1 equipo' : `${cat.equipos.length} equipos`} <em>· ver horarios</em></b>
           <span class="go" aria-hidden="true">→</span>
         </div>
       </a>`).join('');

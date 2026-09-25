@@ -41,7 +41,10 @@ Concepto **"dragón en vuelo"**: negro profundo con fuego (rojo, brasa y oro).
 - **Equipos**: al elegir una categoría se ve su **calendario de la semana** —qué días
   y a qué hora entrena, con el día de hoy marcado— más las tarjetas con cupos reales.
   Los días salen del horario configurado de cada equipo (`Store.horarioDe`), no se
-  cargan aparte. Sin precios: el valor se conversa en la clase de evaluación.
+  cargan aparte.
+- **Sin valores en todo el sitio público** (portada e inscripción): el club los informa
+  en la clase de evaluación. Los montos siguen existiendo en `data.js` y se usan para
+  los cargos, pero solo se ven en el panel y en el portal de cada familia.
 - Programas por categoría, galería con visor, coaches, testimonios,
   **auspiciadores** ("Tu marca aquí" + qué recibe una marca), preguntas y
   **contacto** con redes oficiales y mapa que solo carga al pedirlo.
@@ -76,6 +79,12 @@ Concepto **"dragón en vuelo"**: negro profundo con fuego (rojo, brasa y oro).
 - **Asistencia**: pasar lista por equipo y fecha desde el celular.
 - **Calendario**: mes navegable con eventos por tipo y alta de nuevos eventos.
 - **Avisos**: publica mensajes que aparecen de inmediato en el portal de todas las familias.
+- **Equipos**: ocupación y cobranza, y **«Horario y aviso»** para cambiar días, hora,
+  coach y cupos de un equipo. El cambio se aplica al instante en el sitio, en el portal
+  y en el calendario de cada familia (`Store.actualizarEquipo` guarda los cambios aparte
+  de los datos base y envuelve las funciones que leen equipos). Desde ahí mismo se avisa
+  a las familias: mensaje listo para **copiar y pegar en el grupo de WhatsApp** del
+  equipo, o para **enviar una por una** a cada apoderado.
 - **Ajustes**: datos del club, valores por categoría, exportación y reinicio de los datos de ejemplo.
 
 ### Finanzas y piloto automático

@@ -269,3 +269,15 @@
 .ver-comp { display: grid; gap: 6px; justify-items: start; padding: 0; }
 .ver-comp img { max-width: 260px; max-height: 150px; object-fit: cover; border-radius: 10px; border: 1px solid var(--line-soft); }
 .ver-comp span { font-size: 11.5px; color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+
+/* --- Horario del equipo (cajón de Equipos) ------------------------------- */
+
+.dias-pick { display: flex; flex-wrap: wrap; gap: 6px; }
+.dia-chip { position: relative; cursor: pointer; }
+.dia-chip input { position: absolute; opacity: 0; }
+.dia-chip span { display: block; padding: 9px 14px; border-radius: 999px; border: 1px solid var(--line-soft); font-size: 12.5px; font-weight: 700; color: var(--muted-2); transition: all .2s; }
+.dia-chip input:checked + span { background: rgba(255, 90, 31, .14); border-color: rgba(255, 90, 31, .5); color: var(--ember); }
+.dia-chip input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 2px; }
+.drawer .form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.drawer textarea.input { width: 100%; font-family: inherit; line-height: 1.5; resize: vertical; }
+@media (max-width: 520px) { .drawer .form-grid { grid-template-columns: 1fr; } }

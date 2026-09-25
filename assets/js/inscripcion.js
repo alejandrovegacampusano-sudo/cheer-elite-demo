@@ -35,7 +35,7 @@
         <span class="sub">${cat.nivel}</span>
         <h3>${cat.nombre}</h3>
         <p>${cat.resumen}</p>
-        <span class="price"><span>${cat.edadTxt}</span><b>${CLP(cat.precio)}</b></span>
+        <span class="price"><span>${cat.edadTxt}</span><b>${cat.equipos.length === 1 ? '1 equipo' : `${cat.equipos.length} equipos`}</b></span>
       </button>`).join('');
 
     $$('#cat-grid .pick').forEach(btn => btn.addEventListener('click', () => {
@@ -53,7 +53,7 @@
     if (!estado.categoria) { bloque.hidden = true; return; }
     bloque.hidden = false;
 
-    $('#team-pick').innerHTML = estado.categoria.equipos.map(eq => {
+    $('#team-pick').innerHTML = estado.categoria.equipos.map(e => equipoPorId(e.id) || e).map(eq => {
       const libres = cuposDe(eq);
       return `
       <button type="button" class="pick${estado.equipo?.id === eq.id ? ' sel' : ''}${libres === 0 ? ' full' : ''}" data-team="${eq.id}">
@@ -65,7 +65,7 @@
     }).join('');
 
     $$('#team-pick .pick').forEach(btn => btn.addEventListener('click', () => {
-      estado.equipo = estado.categoria.equipos.find(e => e.id === btn.dataset.team);
+      estado.equipo = equipoPorId(btn.dataset.team);
       pintarEquipos();
       pintarResumen();
       revisarPaso1();
@@ -146,6 +146,8 @@
 
   /* --- Paso 3: revisión ----------------------------------------------------- */
 
+  /* Los valores no se muestran en el sitio: el club los informa en la clase de
+     evaluación. El cargo del mes igual queda registrado en el panel. */
   function totales() {
     const cat = estado.categoria;
     const mensual = estado.ficha?.hermana ? Math.round(cat.precio * (1 - CLUB.descuentoHermanos)) : cat.precio;
@@ -156,7 +158,7 @@
   function pintarResumen() {
     const cuerpo = $('#summary-body');
     if (!estado.categoria) {
-      cuerpo.innerHTML = '<p class="sum-empty">Elige una categoría para ver el detalle de matrícula y mensualidad.</p>';
+      cuerpo.innerHTML = '<p class="sum-empty">Elige una categoría para ver el equipo y su horario.</p>';
       return;
     }
     const t = totales();
@@ -164,11 +166,9 @@
       <div class="sum-row"><span>Categoría</span><b>${estado.categoria.nombre}</b></div>
       <div class="sum-row"><span>Equipo</span><b>${estado.equipo ? estado.equipo.nombre : '—'}</b></div>
       <div class="sum-row"><span>Horario</span><b>${estado.equipo ? estado.equipo.horario : '—'}</b></div>
-      <div class="sum-row"><span>Mensualidad</span><b>${CLP(t.mensual)}</b></div>
-      ${t.descuento ? `<div class="sum-row"><span>Descuento hermanas</span><b style="color:var(--ok)">−${CLP(t.descuento)}</b></div>` : ''}
-      <div class="sum-row"><span>Matrícula</span><b>${t.matricula ? CLP(t.matricula) : 'Tras la clase de prueba'}</b></div>
-      <div class="sum-total"><span>Total a pagar hoy</span><b>${CLP(t.total)}</b></div>
-      <p style="font-size:11.5px;color:var(--muted-2)">Los valores de competencias, uniforme y viajes se informan aparte.</p>`;
+      <div class="sum-row"><span>Coach</span><b>${estado.equipo ? estado.equipo.coach : '—'}</b></div>
+      ${t.descuento ? '<div class="sum-row"><span>Hermanos en el club</span><b style="color:var(--ok)">Con descuento</b></div>' : ''}
+      <p style="font-size:11.5px;color:var(--muted-2)">Mensualidad, matrícula, uniforme y viajes se informan en la clase de evaluación, sin compromiso.</p>`;
   }
 
   function pintarRevision() {
@@ -181,13 +181,12 @@
       <div class="review-row"><span>Horario</span><b>${estado.equipo.horario} · Coach ${estado.equipo.coach}</b></div>
       <div class="review-row"><span>Apoderado</span><b>${f.apoderado} · +56 ${f.telefono}</b></div>
       ${f.medico ? `<div class="review-row"><span>Condición médica</span><b>${f.medico}</b></div>` : ''}
-      <div class="review-row"><span>Mensualidad</span><b>${CLP(t.mensual)}${t.descuento ? ' (con descuento hermanas)' : ''}</b></div>
-      <div class="review-row"><span>Matrícula</span><b>${t.matricula ? CLP(t.matricula) : 'Se paga después de la clase de prueba'}</b></div>
-      <div class="review-row"><span>Total hoy</span><b style="color:var(--gold);font-size:16px">${CLP(t.total)}</b></div>`;
+      ${t.descuento ? '<div class="review-row"><span>Hermanos en el club</span><b>Con descuento</b></div>' : ''}
+      <div class="review-row"><span>Valores</span><b>El club los informa en la clase de evaluación</b></div>`;
 
     $('#nota-pago').textContent = f.prueba
-      ? 'Con clase de prueba: hoy no se cobra matrícula, solo se reserva el cupo.'
-      : 'Matrícula por única vez más la primera mensualidad.';
+      ? 'La clase de evaluación es sin costo: hoy solo se reserva el cupo.'
+      : 'Hoy solo queda registrada la ficha. El club te informa los valores y coordina el pago.';
   }
 
   /* --- Aviso al club --------------------------------------------------------- */
@@ -203,9 +202,9 @@
       `Apoderado: ${f.apoderado} · +56 ${f.telefono}${f.email ? ` · ${f.email}` : ''}`,
       f.medico ? `Condición médica: ${f.medico}` : null,
       f.emergencia ? `Emergencia: ${f.emergencia}` : null,
-      `Mensualidad: ${CLP(t.mensual)}${t.descuento ? ' (descuento hermanos)' : ''}`,
-      `Matrícula: ${t.matricula ? CLP(t.matricula) : 'tras la clase de prueba'}`,
-      `Forma de pago elegida: ${estado.pago}`,
+      t.descuento ? 'Tiene hermanos en el club (aplica descuento)' : null,
+      estado.ficha.prueba ? 'Pidió clase de evaluación sin costo' : null,
+      `Forma de pago que prefiere: ${estado.pago}`,
       `Código: ${nueva.id}`
     ].filter(Boolean).join('\n');
   }
@@ -281,7 +280,7 @@
     $('#done-card').innerHTML = `
       <b>${estado.categoria.nombre} · ${estado.equipo.nombre}</b>
       <span>${estado.equipo.horario} · Coach ${estado.equipo.coach}</span>
-      <span>${CLP(t.mensual)} mensual${t.matricula ? ` · matrícula ${CLP(t.matricula)}` : ' · matrícula pendiente'}</span>
+      <span>El club te informa los valores por WhatsApp</span>
       <span style="color:var(--gold)">Ya puedes entrar a tu portal con el +56 ${estado.ficha.telefono}</span>`;
     $('#done-code').textContent = `Código de inscripción ${nueva.id} · ${new Date().toLocaleDateString('es-CL')}`;
 
@@ -328,7 +327,7 @@
       const eq = equipoPorId(equipoId);
       if (eq) {
         estado.categoria = categoriaPorId(eq.categoriaId);
-        estado.equipo = estado.categoria.equipos.find(e => e.id === eq.id);
+        estado.equipo = equipoPorId(eq.id);
       }
     } else if (catId && categoriaPorId(catId)) {
       estado.categoria = categoriaPorId(catId);
