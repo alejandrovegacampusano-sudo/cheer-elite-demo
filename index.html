@@ -113,6 +113,9 @@
          propia velocidad con el scroll y con el mouse. -->
     <section class="hero hero-fuego" id="inicio">
       <div class="capa capa-fondo" data-profundidad="0.2" aria-hidden="true">
+        <!-- Foto grupal del club, difuminada de fondo. Mientras no exista
+             assets/fotos/hero.webp no se ve nada: solo el fuego. -->
+        <div class="hero-foto" data-foto="hero"></div>
         <div class="escamas"></div>
         <canvas class="brasas" id="brasas"></canvas>
       </div>
@@ -143,24 +146,24 @@
         </div>
 
         <div class="hero-visual capa" data-profundidad="-0.12">
-          <div class="hero-ring" aria-hidden="true"></div>
-          <div class="hero-frame">
-            <img data-foto="hero" src="assets/img/art-hero.svg" alt="Deportista con pompones en pose de competencia" fetchpriority="high">
-          </div>
           <!-- Atletas "volando": hoy son siluetas; se reemplazan por recortes
                PNG/WebP sin fondo con el mismo nombre en assets/img/ -->
           <img class="volador v1" src="assets/img/volando-1.svg" alt="" aria-hidden="true" data-profundidad="-0.5">
           <img class="volador v2" src="assets/img/volando-2.svg" alt="" aria-hidden="true" data-profundidad="-0.8">
           <img class="volador v3" src="assets/img/volando-3.svg" alt="" aria-hidden="true" data-profundidad="-0.35">
-          <div class="float-card a">
-            <strong class="num">32 cupos</strong>
-            <span>disponibles para 2026</span>
-          </div>
-          <div class="float-card b">
-            <span class="pill live"><i class="dot"></i>Próximo</span>
-            <strong id="hero-prox">Regional Norte Grande</strong>
-            <span id="hero-prox-cuando">Antofagasta</span>
-          </div>
+
+          <article class="proxima" id="hero-card">
+            <span class="proxima-live"><i></i>Próxima competencia</span>
+            <h2 class="proxima-nombre" id="hero-prox">Regional Norte Grande</h2>
+            <p class="proxima-lugar" id="hero-prox-cuando">Antofagasta</p>
+            <div class="cuenta cuenta-hero" aria-label="Tiempo que falta">
+              <div><b data-u="d">0</b><span>días</span></div>
+              <div><b data-u="h">0</b><span>hrs</span></div>
+              <div><b data-u="m">0</b><span>min</span></div>
+              <div><b data-u="s">0</b><span>seg</span></div>
+            </div>
+            <a class="proxima-cta" href="#competencias">Ver todas las fechas <span aria-hidden="true">→</span></a>
+          </article>
         </div>
       </div>
 

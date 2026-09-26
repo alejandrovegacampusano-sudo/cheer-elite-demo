@@ -22,6 +22,25 @@
           mask-image: radial-gradient(70% 60% at 70% 40%, #000 20%, transparent 75%);
 }
 .brasas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* Foto grupal de fondo: muy difuminada y oscura, para que el titular mande.
+   Sin foto cargada no se ve nada, así que el hero nunca queda a medias. */
+.hero-foto {
+  position: absolute; inset: -6%;
+  background: no-repeat center / cover;
+  filter: blur(26px) saturate(.85) brightness(.55);
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 1.2s var(--ease-out);
+}
+.hero-foto.con-foto { opacity: .5; }
+.capa-fondo::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10, 10, 15, .82), rgba(10, 10, 15, .55) 45%, var(--bg) 96%),
+    radial-gradient(75% 60% at 22% 45%, rgba(10, 10, 15, .78), transparent 70%);
+}
 .hero-fuego::before {
   content: '';
   position: absolute; inset: auto -10% -30% -10%; height: 70%;
@@ -84,9 +103,11 @@
   pointer-events: none;
   filter: drop-shadow(0 10px 28px rgba(255, 90, 31, .35));
 }
-.volador.v1 { width: 128px; left: -22%; top: 52%; }
-.volador.v2 { width: 170px; right: -14%; top: -7%; }
-.volador.v3 { width: 104px; right: 6%; bottom: -10%; }
+/* Enmarcan la tarjeta sin taparla: una entra por la izquierda, las otras dos
+   salen por fuera del borde derecho. */
+.volador.v1 { width: 120px; left: -20%; top: 40%; }
+.volador.v2 { width: 156px; right: -19%; top: -14%; }
+.volador.v3 { width: 100px; right: -13%; bottom: -6%; }
 
 /* --- Zarpazo entre secciones ----------------------------------------------- */
 
@@ -294,8 +315,9 @@ html.lenis { scroll-behavior: auto; }
 
 @media (max-width: 1080px) {
   .quienes, .tryouts, .contacto { grid-template-columns: 1fr; }
-  .volador.v1 { left: -4%; }
-  .volador.v2 { right: -2%; width: 130px; }
+  .volador.v1 { left: -6%; width: 104px; }
+  .volador.v2 { right: -6%; width: 124px; }
+  .volador.v3 { right: -4%; width: 86px; }
 }
 
 @media (max-width: 860px) {
@@ -308,9 +330,12 @@ html.lenis { scroll-behavior: auto; }
 
 @media (max-width: 520px) {
   .hero-titulo { font-size: clamp(56px, 19vw, 84px); }
-  .volador.v1 { width: 86px; top: 58%; }
-  .volador.v2 { width: 104px; top: -4%; }
+  /* En celular la tarjeta manda: las atletas se corren a las esquinas */
+  .volador.v1 { width: 76px; left: -3%; top: auto; bottom: -8%; }
+  .volador.v2 { width: 92px; right: -4%; top: -11%; }
   .volador.v3 { display: none; }
+  /* La palabra gigante de fondo estorba la lectura en pantalla chica */
+  .capa-palabra { display: none; }
   .t-fila { grid-template-columns: 1fr; }
   .cuenta b { font-size: 24px; }
   .datos-contacto li { grid-template-columns: 1fr; gap: 4px; }

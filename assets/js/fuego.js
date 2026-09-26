@@ -59,8 +59,7 @@
       /* "Elite" no se corta en letras: su degradado de fuego se rompería */
       .from(lineaFuego, { yPercent: 60, autoAlpha: 0, scale: .96, duration: 1.2 }, .45)
       .from('.hero-texto .hero-in:not(.eyebrow)', { y: 26, autoAlpha: 0, duration: .9, stagger: .09 }, .6)
-      .from('.hero-frame', { clipPath: 'inset(12% 12% 12% 12% round 34px)', scale: .94, autoAlpha: 0, duration: 1.3 }, .3)
-      .from('.hero-visual .float-card', { y: 30, autoAlpha: 0, duration: .9, stagger: .15 }, .9);
+      .from('.proxima', { y: 36, autoAlpha: 0, scale: .96, duration: 1.1 }, .75);
 
     /* Atletas "lanzados": x y y con curvas distintas dibujan un arco */
     const vuelos = [

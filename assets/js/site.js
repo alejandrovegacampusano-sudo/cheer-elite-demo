@@ -16,15 +16,12 @@
     const anios = new Date().getFullYear() - CLUB.fundacion;
     const equipos = todosLosEquipos();
     const deportistas = Store.deportistas().length;
-    const cupos = equipos.reduce((s, e) => s + e.cupos, 0) - Store.deportistas().filter(a => a.estado === 'activa').length;
 
     $('#anios-club').textContent = anios;
     $$('.hero-stats [data-count]')[0]?.setAttribute('data-count', anios);
     $$('.hero-stats [data-count]')[1]?.setAttribute('data-count', deportistas);
     $$('.hero-stats [data-count]')[2]?.setAttribute('data-count', equipos.length);
     $$('.hero-stats [data-count]')[3]?.setAttribute('data-count', CATEGORIAS.length);
-    const cuposCard = $('.float-card.a strong');
-    if (cuposCard) cuposCard.textContent = `${Math.max(cupos, 0)} cupos`;
     $$('.figures [data-count]')[0]?.setAttribute('data-count', anios);
     $$('.figures [data-count]')[2]?.setAttribute('data-count', equipos.length);
   }
@@ -220,7 +217,7 @@
     }).join('') : '<p class="lead">El club publicará aquí sus próximas fechas.</p>';
 
     const tick = () => {
-      $$('#comp-grid .comp').forEach(c => {
+      $$('[data-cuando]').forEach(c => {
         let ms = Math.max(0, new Date(c.dataset.cuando) - new Date());
         const u = { d: 864e5, h: 36e5, m: 6e4, s: 1e3 };
         Object.entries(u).forEach(([k, v]) => {
@@ -235,10 +232,15 @@
 
     /* La tarjeta flotante del hero anuncia la próxima competencia real */
     const comp = lista.find(e => e.tipo === 'competencia');
-    if (comp) {
-      const dias = Math.floor((cuando(comp) - new Date()) / 864e5);
-      if ($('#hero-prox')) $('#hero-prox').textContent = comp.titulo;
-      if ($('#hero-prox-cuando')) $('#hero-prox-cuando').textContent = dias < 1 ? `${comp.lugar} · hoy` : `${comp.lugar} · en ${dias} día${dias === 1 ? '' : 's'}`;
+    const tarjeta = $('#hero-card');
+    if (comp && tarjeta) {
+      const d = cuando(comp);
+      $('#hero-prox').textContent = comp.titulo;
+      $('#hero-prox-cuando').textContent = `${d.getDate()} de ${MESES[d.getMonth()]} · ${comp.lugar}`;
+      tarjeta.dataset.cuando = d.toISOString();     // el mismo tick de arriba la actualiza
+      tick();
+    } else if (tarjeta) {
+      tarjeta.hidden = true;
     }
 
     const evaluacion = lista.find(e => /evaluaci/i.test(e.titulo));

@@ -25,10 +25,14 @@ la apoderada corrige un teléfono, el club lo ve en la ficha.
 
 ### Sitio público
 Concepto **"dragón en vuelo"**: negro profundo con fuego (rojo, brasa y oro).
-- Hero en cuatro profundidades: escamas y brasas en canvas al fondo, la palabra
-  DRAGONES gigante en contorno, el título letra por letra y atletas ilustradas
-  que entran "lanzadas" en arco y quedan flotando. Parallax con el scroll y
-  con el mouse.
+- Hero en cuatro profundidades: **foto grupal del club difuminada al fondo**
+  (`assets/fotos/hero.webp`; si no existe, solo se ve el fuego), escamas y brasas
+  en canvas, la palabra DRAGONES gigante en contorno, el título letra por letra y
+  atletas ilustradas que entran "lanzadas" en arco y quedan flotando. Parallax con
+  el scroll y con el mouse.
+- **Marcador de la próxima competencia** en el hero: nombre, fecha, lugar y cuenta
+  regresiva en vivo, tomada del calendario del panel. Si no hay competencias
+  agendadas, la tarjeta no aparece.
 - Zarpazos que se dibujan entre secciones, títulos que suben palabra por palabra,
   contadores, marquesina y cursor propio (solo con mouse).
 - **Quiénes somos** con los cinco valores del club: cada ícono se enciende y su
