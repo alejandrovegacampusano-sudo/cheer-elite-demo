@@ -3,10 +3,12 @@ FOTOS DEL CLUB
 
 ATENCIÓN · FOTOS DE REFERENCIA ACTUALES
 ---------------------------------------
-hero, banda, galeria-1, galeria-5 y galeria-7 (.webp) NO son de Dragones Elite: son
+banda, galeria-1, galeria-5 y galeria-7 (.webp) NO son de Dragones Elite: son
 imágenes de otros equipos tomadas de internet, puestas para la demo. Antes de
 que este sea el sitio oficial del club hay que reemplazarlas por fotos propias
 (mismo nombre de archivo) y revisar los pies de foto en assets/js/site.js.
+
+hero.webp SÍ es del club (foto grupal del equipo).
 
 
 Deja aquí las fotos con estos nombres exactos y aparecen solas en el sitio.
