@@ -23,23 +23,33 @@
 }
 .brasas { position: absolute; inset: 0; width: 100%; height: 100%; }
 
-/* Foto grupal de fondo: muy difuminada y oscura, para que el titular mande.
-   Sin foto cargada no se ve nada, así que el hero nunca queda a medias. */
+/* Foto grupal del club de fondo: difuminada y oscura, lo justo para que se
+   reconozca al equipo sin pelearle al titular. Sin foto no se ve nada, así que
+   el hero nunca queda a medias. */
 .hero-foto {
   position: absolute; inset: -6%;
-  background: no-repeat center / cover;
-  filter: blur(26px) saturate(.85) brightness(.55);
+  background: no-repeat center 58% / cover;
+  filter: blur(11px) saturate(.45) brightness(.66) contrast(1.05);
   opacity: 0;
-  transform: scale(1.06);
+  transform: scale(1.05);
   transition: opacity 1.2s var(--ease-out);
 }
-.hero-foto.con-foto { opacity: .5; }
+.hero-foto.con-foto { opacity: .85; }
+/* El velo protege la lectura donde va el texto (izquierda) y se abre a la
+   derecha, que es donde se ve el equipo. */
 .capa-fondo::after {
   content: '';
   position: absolute; inset: 0;
   background:
-    linear-gradient(180deg, rgba(10, 10, 15, .82), rgba(10, 10, 15, .55) 45%, var(--bg) 96%),
-    radial-gradient(75% 60% at 22% 45%, rgba(10, 10, 15, .78), transparent 70%);
+    linear-gradient(180deg, rgba(10, 10, 15, .55), rgba(10, 10, 15, .3) 42%, var(--bg) 97%),
+    radial-gradient(64% 72% at 16% 48%, rgba(10, 10, 15, .9) 18%, rgba(10, 10, 15, .5) 55%, transparent 78%);
+}
+/* Baño cálido: la foto es de día y el sitio es de fuego */
+.capa-fondo::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(90% 80% at 62% 55%, rgba(163, 28, 5, .34), rgba(122, 50, 8, .18) 55%, transparent 80%);
+  mix-blend-mode: screen;
 }
 .hero-fuego::before {
   content: '';
@@ -330,6 +340,14 @@ html.lenis { scroll-behavior: auto; }
 
 @media (max-width: 520px) {
   .hero-titulo { font-size: clamp(56px, 19vw, 84px); }
+  /* En pantalla angosta el texto ocupa todo el ancho, así que el velo tiene que
+     ser parejo y más fuerte: el radial de escritorio dejaba zonas claras. */
+  .hero-foto.con-foto { opacity: .55; }
+  .capa-fondo::after {
+    background: linear-gradient(180deg, rgba(10, 10, 15, .8), rgba(10, 10, 15, .66) 45%, var(--bg) 97%);
+  }
+  .capa-fondo::before { opacity: .7; }
+
   /* En celular la tarjeta manda: las atletas se corren a las esquinas */
   .volador.v1 { width: 76px; left: -3%; top: auto; bottom: -8%; }
   .volador.v2 { width: 92px; right: -4%; top: -11%; }
